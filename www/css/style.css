@@ -1,0 +1,72 @@
+/* Globální reset stylů */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 36px;
+    color: #333;
+}
+
+/* Styl pro každý blogový příspěvek */
+.post {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.post:hover {
+    transform: scale(1.02);
+}
+
+.date {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+/* Styl pro obsah blogového příspěvku */
+.post div {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Odsazení na menších obrazovkách */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .post {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}
