@@ -8,12 +8,6 @@ application:
 	mapping: App\UI\*\**Presenter
 
 
-database:
-	dsn: 'mysql:host=127.0.0.1;dbname=restaurant-app'
-	user: root
-	password: mysql
-
-
 latte:
 	strictTypes: yes
 	strictParsing: yes
