@@ -1,1 +1,1 @@
-# nette-first-app
+# restaurant-app
