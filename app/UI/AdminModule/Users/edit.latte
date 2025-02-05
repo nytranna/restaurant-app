@@ -1,0 +1,22 @@
+{block content}
+
+<div class="d-flex align-items-center justify-content-center">
+    <div class="col-md-4 ">
+        <div n:block="title" class="text-center">
+            <h3 class="mb-0">
+                {if $userData}
+                    <i class="fa-solid fa-user me-2"></i>
+                    Upravit uživatele
+                {else}
+                    <i class="fa-solid fa-user-plus me-2"></i>
+                    Přidat uživatele
+                {/if}
+            </h3>
+        </div>
+        <div class="card card-outline m-4">
+            <div class="m-4">
+                {control userForm}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 services:
 	- App\Core\RouterFactory::createRouter
-	- App\Model\PostFacade
+	- App\Core\UserManager
+	- App\Core\AuthorizatorFactory::create
 
 
 search:

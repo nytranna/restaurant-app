@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "admin-lte": "^4.0.0-beta3"
+    "admin-lte": "^4.0.0-beta3",
+    "datatables.net-bs5": "^2.2.1",
+    "live-form-validation": "^1.10.1",
+    "naja": "^3.2.1"
   }
 }
