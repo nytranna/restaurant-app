@@ -1,0 +1,79 @@
+{block content}
+
+
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div n:block="title" class="col-md-6">
+                <h3 class="mb-0"><i class="fa-solid fa-user-group me-2"></i>Aktuality</h3>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a n:href="News:edit" class="btn btn-primary mb-2" title="Přidat článek">
+                    <i class="fa-regular fa-newspaper me-2"></i>Přidat článek
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="app-content">
+    <div class="container-fluid">
+        <div class="row overflow-auto">
+            {snippet news_table}
+                <table id="example" class="table table-striped table-bordered dataTable">
+
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nadpis</th>
+                            <th>Text</th>
+                            <th>Zobrazeno</th>
+                            <th>Obrázek</th>
+                            <th>Akce</th>
+
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {foreach $news as $n}    
+                            <tr>
+                                <td>{$n->id}</td>
+                                <td>{$n->title}</td>
+                                <td>{$n->text|truncate:150}</td>
+                                <td>
+                                    {if $n->is_shown}
+                                        <i class="fa-solid fa-check text-success"></i>
+                                    {else}
+                                        <i class="fa-solid fa-xmark text-danger"></i>
+                                    {/if}
+                                </td>
+                                <td>
+                                    {if $n->id_image}
+                                        obrázek
+                                    {else}
+                                        -
+                                    {/if}
+                                </td>
+                                <td>
+                                    <a n:href="News:edit $n->id" type="button" class="btn btn-outline-secondary mb-2 btn-sm" title="Upravit">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <button class="btn btn-outline-danger mb-2 btn-sm" form="postForm" formaction="{link delete $n->id}" title="Smazat">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+                        {/foreach}
+
+                    </tbody>
+
+                </table>
+            {/snippet}        
+        </div>
+    </div>
+</div>

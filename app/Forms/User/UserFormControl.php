@@ -34,7 +34,6 @@ class UserFormControl extends Control {
 
         $form->addSubmit('send', 'Uložit');
         
-        //$form->addButton('Zrušit', 'Users:default' );
         $form->onValidate[] = [$this, 'validated'];
 
         $form->onSuccess[] = $this->submitted(...);

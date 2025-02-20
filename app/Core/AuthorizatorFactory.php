@@ -18,6 +18,7 @@ class AuthorizatorFactory {
         $acl->addResource('Admin:Users');
         $acl->addResource('Admin:Profile');
         $acl->addResource('Admin:Reset');
+        $acl->addResource('Admin:News');
 
         $acl->allow('admin');
         $acl->allow('guest', 'Admin:Sign');
