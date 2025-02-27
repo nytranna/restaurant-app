@@ -15,14 +15,15 @@
                 <div class="events-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
                     <div class="swiper-wrapper">
 
-
                         {foreach $news as $n}
                             {if $n->is_shown}
-
                                 <div class="swiper-slide">
                                     <div class="row event-item">
-                                        <div class="col-lg-6">
-                                            <img src="assets/img/event-birthday.jpg" class="img-fluid" alt="">
+                                        <div class="col-lg-6 order-lg-2">
+                                            {if $n->id_image}
+
+                                                <img src="{$n->ref('image','id_image')->image}" class="img-fluid" alt="">
+                                            {/if}
                                         </div>
                                         <div class="col-lg-6 pt-4 pt-lg-0 content">
                                             <h3>{$n->title}</h3>
@@ -31,65 +32,7 @@
                                     </div>
                                 </div><!-- End testimonial item -->
                             {/if}
-
                         {/foreach}
-
-
-
-                        <!--
-                                                <div class="swiper-slide">
-                                                    <div class="row event-item">
-                                                        <div class="col-lg-6">
-                                                            <img src="assets/img/event-private.jpg" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-6 pt-4 pt-lg-0 content">
-                                                            <h3>Private Parties</h3>
-                                                            <div class="price">
-                                                                <p><span>$290</span></p>
-                                                            </div>
-                                                            <p class="fst-italic">
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                                magna aliqua.
-                                                            </p>
-                                                            <ul>
-                                                                <li><i class="bi bi-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                                                <li><i class="bi bi-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                                                                <li><i class="bi bi-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                                            </ul>
-                                                            <p>
-                                                                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                                                velit esse cillum dolore eu fugiat nulla pariatur
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div> End testimonial item 
-                        
-                                                <div class="swiper-slide">
-                                                    <div class="row event-item">
-                                                        <div class="col-lg-6">
-                                                            <img src="assets/img/event-custom.jpg" class="img-fluid" alt="">
-                                                        </div>
-                                                        <div class="col-lg-6 pt-4 pt-lg-0 content">
-                                                            <h3>Custom Parties</h3>
-                                                            <div class="price">
-                                                                <p><span>$99</span></p>
-                                                            </div>
-                                                            <p class="fst-italic">
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                                magna aliqua.
-                                                            </p>
-                                                            <ul>
-                                                                <li><i class="bi bi-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                                                <li><i class="bi bi-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                                                                <li><i class="bi bi-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                                            </ul>
-                                                            <p>
-                                                                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                                                velit esse cillum dolore eu fugiat nulla pariatur
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div> End testimonial item -->
 
                     </div>
                     <div class="swiper-pagination"></div>
@@ -368,7 +311,7 @@
 
     <!-- ======= Reservation Section ======= -->
     {if $webSections['reservation']->is_shown}
-        <section id="resevation" class="book-a-table">
+        <section id="reservation" class="book-a-table">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
@@ -565,13 +508,46 @@
                                 <p>{$restaurant->phone}</p>
                             </div>
 
-                            <div class="social-links mt-3">
-                                <!--<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>-->
-                                <a href={$restaurant->facebook} class="facebook"><i class="bx bxl-facebook"></i></a>
-                                <a href={$restaurant->instagram} class="instagram"><i class="bx bxl-instagram"></i></a>
-                                <!--<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>-->
-                                <!--<a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>-->
+
+                            {if $restaurant->facebook}
+                                <div class="facebook mt-4">
+
+                                    <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" class="facebook">
+                                        <i class="bx bxl-facebook me-2"></i>
+                                    </a>
+
+                                </div>
+                            {/if}
+                            {if $restaurant->instagram}
+                                <div class="instagram mt-4">                                                                    
+                                    <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" class="instagram">
+                                        <i class="bx bxl-instagram me-2"></i>
+                                    </a>
+                                </div>
+                            {/if}
+                            {if $restaurant->tripadvisor}
+                                <div class="tripadvisor mt-4">
+                                    <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" class="facebook">
+                                        <i class="fa-solid fa-shield-cat"></i>
+                                    </a>
+                                </div>
+                            {/if}
+
+
+                            {*
+                           <div class="social-links mt-3">
+                               {if $restaurant->facebook}
+                                   <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" class="facebook"><i class="bx bxl-facebook"></i></a>
+                               {/if}
+                               {if $restaurant->instagram}
+                               <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" class="instagram"><i class="bx bxl-instagram"></i></a>
+                               {/if}
+                               {if $restaurant->tripadvisor}
+                               <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" class="tripadvisor"><i class="fa-solid fa-fire"></i></a>
+                               {/if}
                             </div>
+                            *}
+
                         </div>
                     </div>
                 </div>

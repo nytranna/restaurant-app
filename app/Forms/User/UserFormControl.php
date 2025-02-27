@@ -33,7 +33,7 @@ class UserFormControl extends Control {
         $form->addHidden('id');
 
         $form->addSubmit('send', 'Uložit');
-        
+
         $form->onValidate[] = [$this, 'validated'];
 
         $form->onSuccess[] = $this->submitted(...);
@@ -59,34 +59,31 @@ class UserFormControl extends Control {
 
 
         $userData = [
-                'name' => $data->name,
-                'email' => $data->email,
-                'role' => $data->role
-            ];
-        
-        
+            'name' => $data->name,
+            'email' => $data->email,
+            'role' => $data->role
+        ];
 
         try {
-            
-            if($data->id){
-                
+
+            if ($data->id) {
+
                 $this->userFacade->getOne(['id' => $data->id])->update($userData);
-                
-            }else{
+            } else {
 
 
-            $this->userFacade->insert($userData);
+                $this->userFacade->insert($userData);
             }
         } catch (Nette\Database\UniqueConstraintViolationException $e) {
             $form->addError('Tento e-mail už je zaregistrován.');
         }
-        
-        
+
+
 
         if (!$form->hasErrors()) {
-            
-            $message = $data->id? 'Změna uživatele proběhla úspěšně' : 'Vytvoření nového uživatele proběhlo úspěšně.';
-            
+
+            $message = $data->id ? 'Změna uživatele proběhla úspěšně' : 'Vytvoření nového uživatele proběhlo úspěšně.';
+
             $form->getPresenter()->flashMessage($message, 'success');
             $form->getPresenter()->redirect('Users:default');
         }

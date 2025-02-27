@@ -13,7 +13,8 @@ final class NewsPresenter extends Nette\Application\UI\Presenter {
 
     public function __construct(
             private \App\Model\Facade\NewsFacade $newsFacade,
-            private \App\Forms\NewsFormFactory $newsFormFactory
+            private \App\Model\Facade\ImageFacade $imageFacade,
+            private \App\Forms\NewsFormFactory $newsFormFactory,
     ) {
         
     }
@@ -47,5 +48,9 @@ final class NewsPresenter extends Nette\Application\UI\Presenter {
 
         $this->newsFacade->getOne(['id' => $id])->delete();
         $this->redirect('News:default');
+    }
+    
+    public function getImage(){
+        
     }
 }

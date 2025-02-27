@@ -10,7 +10,8 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
             private \App\Model\Facade\RestaurantFacade $restaurantFacade,
             private \App\Model\Facade\OpeningHoursFacade $openingHoursFacade,
             private \App\Model\Facade\WebSectionsFacade $webSectionsFacade,
-            private \App\Model\Facade\NewsFacade $newsFacade
+            private \App\Model\Facade\NewsFacade $newsFacade,
+            private \App\Model\Facade\ImageFacade $imageFacade
     ) {
         
     }
@@ -28,11 +29,13 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
         $news = $this->newsFacade->getAll();
         $this->template->news = $news;
         
+        $image = $this->imageFacade->getAll();
+        $this->template->image = $image;
         
         $today = date('N');
 
         $openingHourToday = $this->openingHoursFacade->getAll(['id'=> $today]);
         $this->template->openingHourToday = $openingHourToday;
-//        dd($openingHourToday);
+
     }
 }

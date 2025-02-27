@@ -33,8 +33,6 @@ class NewsFormControl extends Control {
 
         $form->addSubmit('send', 'Uložit');
 
-        //$form->onValidate[] = [$this, 'validated'];
-
         $form->onSuccess[] = $this->submitted(...);
 
         return $form;
@@ -66,7 +64,6 @@ class NewsFormControl extends Control {
 
             $this->newsFacade->insert($newsData);
         }
-
 
 
         if (!$form->hasErrors()) {
