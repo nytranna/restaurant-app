@@ -25,7 +25,7 @@ class InfoFormControl extends Control {
 
         $form->addText('sentence', 'Úvodní věta:');
 
-        $form->addText('about_us', 'O nás:');
+        $form->addTextArea('about_us', 'O nás:', null, 5);
 
         $form->addText('address', 'Adresa:');
 

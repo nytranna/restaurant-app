@@ -6,6 +6,7 @@ use App\Model\PostFacade;
 use Nette;
 use App\Forms\NewsFormControl;
 use App\Forms\NewsFormFactory;
+use Nette\Application\Attributes\Requires;
 
 final class NewsPresenter extends Nette\Application\UI\Presenter {
 

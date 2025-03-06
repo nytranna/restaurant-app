@@ -456,8 +456,8 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>Contact</h2>
-                    <p>Contact Us</p>
+                    {*<h2>Contact</h2>*}
+                    <p>Kontakt</p>
                 </div>
             </div>
 
@@ -475,13 +475,13 @@
                         <div class="info">
                             <div class="address">
                                 <i class="bi bi-geo-alt"></i>
-                                <h4>Location:</h4>
+                                <h4>Adresa:</h4>
                                 <p>{$restaurant->address}</p>
                             </div>
 
                             <div class="open-hours">
                                 <i class="bi bi-clock"></i>
-                                <h4>Open Hours:</h4>
+                                <h4>Otevírací doba:</h4>
                                 {foreach $openingHours as $h}
                                     <p>
                                         <strong>{$h->day}:</strong>
@@ -504,7 +504,7 @@
 
                             <div class="phone">
                                 <i class="bi bi-phone"></i>
-                                <h4>Call:</h4>
+                                <h4>Telefon:</h4>
                                 <p>{$restaurant->phone}</p>
                             </div>
 

@@ -20,6 +20,9 @@ class AuthorizatorFactory {
         $acl->addResource('Admin:Reset');
         $acl->addResource('Admin:News');
         $acl->addResource('Admin:Info');
+        $acl->addResource('Admin:Reservation');
+        $acl->addResource('Admin:Menu');
+        $acl->addResource('Admin:Image');
 
         $acl->allow('admin');
 
