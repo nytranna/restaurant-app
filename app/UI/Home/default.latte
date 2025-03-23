@@ -22,7 +22,7 @@
                                         <div class="col-lg-6 order-lg-2">
                                             {if $n->id_image}
 
-                                                <img src="{$n->ref('image','id_image')->image}" class="img-fluid" alt="">
+                                                <img src="{$n->ref('image','id_image')->name}" class="img-fluid" alt="">
                                             {/if}
                                         </div>
                                         <div class="col-lg-6 pt-4 pt-lg-0 content">
@@ -75,114 +75,29 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>Menu</h2>
-                    <p>Daily Menu</p>
+                    <p>Denní menu</p>
                 </div>
 
-                <div class="row" data-aos="fade-up" data-aos-delay="100">
-                    <div class="col-lg-12 d-flex justify-content-center">
-                        <ul id="menu-flters">
-                            <li data-filter="*" class="filter-active">All</li>
-                            <li data-filter=".filter-starters">Starters</li>
-                            <li data-filter=".filter-salads">Salads</li>
-                            <li data-filter=".filter-specialty">Specialty</li>
-                        </ul>
+
+                {foreach $menuCategories as $mC}
+                    <h3 class="menu-category">{$mC->name}</h3>
+
+                    <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
+                        {foreach $menuItems as $mI}
+                            {if $mI->id_menu_category == $mC->id}
+                                <div class="col-lg-6 menu-item filter-starters">
+                                    <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
+                                    <div class="menu-content">
+                                        <a href="#">{$mI->name}</a><span>{$mI->price} Kč</span>
+                                    </div>
+                                    <div class="menu-ingredients">
+                                        {$mI->description}
+                                    </div>
+                                </div>
+                            {/if}
+                        {/foreach}
                     </div>
-                </div>
-
-                <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
-
-                    <div class="col-lg-6 menu-item filter-starters">
-                        <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Lobster Bisque</a><span>$5.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-specialty">
-                        <img src="assets/img/menu/bread-barrel.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Bread Barrel</a><span>$6.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-starters">
-                        <img src="assets/img/menu/cake.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Crab Cake</a><span>$7.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            A delicate crab cake served on a toasted roll with lettuce and tartar sauce
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-salads">
-                        <img src="assets/img/menu/caesar.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Caesar Selections</a><span>$8.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-specialty">
-                        <img src="assets/img/menu/tuscan-grilled.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Tuscan Grilled</a><span>$9.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Grilled chicken with provolone, artichoke hearts, and roasted red pesto
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-starters">
-                        <img src="assets/img/menu/mozzarella.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Mozzarella Stick</a><span>$4.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-salads">
-                        <img src="assets/img/menu/greek-salad.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Greek Salad</a><span>$9.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Fresh spinach, crisp romaine, tomatoes, and Greek olives
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-salads">
-                        <img src="assets/img/menu/spinach-salad.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Spinach Salad</a><span>$9.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-specialty">
-                        <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Lobster Roll</a><span>$12.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div>
-
-                </div>
+                {/foreach}
 
             </div>
         </section>
@@ -195,119 +110,70 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>Menu</h2>
                     <p>Menu</p>
                 </div>
 
-                <div class="row" data-aos="fade-up" data-aos-delay="100">
-                    <div class="col-lg-12 d-flex justify-content-center">
-                        <ul id="menu-flters">
-                            <li data-filter="*" class="filter-active">All</li>
-                            <li data-filter=".filter-starters">Starters</li>
-                            <li data-filter=".filter-salads">Salads</li>
-                            <li data-filter=".filter-specialty">Specialty</li>
-                        </ul>
+
+                {foreach $menuCategories as $mC}
+                    <h3 class="menu-category">{$mC->name}</h3>
+
+                    <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
+                        {foreach $menuItems as $mI}
+                            {if $mI->id_menu_category == $mC->id}
+                                <div class="col-lg-6 menu-item filter-starters">
+                                    <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
+                                    <div class="menu-content">
+                                        <a href="#">{$mI->name}</a><span>{$mI->price} Kč</span>
+                                    </div>
+                                    <div class="menu-ingredients">
+                                        {$mI->description}
+                                    </div>
+                                </div>
+                            {/if}
+                        {/foreach}
                     </div>
-                </div>
-
-                <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
-
-                    <div class="col-lg-6 menu-item filter-starters">
-                        <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Lobster Bisque</a><span>$5.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-specialty">
-                        <img src="assets/img/menu/bread-barrel.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Bread Barrel</a><span>$6.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-starters">
-                        <img src="assets/img/menu/cake.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Crab Cake</a><span>$7.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            A delicate crab cake served on a toasted roll with lettuce and tartar sauce
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-salads">
-                        <img src="assets/img/menu/caesar.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Caesar Selections</a><span>$8.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-specialty">
-                        <img src="assets/img/menu/tuscan-grilled.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Tuscan Grilled</a><span>$9.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Grilled chicken with provolone, artichoke hearts, and roasted red pesto
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-starters">
-                        <img src="assets/img/menu/mozzarella.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Mozzarella Stick</a><span>$4.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-salads">
-                        <img src="assets/img/menu/greek-salad.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Greek Salad</a><span>$9.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Fresh spinach, crisp romaine, tomatoes, and Greek olives
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-salads">
-                        <img src="assets/img/menu/spinach-salad.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Spinach Salad</a><span>$9.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 menu-item filter-specialty">
-                        <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Lobster Roll</a><span>$12.95</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div>
-
-                </div>
+                {/foreach}
 
             </div>
         </section>
     {/if}
     <!-- End Menu Section -->
+    
+    
+    <!-- ======= Drinks Section ======= -->
+    {if $webSections['drinks']->is_shown}
+        <section id="drinks" class="menu section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <p>Nápoje</p>
+                </div>
+
+
+                {foreach $menuCategories as $mC}
+                    <h3 class="menu-category">{$mC->name}</h3>
+
+                    <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
+                        {foreach $menuItems as $mI}
+                            {if $mI->id_menu_category == $mC->id}
+                                <div class="col-lg-6 menu-item filter-starters">
+                                    <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
+                                    <div class="menu-content">
+                                        <a href="#">{$mI->name}</a><span>{$mI->price} Kč</span>
+                                    </div>
+                                    <div class="menu-ingredients">
+                                        {$mI->description}
+                                    </div>
+                                </div>
+                            {/if}
+                        {/foreach}
+                    </div>
+                {/foreach}
+
+            </div>
+        </section>
+    {/if}
+    <!-- End Drinks Section -->
 
     <!-- ======= Reservation Section ======= -->
     {if $webSections['reservation']->is_shown}
@@ -369,79 +235,24 @@
 
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
-                    <h2>Gallery</h2>
-                    <p>Some photos from Our Restaurant</p>
+                    <p>Galerie</p>
                 </div>
             </div>
 
             <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row g-0">
-
-                    <div class="col-lg-3 col-md-4">
-                        <div class="gallery-item">
-                            <a href="assets/img/gallery/gallery-1.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                                <img src="assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4">
-                        <div class="gallery-item">
-                            <a href="assets/img/gallery/gallery-2.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                                <img src="assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4">
-                        <div class="gallery-item">
-                            <a href="assets/img/gallery/gallery-3.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                                <img src="assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4">
-                        <div class="gallery-item">
-                            <a href="assets/img/gallery/gallery-4.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                                <img src="assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4">
-                        <div class="gallery-item">
-                            <a href="assets/img/gallery/gallery-5.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                                <img src="assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4">
-                        <div class="gallery-item">
-                            <a href="assets/img/gallery/gallery-6.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                                <img src="assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4">
-                        <div class="gallery-item">
-                            <a href="assets/img/gallery/gallery-7.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                                <img src="assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4">
-                        <div class="gallery-item">
-                            <a href="assets/img/gallery/gallery-8.jpg" class="gallery-lightbox" data-gall="gallery-item">
-                                <img src="assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    </div>
-
+                    {foreach $images as $i}
+                        {if $i->is_gallery}
+                            <div class="col-lg-3 col-md-4">
+                                <div class="gallery-item">
+                                    <a href="{$basePath}/images/{$i->name}" class="gallery-lightbox" data-gall="gallery-item">
+                                        <img src="{$basePath}/images/{$i->name}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                        {/if}
+                    {/foreach}
                 </div>
 
             </div>
@@ -477,6 +288,12 @@
                                 <i class="bi bi-geo-alt"></i>
                                 <h4>Adresa:</h4>
                                 <p>{$restaurant->address}</p>
+                            </div>
+
+                            <div class="address mt-4">
+                                <i class="bi bi-geo-alt"></i>
+                                <h4>IČO:</h4>
+                                <p>{$restaurant->ico}</p>
                             </div>
 
                             <div class="open-hours">

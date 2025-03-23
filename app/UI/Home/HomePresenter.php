@@ -11,7 +11,10 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
             private \App\Model\Facade\OpeningHoursFacade $openingHoursFacade,
             private \App\Model\Facade\WebSectionsFacade $webSectionsFacade,
             private \App\Model\Facade\NewsFacade $newsFacade,
-            private \App\Model\Facade\ImageFacade $imageFacade
+            private \App\Model\Facade\ImageFacade $imageFacade,
+            private \App\Model\Facade\MenuCategoryFacade $menuCategoryFacade,
+            private \App\Model\Facade\MenuItemFacade $menuItemFacade,
+            private \App\Model\Facade\MenuItemVariantFacade $menuItemVariantFacade
     ) {
         
     }
@@ -28,14 +31,22 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
 
         $news = $this->newsFacade->getAll();
         $this->template->news = $news;
+
+        $images = $this->imageFacade->getAll();
+        $this->template->images = $images;
+
+        $menuCategories = $this->menuCategoryFacade->getAll();
+        $this->template->menuCategories = $menuCategories;
+
+        $menuItems = $this->menuItemFacade->getAll();
+        $this->template->menuItems = $menuItems;
         
-        $image = $this->imageFacade->getAll();
-        $this->template->image = $image;
-        
+        $menuItemVariant = $this->menuItemVariantFacade->getOne();
+        $this->template->menuItemVariant = $menuItemVariant;
+
         $today = date('N');
 
-        $openingHourToday = $this->openingHoursFacade->getAll(['id'=> $today]);
+        $openingHourToday = $this->openingHoursFacade->getAll(['id' => $today]);
         $this->template->openingHourToday = $openingHourToday;
-
     }
 }

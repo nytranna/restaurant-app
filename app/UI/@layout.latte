@@ -69,9 +69,11 @@
                     <ul>
                         {foreach $webSections as $s}
                             {if $s->is_shown}
-                                <li><a class="nav-link scrollto" href="#{$s->href}">{$s->name}</a></li>
-                                {/if}
-                            {/foreach}
+                                <li>
+                                    <a class="nav-link scrollto" href="#{$s->href}">{$s->name}</a>
+                                </li>
+                            {/if}
+                        {/foreach}
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav><!-- .navbar -->
@@ -132,7 +134,7 @@
 
         <!-- Template Main JS File -->
         <script src="{$basePath}/Restaurantly/assets/js/main.js"></script>
-        
+
         <script src="https://kit.fontawesome.com/ea70a934ec.js" crossorigin="anonymous"></script>
 
     </body>
