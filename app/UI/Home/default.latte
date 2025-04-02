@@ -76,27 +76,52 @@
 
                 <div class="section-title">
                     <p>Denní menu</p>
+
                 </div>
 
-
                 {foreach $menuCategories as $mC}
-                    <h3 class="menu-category">{$mC->name}</h3>
+                    {if $mC->menu_type == 'daily_menu'}
 
-                    <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
-                        {foreach $menuItems as $mI}
-                            {if $mI->id_menu_category == $mC->id}
-                                <div class="col-lg-6 menu-item filter-starters">
-                                    <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                                    <div class="menu-content">
-                                        <a href="#">{$mI->name}</a><span>{$mI->price} Kč</span>
+
+                        <h3 class="menu-category">{$mC->name}</h3>
+
+                        <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
+                            {foreach $menuItems as $mI}
+                                {if $mI->id_menu_category == $mC->id}
+                                    <div class="col-lg-6 menu-item filter-starters">
+                                        {if $restaurant->menu_with_images}
+                                            <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
+                                        {/if}
+
+                                        <div class="menu-content">
+                                            <a href="#">{$mI->name}</a>
+                                            <span>
+                                                {var $hasVariants = false}
+                                                {foreach $menuItemVariants as $v}
+                                                    {if $v->id_menu_item == $mI->id}
+                                                        {$v->size} / {$v->price} Kč<br> 
+                                                        {var $hasVariants = true}
+                                                    {/if}
+                                                {/foreach}
+
+                                                {if !$hasVariants}
+                                                    {if $mI->size}
+                                                        {$mI->size} / 
+                                                    {/if}
+                                                    {$mI->price} Kč
+                                                {/if}
+                                            </span>
+                                        </div>
+
+                                        <div class="menu-ingredients">
+                                            {$mI->description}
+                                        </div>
+
                                     </div>
-                                    <div class="menu-ingredients">
-                                        {$mI->description}
-                                    </div>
-                                </div>
-                            {/if}
-                        {/foreach}
-                    </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    {/if}
                 {/foreach}
 
             </div>
@@ -113,33 +138,58 @@
                     <p>Menu</p>
                 </div>
 
-
                 {foreach $menuCategories as $mC}
-                    <h3 class="menu-category">{$mC->name}</h3>
+                    {if $mC->menu_type == 'menu'}
+                        {if !$mC->id_menu_category}
+                            <h3 class="menu-category">{$mC->name}</h3>
+                        {else}
+                            <h2>{$mC->name}</h2>
+                        {/if}
+                        <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
+                            {foreach $menuItems as $mI}
+                                {if $mI->id_menu_category == $mC->id}
+                                    <div class="col-lg-6 menu-item filter-starters">
+                                        {if $restaurant->menu_with_images}
+                                            <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
+                                        {/if}
 
-                    <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
-                        {foreach $menuItems as $mI}
-                            {if $mI->id_menu_category == $mC->id}
-                                <div class="col-lg-6 menu-item filter-starters">
-                                    <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                                    <div class="menu-content">
-                                        <a href="#">{$mI->name}</a><span>{$mI->price} Kč</span>
+                                        <div class="menu-content">
+                                            <a href="#">{$mI->name}</a>
+                                            <span>
+                                                {var $hasVariants = false}
+                                                {foreach $menuItemVariants as $v}
+                                                    {if $v->id_menu_item == $mI->id}
+                                                        {$v->size} / {$v->price} Kč<br> 
+                                                        {var $hasVariants = true}
+                                                    {/if}
+                                                {/foreach}
+
+                                                {if !$hasVariants}
+                                                    {if $mI->size}
+                                                        {$mI->size} / 
+                                                    {/if}
+                                                    {$mI->price} Kč
+                                                {/if}
+                                            </span>
+                                        </div>
+
+                                        <div class="menu-ingredients">
+                                            {$mI->description}
+                                        </div>
+
                                     </div>
-                                    <div class="menu-ingredients">
-                                        {$mI->description}
-                                    </div>
-                                </div>
-                            {/if}
-                        {/foreach}
-                    </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    {/if}
                 {/foreach}
 
             </div>
         </section>
     {/if}
     <!-- End Menu Section -->
-    
-    
+
+
     <!-- ======= Drinks Section ======= -->
     {if $webSections['drinks']->is_shown}
         <section id="drinks" class="menu section-bg">
@@ -149,25 +199,53 @@
                     <p>Nápoje</p>
                 </div>
 
-
                 {foreach $menuCategories as $mC}
-                    <h3 class="menu-category">{$mC->name}</h3>
+                    {if $mC->menu_type == 'drinks'}
+                        {if !$mC->id_menu_category}
+                            <h3 class="menu-category">{$mC->name}</h3>
+                        {else}
+                            <div class="under-category">
+                                <h2>{$mC->name}</h2>
+                            </div>
+                        {/if}
 
-                    <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
-                        {foreach $menuItems as $mI}
-                            {if $mI->id_menu_category == $mC->id}
-                                <div class="col-lg-6 menu-item filter-starters">
-                                    <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                                    <div class="menu-content">
-                                        <a href="#">{$mI->name}</a><span>{$mI->price} Kč</span>
+                        <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
+                            {foreach $menuItems as $mI}
+                                {if $mI->id_menu_category == $mC->id}
+                                    <div class="col-lg-6 menu-item">
+                                        {if $restaurant->menu_with_images}
+                                            <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
+                                        {/if}
+
+                                        <div class="menu-content">
+                                            <a href="#">{$mI->name}</a>
+                                            <span>
+                                                {var $hasVariants = false}
+                                                {foreach $menuItemVariants as $v}
+                                                    {if $v->id_menu_item == $mI->id}
+                                                        {$v->size} / {$v->price} Kč<br> 
+                                                        {var $hasVariants = true}
+                                                    {/if}
+                                                {/foreach}
+
+                                                {if !$hasVariants}
+                                                    {if $mI->size}
+                                                        {$mI->size} / 
+                                                    {/if}
+                                                    {$mI->price} Kč
+                                                {/if}
+                                            </span>
+                                        </div>
+
+                                        <div class="menu-ingredients">
+                                            {$mI->description}
+                                        </div>
+
                                     </div>
-                                    <div class="menu-ingredients">
-                                        {$mI->description}
-                                    </div>
-                                </div>
-                            {/if}
-                        {/foreach}
-                    </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    {/if}
                 {/foreach}
 
             </div>

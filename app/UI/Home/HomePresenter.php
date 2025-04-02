@@ -41,8 +41,8 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
         $menuItems = $this->menuItemFacade->getAll();
         $this->template->menuItems = $menuItems;
         
-        $menuItemVariant = $this->menuItemVariantFacade->getOne();
-        $this->template->menuItemVariant = $menuItemVariant;
+        $menuItemVariants = $this->menuItemVariantFacade->getAll();
+        $this->template->menuItemVariants = $menuItemVariants;
 
         $today = date('N');
 

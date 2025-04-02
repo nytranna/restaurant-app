@@ -21,13 +21,17 @@ class MenuFormControl extends Control {
     public function createComponentForm(): Form {
         $form = $this->baseFormFactory->create();
 
+        $presenter = $this->getPresenter();
+        $menuType = $presenter->getParameter('menu_type');
+
+        $form->addText('name', 'Název kategorie:');
+
+        //$form->addText('item_name', 'Název položky:');
+
+
+        $form->addHidden('menu_type', $menuType);
+
         $form->addHidden('id');
-
-//        $form->addText('name', 'Název restaurace:');
-//
-//        $form->addTextArea('about_us', 'O nás:', null, 5);
-
-        //$form->onValidate[] = [$this, 'validated'];
 
         $form->addSubmit('send', 'Uložit');
 
@@ -36,28 +40,29 @@ class MenuFormControl extends Control {
         return $form;
     }
 
-    public function setDefaults($data) {
-
-//        $data = ['id' => $data->id,
-//            'name' => $data->name,
-//            'sentence' => $data->sentence
-//        ];
-//
-//        $this['form']->setDefaults($data);
-    }
-
     public function submitted(Form $form, \stdClass $data): void {
 
-//
-//        $menuData = [
-//            'name' => $data->name,
-//            'sentence' => $data->sentence
-//        ];
-//
-//        $this->restaurantFacade->getOne(['id' => $data->id])->update($menuData);
-//
-//        $form->getPresenter()->flashMessage('Změna údajů proběhla úspěšně.', 'success');
-//        $form->getPresenter()->redirect('Info:default');
+        $categoryData = [
+            'name' => $data->name,
+            'menu_type' => $data->menu_type
+        ];
+
+        if ($data->id) {
+
+            $this->menuCategoryFacade->getOne(['id' => $data->id])->update($categoryData);
+        } else {
+
+
+            $this->menuCategoryFacade->insert($categoryData);
+        }
+
+        if (!$form->hasErrors()) {
+
+            $message = $data->id ? 'Přidání kategorie proběhlo úspěšněú' : 'Vytvoření nové kategorie proběhlo úspěšně.';
+
+            $form->getPresenter()->flashMessage($message, 'success');
+            $form->getPresenter()->redirect('Menu:list', ['menu_type' => $data->menu_type]);
+        }
     }
 
     public function render() {
