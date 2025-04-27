@@ -24,8 +24,8 @@ final class DashboardPresenter extends Nette\Application\UI\Presenter
             //$this->userFacade->getOne(['id'=>3])->delete();
             //$this->userFacade->getOne(['id'=>2])->update(['name'=>'PéŤa']);
             
-            $this->flashMessage('Položka byla smazána.', 'success');
-            $this->flashMessage('Položka byla smazána.', 'danger');
+//            $this->flashMessage('Položka byla smazána.', 'success');
+//            $this->flashMessage('Položka byla smazána.', 'danger');
 	}
 	
 }
