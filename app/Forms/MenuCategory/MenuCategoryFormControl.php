@@ -1,4 +1,5 @@
-<?php // 
+<?php
+
 namespace App\Forms;
 
 use Nette;
@@ -6,7 +7,9 @@ use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
 
-class MenuFormControl extends Control {
+class MenuCategoryFormControl extends Control {
+    
+    private $category;
 
     public function __construct(
             private BaseFormFactory $baseFormFactory,
@@ -18,15 +21,29 @@ class MenuFormControl extends Control {
     }
 
     public function createComponentForm(): Form {
+        
         $form = $this->baseFormFactory->create();
 
         $presenter = $this->getPresenter();
         $menuType = $presenter->getParameter('menu_type');
+        
+        if($this->category){
+            $categories = $this->menuCategoryFacade->getAll(['menu_type' => $menuType, 'id != ?' => $this->category->id]);
+        }else{
+            $categories = $this->menuCategoryFacade->getAll(['menu_type' => $menuType]);
+        }
+      
+        $upperCategories = ['' => ''];
 
-        $form->addText('name', 'Název kategorie:');
+        foreach ($categories as $c) {
+            if (!$c->id_menu_category) {
+                $upperCategories[$c->id] = $c->name;
+            }
+        }
 
-        //$form->addText('item_name', 'Název položky:');
+        $form->addText('name', 'Název nové kategorie:');
 
+        $form->addSelect('parent_category', 'Zvolte nadkategorii:', $upperCategories);
 
         $form->addHidden('menu_type', $menuType);
 
@@ -39,10 +56,28 @@ class MenuFormControl extends Control {
         return $form;
     }
 
+    public function setDefaults($data) {
+        
+        $this->category = $data;
+
+        $data = [
+            'id' => $data->id,
+            'name' => $data->name,
+            'parent_category' => $data->id_menu_category
+        ];
+
+        $this['form']->setDefaults($data);
+    }
+
     public function submitted(Form $form, \stdClass $data): void {
+
+        if ($data->parent_category === '') {
+            $data->parent_category = null;
+        }
 
         $categoryData = [
             'name' => $data->name,
+            'id_menu_category' => $data->parent_category,
             'menu_type' => $data->menu_type
         ];
 
@@ -50,14 +85,12 @@ class MenuFormControl extends Control {
 
             $this->menuCategoryFacade->getOne(['id' => $data->id])->update($categoryData);
         } else {
-
-
             $this->menuCategoryFacade->insert($categoryData);
         }
 
         if (!$form->hasErrors()) {
 
-            $message = $data->id ? 'Přidání kategorie proběhlo úspěšněú' : 'Vytvoření nové kategorie proběhlo úspěšně.';
+            $message = $data->id ? 'Přidání kategorie proběhlo úspěšně' : 'Vytvoření nové kategorie proběhlo úspěšně.';
 
             $form->getPresenter()->flashMessage($message, 'success');
             $form->getPresenter()->redirect('Menu:listCategory', ['menu_type' => $data->menu_type]);
@@ -65,6 +98,6 @@ class MenuFormControl extends Control {
     }
 
     public function render() {
-        $this->template->render(__DIR__ . '/_menuForm.latte');
+        $this->template->render(__DIR__ . '/_menuCategoryForm.latte');
     }
 }

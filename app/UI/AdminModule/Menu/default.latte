@@ -4,30 +4,159 @@
     <div class="container-fluid">
         <div class="row">
             <div n:block="title" class="col-md-6">
-                <h3 class="mb-0"><i class="fa-solid fa-utensils me-2"></i>Jídelní lístek</h3>
+                <h3 class="mb-0">
+                    <i class="fa-regular fa-newspaper me-2"></i>
+                    {if $menuCategory->menu_type == 'daily_menu'}
+                        Denní menu
+                    {elseif $menuCategory->menu_type == 'drinks'}
+                        Nápoje
+                    {else}
+                        Menu
+                    {/if}
+                </h3>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                {if $menuCategory->menu_type == 'daily_menu'}
+                    <a n:href="Menu:listCategory menu_type=>'daily_menu'" class="btn btn-primary mb-2" title="Správa">
+                        <i class="fa-solid fa-pen-to-square me-2"></i>
+                        Správa kategorií
+                    </a>
+                    <a n:href="Menu:listItem menu_type=>'daily_menu'" class="btn btn-primary mb-2" title="Správa">
+                        <i class="fa-solid fa-pen-to-square me-2"></i>
+                        Správa položek
+                    </a>
+                {elseif $menuCategory->menu_type == 'drinks'}
+                    <a n:href="Menu:listCategory menu_type=>'drinks'" class="btn btn-primary mb-2" title="Správa">
+                        <i class="fa-solid fa-pen-to-square me-2"></i>
+                        Správa kategorií
+                    </a>
+                    <a n:href="Menu:listItem menu_type=>'drinks'" class="btn btn-primary mb-2" title="Správa">
+                        <i class="fa-solid fa-pen-to-square me-2"></i>
+                        Správa položek
+                    </a>
+                {else}
+                    <a n:href="Menu:listCategory menu_type=>'menu'" class="btn btn-primary mb-2" title="Správa">
+                        <i class="fa-solid fa-pen-to-square me-2"></i>
+                        Správa kategorií
+                    </a>
+                    <a n:href="Menu:listItem menu_type=>'menu'" class="btn btn-primary mb-2" title="Správa">
+                        <i class="fa-solid fa-pen-to-square me-2"></i>
+                        Správa položek
+                    </a>
+                {/if}
             </div>
         </div>
     </div>
 </div>
 
-<div>
-    <div>
-        <a n:href="Menu:list menu_type=>'daily_menu'" type="button" class="btn btn-primary mb-2 mt-3 ms-3" title="Zobrazit denní menu">
-            <i class="fa-solid fa-eye me-2"></i>
-            Zobrazit denní menu
-        </a>
-    </div>
-    <div>
-        <a n:href="Menu:list  menu_type=>'menu'" type="button" class="btn btn-primary mb-2 mt-3 ms-3" title="Zobrazit menu">
-            <i class="fa-solid fa-eye me-2"></i>
-            Zobrazit menu
-        </a>
-    </div>
-    <div>
 
-        <a n:href="Menu:list menu_type=>'drinks'" type="button" class="btn btn-primary mb-2 mt-3 ms-3" title="Zobrazit nápoje">
-            <i class="fa-solid fa-eye me-2"></i>
-            Zobrazit nápoje
-        </a>
-    </div>
+
+<div class="container mt-4">
+
+    {foreach $menuCategories as $mC}
+        {if !$mC->id_menu_category}
+            <h2 class="menu-category">{$mC->name}</h2>
+         
+            {*var $hasSubcategories = false}
+            {foreach $menuCategories as $subC}
+                {if $subC->id_menu_category == $mC->id}
+                    {var $hasSubcategories = true}
+                {/if}
+            {/foreach*}
+            
+            {*if !$hasSubcategories*}
+            
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Název</th>
+                            <th>Popis</th>
+                            <th>Velikost</th>
+                            <th>Cena</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach $menuItems as $mI}
+                            {if $mI->id_menu_category == $mC->id}
+                                <tr>
+                                    <td>{$mI->name}</td>
+                                    <td>{$mI->description}</td>
+                                    <td>
+                                        {var $found = false}
+                                        {foreach $menuItemVariants as $v}
+                                            {if $v->id_menu_item == $mI->id}
+                                                {$v->size}<br>
+                                                {var $found = true}
+                                            {/if}
+                                        {/foreach}
+
+                                        {if !$found}
+                                            -
+                                        {/if}
+                                    </td>
+                                    <td>
+                                        {var $found = false}
+                                        {foreach $menuItemVariants as $v}
+                                            
+                                            {if $v->id_menu_item == $mI->id}
+                                                {$v->price} Kč<br>
+                                                {var $found = true}
+                                            {/if}
+                                        {/foreach}
+
+                                        {if !$found}
+                                            -
+                                        {/if}
+                                    </td>
+                                </tr>
+                            {/if}
+                        {/foreach}
+                    </tbody>
+                </table>
+            {*/if*}
+
+            {foreach $menuCategories as $subC}
+                {if $subC->id_menu_category == $mC->id}
+                    <h3 class="sub-category">{$subC->name}</h3>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Název</th>
+                                <th>Popis</th>
+                                <th>Velikost</th>
+                                <th>Cena</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {foreach $menuItems as $mI}
+                                {if $mI->id_menu_category == $subC->id}
+                                    <tr>
+                                        <td>{$mI->name}</td>
+                                        <td>{$mI->description}</td>
+                                        <td>
+                                            {foreach $menuItemVariants as $v}
+                                                {if $v->id_menu_item == $mI->id}
+                                                    {$v->size}<br>
+                                                {/if}
+                                                
+                                            {/foreach}                                            
+                                        </td>
+                                        <td>
+                                            {foreach $menuItemVariants as $v}
+                                                {if $v->id_menu_item == $mI->id}
+                                                    {$v->price} Kč<br>
+                                                {/if}
+                                            {/foreach}
+                                        </td>
+                                    </tr>
+                                {/if}
+                            {/foreach}
+                        </tbody>
+                    </table>
+                {/if}
+            {/foreach}
+        {/if}
+    {/foreach}
+
 </div>

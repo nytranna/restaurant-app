@@ -9,3 +9,29 @@
   color: #fffff;
   font-family: "Poppins", sans-serif;
 }
+
+
+
+
+
+/* Aktivní hlavní odkaz */
+/*.nav-link.active {
+    background-color: #0d6efd;
+    color: white;
+}*/
+
+/* Aktivní submenu odkaz */
+.nav-treeview .nav-link.active {
+    background-color: #0a58ca;
+    color: white;
+}
+
+/* Výchozí stav submenu: skryté */
+.nav-treeview {
+    display: none;
+}
+
+/* Pokud má rodič class `menu-open`, zobraz submenu */
+.nav-item.menu-open > .nav-treeview {
+    display: block;
+}

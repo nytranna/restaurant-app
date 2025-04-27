@@ -1,0 +1,13 @@
+<div class="variant-row d-flex align-items-end gap-2 mb-2">
+    <div>
+        {*$_form[$name]['size']->label->setClass('text-muted')->_toString()|noescape*}
+        {$_form['variants'][$name]['size']->control->_toString()|noescape}
+    </div>
+    <div>
+        {*$_form[$name]['price']->label->setClass('text-muted')->_toString()|noescape*}
+        {$_form['variants'][$name]['price']->control->_toString()|noescape}
+    </div>  
+    <button type="button" class="btn btn-outline-danger remove-variant">
+        <i class="fa-solid fa-trash"></i>
+    </button>
+</div>

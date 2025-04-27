@@ -1,0 +1,46 @@
+{*control form*}
+
+{form form}
+    <div class="mb-3">
+        {label name/}    
+        {input name}
+    </div>
+    <div class="mb-3">
+        {label description/}    
+        {input description}
+    </div>
+    <div class="mb-3">
+        {label category/}    
+        {input category}
+    </div>
+    <div class="mb-3 text-center ">
+        {input addField}
+    </div>
+
+    {foreach $form->components as $item}                                        
+        {if $item instanceof Nette\Forms\Container && $item->name == 'variants'}
+
+            {foreach $item->components as $variant}
+                {include '_addRow.latte', 'name' => $variant->name, '_form' => $form}
+            {/foreach}  
+            {*include '_editVoteDatasetRow.latte', 'name' => $item->name*}
+            {*include '_addRow.latte', 'name' => $item->name, '_form' => $form*}
+        {/if}    
+    {/foreach}
+
+    <div id="add">
+    </div>
+    <div class="mb-3 text-center">
+        {input send}
+        {if $menu_type == 'daily_menu'}
+            <a href={plink Menu:listItem menu_type=>'daily_menu'} class="btn btn-outline-secondary">Zrušit</a>
+
+        {elseif $menu_type == 'drinks'}
+           <a href={plink Menu:listItem menu_type=>'drinks'} class="btn btn-outline-secondary">Zrušit</a>
+
+        {else}
+            <a href={plink Menu:listItem menu_type=>'menu'} class="btn btn-outline-secondary">Zrušit</a>
+
+        {/if}
+    </div>
+{/form}

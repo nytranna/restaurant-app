@@ -4,6 +4,10 @@
 namespace App\Model\Facade;
 
 trait FacadeTrait {
+    
+    public function getDatabase(){
+        return $this->database;
+    }
 
     public function getData(array $where = [], $order = null, $limit = null, $offset = null) {
 

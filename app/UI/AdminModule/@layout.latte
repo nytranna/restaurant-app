@@ -65,6 +65,7 @@
 
 
 
+
     </head>
     <!--end::Head-->
     <!--begin::Body-->
@@ -132,22 +133,22 @@
                             role="menu"
                             data-accordion="false"
                             >
-                            <li class="nav-item menu-open">
-                                <a n:href="Dashboard:default" class="nav-link active">
+                            <li class="nav-item">
+                                <a n:href="Dashboard:default" class="nav-link{if $presenter->isLinkCurrent('Dashboard:default')} active{/if}">
                                     <i class="nav-icon bi bi-speedometer me-2"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
+                                    <p>Dashboard</p>
                                 </a>
                             </li>
-                            <li class="nav-item menu-open">
-                                <a n:href="Info:default" class="nav-link active">
+
+                            <li class="nav-item">
+                                <a n:href="Info:default" class="nav-link{if $presenter->isLinkCurrent('Info:default')} active{/if}">
                                     <i class="fa-solid fa-info ms-2 me-3"></i>
                                     <p>
                                         Info restaurace
                                     </p>
                                 </a>
                             </li>
+                            {*
                             <li class="nav-item menu-open">
                                 <a n:href="Menu:default" class="nav-link active">
                                     <i class="fa-solid fa-utensils ms-1 me-2"></i>
@@ -156,32 +157,67 @@
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item menu-open">
-                                <a n:href="Users:default" class="nav-link active">
+                            *}
+
+
+                            <li class="nav-item{if $presenter->isLinkCurrent('Menu:default') && in_array($presenter->getParameter('menu_type'), ['menu', 'daily_menu', 'drinks'])} menu-open{/if}">
+                                <a n:href="Menu:default menu_type=>'menu'" class="nav-link{if $presenter->isLinkCurrent('Menu:default') && in_array($presenter->getParameter('menu_type'), ['menu', 'daily_menu', 'drinks'])} active{/if}">
+                                    <i class="fa-solid fa-utensils ms-1 me-2"></i>
+                                    <p>
+                                        Jídelní lístek
+                                        <i class="nav-arrow bi bi-chevron-right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a n:href="Menu:default menu_type=>'menu'" class="nav-link{if $presenter->getParameter('menu_type') === 'menu'} active{/if}">
+                                            <i class="fa-regular fa-circle-dot ms-4"></i>
+                                            <p>Menu</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+
+                                        <a n:href="Menu:default menu_type=>'daily_menu'" class="nav-link{if $presenter->getParameter('menu_type') === 'daily_menu'} active{/if}">
+                                            <i class="fa-regular fa-circle-dot ms-4"></i>
+                                            <p>Denní menu</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a n:href="Menu:default menu_type=>'drinks'" class="nav-link{if $presenter->getParameter('menu_type') === 'drinks'} active{/if}">
+                                            <i class="fa-regular fa-circle-dot ms-4"></i>
+                                            <p>Nápoje</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a n:href="Users:default" class="nav-link{if $presenter->isLinkCurrent('Users:default')} active{/if}">
                                     <i class="fa-solid fa-user-group me-2"></i>
                                     <p>
                                         Správa uživatelů
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item menu-open">
-                                <a n:href="News:default" class="nav-link active">
+                            <li class="nav-item">
+                                <a n:href="News:default" class="nav-link{if $presenter->isLinkCurrent('News:default')} active{/if}">
                                     <i class="fa-regular fa-newspaper ms-1 me-2"></i>                                    
                                     <p>
                                         Aktuality
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item menu-open">
-                                <a n:href="Reservation:default" class="nav-link active">
+                            <li class="nav-item">
+                                <a n:href="Reservation:default" class="nav-link{if $presenter->isLinkCurrent('Reservation:default')} active{/if}">
                                     <i class="fa-solid fa-calendar ms-1 me-2"></i>                                    
                                     <p>
                                         Rezervace
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item menu-open">
-                                <a n:href="Image:default" class="nav-link active">
+                            <li class="nav-item">
+                                <a n:href="Image:default" class="nav-link{if $presenter->isLinkCurrent('Image:default')} active{/if}">
                                     <i class="fa-solid fa-images ms-1 me-2"></i>                                  
                                     <p>
                                         Obrázky
