@@ -3,6 +3,8 @@
 namespace App\UI\Home;
 
 use Nette;
+use App\Forms\CustomerReservationFormFactory;
+use App\Forms\CustomerReservationFormControl;
 
 final class HomePresenter extends Nette\Application\UI\Presenter {
 
@@ -14,7 +16,8 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
             private \App\Model\Facade\ImageFacade $imageFacade,
             private \App\Model\Facade\MenuCategoryFacade $menuCategoryFacade,
             private \App\Model\Facade\MenuItemFacade $menuItemFacade,
-            private \App\Model\Facade\MenuItemVariantFacade $menuItemVariantFacade
+            private \App\Model\Facade\MenuItemVariantFacade $menuItemVariantFacade,
+            private CustomerReservationFormFactory $customerReservationFormFactory
     ) {
         
     }
@@ -40,7 +43,7 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
 
         $menuItems = $this->menuItemFacade->getAll();
         $this->template->menuItems = $menuItems;
-        
+
         $menuItemVariants = $this->menuItemVariantFacade->getAll();
         $this->template->menuItemVariants = $menuItemVariants;
 
@@ -49,4 +52,9 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
         $openingHourToday = $this->openingHoursFacade->getAll(['id' => $today]);
         $this->template->openingHourToday = $openingHourToday;
     }
+    
+     protected function createComponentReservationForm(): CustomerReservationFormControl {
+        return $this->customerReservationFormFactory->create();
+    }
+
 }

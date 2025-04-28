@@ -7,11 +7,12 @@ $(document).ready(function () {
             infoEmpty: 'Žádné dostupné záznamy',
             infoFiltered: '(filtered from _MAX_ total records)',
             lengthMenu: 'Zobraz _MENU_ záznamů na stránku',
-            zeroRecords: 'Nic nenalezeno'
+            zeroRecords: 'Nic nenalezeno',
+            search: "Hledat:"
         }
     });
 
-    $(document).on('click', '.remove-variant', function(e) {
+    $(document).on('click', '.remove-variant', function (e) {
         const row = $(this).closest('.variant-row');
         if (row) {
             row.remove();
@@ -63,8 +64,31 @@ document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
         const parent = this.closest('.nav-item');
         const submenu = parent.querySelector('.nav-treeview');
         if (submenu) {
-            e.preventDefault(); // zabrání defaultní akci
+            e.preventDefault();
             parent.classList.toggle('menu-open');
         }
     });
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOM loaded');
+    var trigger = document.getElementById('scroll-to-reservation');
+    if (trigger && trigger.dataset.scroll === 'true') {
+        var section = document.getElementById('reservation');
+        if (section) {
+            section.scrollIntoView({behavior: 'smooth'});
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
