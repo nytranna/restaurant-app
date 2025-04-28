@@ -13,7 +13,8 @@ final class InfoPresenter extends Nette\Application\UI\Presenter {
 
     public function __construct(
             private InfoFormFactory $infoFormFactory,
-            private \App\Model\Facade\RestaurantFacade $restaurantFacade
+            private \App\Model\Facade\RestaurantFacade $restaurantFacade,
+            private \App\Model\Facade\WebSectionsFacade $webSectionsFacade
     ) {
         
     }
@@ -22,7 +23,9 @@ final class InfoPresenter extends Nette\Application\UI\Presenter {
         $restaurant = $this->restaurantFacade->getOne();
         $this->template->restaurant = $restaurant;
         
-//        dd($restaurant);
+        $webSections = $this->webSectionsFacade->getAll();
+        $this->template->webSections = $webSections;
+        
     }
 
     public function renderEdit($id = null): void {

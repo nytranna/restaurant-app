@@ -11,7 +11,8 @@ class InfoFormControl extends Control {
 
     public function __construct(
             private BaseFormFactory $baseFormFactory,
-            private \App\Model\Facade\RestaurantFacade $restaurantFacade
+            private \App\Model\Facade\RestaurantFacade $restaurantFacade,
+            private \App\Model\Facade\WebSectionsFacade $webSectionFacade
     ) {
         
     }
@@ -25,7 +26,7 @@ class InfoFormControl extends Control {
 
         $form->addText('sentence', 'Úvodní věta:');
 
-        $form->addTextArea('about_us', 'O nás:', null, 5);
+        $form->addTextArea('about_us', 'O nás:', null, 15);
 
         $form->addText('address', 'Adresa:');
 
@@ -33,11 +34,21 @@ class InfoFormControl extends Control {
 
         $form->addText('phone', 'Telefonní číslo:');
 
+        $form->addText('ico', 'IČO:');
+
         $form->addText('facebook', 'Facebook:');
 
         $form->addText('instagram', 'Instagram:');
 
         $form->addText('tripadvisor', 'Tripadvisor:');
+
+        foreach ($this->webSectionFacade->getAll() as $w) {
+            if ($w->href != 'hero') {
+                $webSections[$w->id] = $w->name;
+            }
+        }
+
+        $form->addCheckboxList('webSections', 'Webové sekce:', $webSections);
 
         //$form->onValidate[] = [$this, 'validated'];
 
@@ -50,6 +61,7 @@ class InfoFormControl extends Control {
 
     public function setDefaults($data) {
 
+
         $data = ['id' => $data->id,
             'name' => $data->name,
             'sentence' => $data->sentence,
@@ -57,10 +69,18 @@ class InfoFormControl extends Control {
             'address' => $data->address,
             'email' => $data->email,
             'phone' => $data->phone,
+            'ico' => $data->ico,
             'facebook' => $data->facebook,
             'instagram' => $data->instagram,
             'tripadvisor' => $data->tripadvisor
         ];
+
+        $checkedWebSections = [];
+        foreach ($this->webSectionFacade->getAll(['is_shown' => 1]) as $s) {
+            $checkedWebSections[] = $s->id;
+        }        
+
+        $data['webSections'] = $checkedWebSections;
 
         $this['form']->setDefaults($data);
     }
@@ -75,10 +95,20 @@ class InfoFormControl extends Control {
             'address' => $data->address,
             'email' => $data->email,
             'phone' => $data->phone,
+            'ico' => $data->ico,
             'facebook' => $data->facebook,
             'instagram' => $data->instagram,
             'tripadvisor' => $data->tripadvisor
         ];
+
+        foreach ($this->webSectionFacade->getAll() as $s) {
+            $s->update(['is_shown' => 0]);
+        }
+
+
+        foreach ($data->webSections as $w) {
+            $this->webSectionFacade->getOne(['id' => $w])->update(['is_shown' => 1]);
+        }
 
         $this->restaurantFacade->getOne(['id' => $data->id])->update($infoData);
 
