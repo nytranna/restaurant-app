@@ -52,6 +52,8 @@ class ReservationFormControl extends Control {
     }
 
     public function setDefaults($data) {
+        
+        
 
         $data = ['id' => $data->id,
             'customer_name' => $data->customer_name,
@@ -66,8 +68,11 @@ class ReservationFormControl extends Control {
     }
 
     public function submitted(Form $form, \stdClass $data): void {
-
-
+        
+        if($data->status == null){
+            $data->status = 'pending';
+        }
+             
         $reservationData = [
             'customer_name' => $data->customer_name,
             'customer_email' => $data->customer_email,
