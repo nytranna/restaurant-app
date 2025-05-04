@@ -1,13 +1,13 @@
 .under-category h2 {
-  font-size: 16px;
-  font-weight: 500;
-  padding: 0;
-  line-height: 1px;
-  margin: 0 0 0 0;
-  letter-spacing: 2px;
-  /*text-transform: uppercase;*/
-  color: #fffff;
-  font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0;
+    line-height: 1px;
+    margin: 0 0 0 0;
+    letter-spacing: 2px;
+    /*text-transform: uppercase;*/
+    color: #fffff;
+    font-family: "Poppins", sans-serif;
 }
 
 
@@ -45,3 +45,32 @@
 
 
 
+.tripadvisor {
+    font-size: 20px;
+    float: left;
+    width: 44px;
+    height: 44px;
+    background: #cda45e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+
+    font-family: 'boxicons' !important;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    display: inline-block;
+    text-transform: none;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    
+    color: #ffffff;
+}
+
+
+.mt-6 {
+    margin-top: 5rem;
+}

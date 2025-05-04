@@ -570,18 +570,6 @@
 
                     <div class="col-lg-4">
                         <div class="info">
-                            <div class="address">
-                                <i class="bi bi-geo-alt"></i>
-                                <h4>Adresa:</h4>
-                                <p>{$restaurant->address}</p>
-                            </div>
-
-                            <div class="address mt-4">
-                                <i class="bi bi-geo-alt"></i>
-                                <h4>IČO:</h4>
-                                <p>{$restaurant->ico}</p>
-                            </div>
-
                             <div class="open-hours">
                                 <i class="bi bi-clock"></i>
                                 <h4>Otevírací doba:</h4>
@@ -598,61 +586,82 @@
                                     </p>
                                 {/foreach}
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="email">
-                                <i class="bi bi-envelope"></i>
-                                <h4>Email:</h4>
-                                <p>{$restaurant->email}</p>
-                            </div>
-
+                    <div class="col-lg-4">
+                        <div class="info">
                             <div class="phone">
                                 <i class="bi bi-phone"></i>
                                 <h4>Telefon:</h4>
                                 <p>{$restaurant->phone}</p>
                             </div>
-
-
-                            {if $restaurant->facebook}
-                                <div class="facebook mt-4">
-
-                                    <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" class="facebook">
-                                        <i class="bx bxl-facebook me-2"></i>
-                                    </a>
-
-                                </div>
-                            {/if}
-                            {if $restaurant->instagram}
-                                <div class="instagram mt-4">                                                                    
-                                    <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" class="instagram">
-                                        <i class="bx bxl-instagram me-2"></i>
-                                    </a>
-                                </div>
-                            {/if}
-                            {if $restaurant->tripadvisor}
-                                <div class="tripadvisor mt-4">
-                                    <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" class="facebook">
-                                        <i class="fa-solid fa-shield-cat"></i>
-                                    </a>
-                                </div>
-                            {/if}
-
-
-                            {*
-                           <div class="social-links mt-3">
-                               {if $restaurant->facebook}
-                                   <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" class="facebook"><i class="bx bxl-facebook"></i></a>
-                               {/if}
-                               {if $restaurant->instagram}
-                               <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" class="instagram"><i class="bx bxl-instagram"></i></a>
-                               {/if}
-                               {if $restaurant->tripadvisor}
-                               <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" class="tripadvisor"><i class="fa-solid fa-fire"></i></a>
-                               {/if}
+                            <div class="mt-3">
+                                <i class="bi bi-envelope"></i>
+                                <h4>Email:</h4>
+                                <p>{$restaurant->email}</p>
                             </div>
-                            *}
+                            <div class="address mt-3">
+                                <i class="bi bi-geo-alt"></i>
+                                <h4>IČO:</h4>
+                                <p>{$restaurant->ico}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="info">
+                            <div class="phone">
+                                <i class="bi bi-geo-alt"></i>
+                                <h4>Adresa:</h4>
+                                <p>{$restaurant->address}</p>
+                            </div>
+                            <div class="social-links d-flex align-items-center gap-2 mt-6">                           
+                                {if $restaurant->facebook}
+                                    <div class="facebook">
+
+                                        <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" class="facebook">
+                                            <i class="bx bxl-facebook me-2"></i>
+                                        </a>
+
+                                    </div>
+                                {/if}
+                                {if $restaurant->instagram}
+                                    <div class="instagram">                                                                    
+                                        <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" class="instagram">
+                                            <i class="bx bxl-instagram me-2"></i>
+                                        </a>
+                                    </div>
+                                {/if}
+                                {if $restaurant->tripadvisor}
+                                    <div class="tripadvisor">
+                                        <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" class="facebook">
+                                            <!--<i class="fa-solid fa-shield-cat"></i>-->
+                                            <img class="tripadvisor" src="/whitetripadvisor.png" alt="Tripadvisor" height="50">
+                                        </a>
+                                    </div>
+                                {/if}
+                            </div>
 
                         </div>
                     </div>
+
+
+                    {*
+                   <div class="social-links mt-3">
+                       {if $restaurant->facebook}
+                           <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" class="facebook"><i class="bx bxl-facebook"></i></a>
+                       {/if}
+                       {if $restaurant->instagram}
+                       <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" class="instagram"><i class="bx bxl-instagram"></i></a>
+                       {/if}
+                       {if $restaurant->tripadvisor}
+                       <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" class="tripadvisor"><i class="fa-solid fa-fire"></i></a>
+                       {/if}
+                    </div>
+                    *}
+
+
                 </div>
             </div>
         </section>
