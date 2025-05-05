@@ -12,7 +12,8 @@ class InfoFormControl extends Control {
     public function __construct(
             private BaseFormFactory $baseFormFactory,
             private \App\Model\Facade\RestaurantFacade $restaurantFacade,
-            private \App\Model\Facade\WebSectionsFacade $webSectionFacade
+            private \App\Model\Facade\WebSectionsFacade $webSectionFacade,
+            private \App\Model\Facade\OpeningHoursFacade $openingHoursFacade
     ) {
         
     }
@@ -47,10 +48,35 @@ class InfoFormControl extends Control {
                 $webSections[$w->id] = $w->name;
             }
         }
-
         $form->addCheckboxList('webSections', 'Webové sekce:', $webSections);
 
-        //$form->onValidate[] = [$this, 'validated'];
+        $form->addText('mon_open', 'Pondělí:');
+        $form->addText('mon_close', 'Pondělí do:');
+        $form->addCheckbox('mon_closed', 'zavřeno');
+
+        $form->addText('tue_open', 'Úterý:');
+        $form->addText('tue_close', 'Úterý do:');
+        $form->addCheckbox('tue_closed', 'zavřeno');
+
+        $form->addText('wed_open', 'Středa:');
+        $form->addText('wed_close', 'Středa do:');
+        $form->addCheckbox('wed_closed', 'zavřeno');
+
+        $form->addText('thu_open', 'Čtvrtek:');
+        $form->addText('thu_close', 'Čtvrtek do:');
+        $form->addCheckbox('thu_closed', 'zavřeno');
+
+        $form->addText('fri_open', 'Pátek:');
+        $form->addText('fri_close', 'Pátek do:');
+        $form->addCheckbox('fri_closed', 'zavřeno');
+
+        $form->addText('sat_open', 'Sobota:');
+        $form->addText('sat_close', 'Sobota do:');
+        $form->addCheckbox('sat_closed', 'zavřeno');
+
+        $form->addText('sun_open', 'Neděle:');
+        $form->addText('sun_close', 'Neděle do:');
+        $form->addCheckbox('sun_closed', 'zavřeno');
 
         $form->addSubmit('send', 'Uložit');
 
@@ -61,6 +87,23 @@ class InfoFormControl extends Control {
 
     public function setDefaults($data) {
 
+        $mon = $this->openingHoursFacade->getOne(['day' => 'Pondělí']);
+        $tue = $this->openingHoursFacade->getOne(['day' => 'Úterý']);
+        $wed = $this->openingHoursFacade->getOne(['day' => 'Středa']);
+        $thu = $this->openingHoursFacade->getOne(['day' => 'Čtvrtek']);
+        $fri = $this->openingHoursFacade->getOne(['day' => 'Pátek']);
+        $sat = $this->openingHoursFacade->getOne(['day' => 'Sobota']);
+        $sun = $this->openingHoursFacade->getOne(['day' => 'Neděle']);
+
+        $days = [
+            'mon' => $mon,
+            'tue' => $tue,
+            'wed' => $wed,
+            'thu' => $thu,
+            'fri' => $fri,
+            'sat' => $sat,
+            'sun' => $sun,
+        ];
 
         $data = ['id' => $data->id,
             'name' => $data->name,
@@ -78,9 +121,21 @@ class InfoFormControl extends Control {
         $checkedWebSections = [];
         foreach ($this->webSectionFacade->getAll(['is_shown' => 1]) as $s) {
             $checkedWebSections[] = $s->id;
-        }        
-
+        }
         $data['webSections'] = $checkedWebSections;
+
+        foreach ($days as $key => $d) {
+
+            if (isset($d->opening_hour)) {
+                $data["{$key}_open"] = $d->opening_hour;
+            }
+            if (isset($d->closing_hour)) {
+                $data["{$key}_close"] = $d->closing_hour;
+            }
+            if (isset($d->is_closed)) {
+                $data["{$key}_closed"] = $d->is_closed;
+            }
+        }
 
         $this['form']->setDefaults($data);
     }
@@ -111,6 +166,29 @@ class InfoFormControl extends Control {
         }
 
         $this->restaurantFacade->getOne(['id' => $data->id])->update($infoData);
+
+        $days = [
+            'mon' => 'Pondělí',
+            'tue' => 'Úterý',
+            'wed' => 'Středa',
+            'thu' => 'Čtvrtek',
+            'fri' => 'Pátek',
+            'sat' => 'Sobota',
+            'sun' => 'Neděle',
+        ];
+
+        foreach ($days as $key => $dayName) {
+            $record = $this->openingHoursFacade->getOne(['day' => $dayName]);
+            if ($record) {
+                $updateData = [
+                    'opening_hour' => $data->{$key . '_open'} ?: null,
+                    'closing_hour' => $data->{$key . '_close'} ?: null,
+                    'is_closed' => !empty($data->{$key . '_closed'}) ? 1 : 0,
+                ];
+
+                $record->update($updateData);
+            }
+        }
 
         $form->getPresenter()->flashMessage('Změna údajů proběhla úspěšně.', 'success');
         $form->getPresenter()->redirect('Info:default');

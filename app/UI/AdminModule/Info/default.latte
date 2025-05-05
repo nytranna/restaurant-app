@@ -4,87 +4,141 @@
     <div class="container-fluid">
         <div class="row">
             <div n:block="title" class="col-md-6">
-                <h3 class="mb-0"><i class="fa-solid fa-user me-2"></i>Informace o restauraci</h3>
+                <h3 class="mb-0"><i class="fa-solid fa-info-circle me-2"></i>Informace o restauraci</h3>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                {if $user->isAllowed($presenter->name, 'edit')}
+                    {if isset($restaurant->id)}
+                        <a n:href="Info:edit $restaurant->id" type="button" class="btn btn-primary mb-2" title="Upravit údaje">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Upravit údaje
+                        </a>
+                    {/if}
+                {/if}
             </div>
         </div>
     </div>
 </div>
-
-
 
 <div class="container mt-4">
-    <div class="row">
-        <!-- O restauraci -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fa-solid fa-utensils me-2"></i>O restauraci</h5>
-                    <br>
-                    <p class="card-text"><strong>Název restaurace:</strong> {$restaurant->name}</p>
-                    <p class="card-text"><strong>Úvodní věta:</strong> {$restaurant->sentence}</p>
-                    <p class="card-text"><strong>O nás:</strong> {$restaurant->about_us}</p>
+    <div class="row g-4">
+        <div class="col-md-6 d-flex flex-column gap-4">
+            <!-- O restauraci -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-size:150%"><i class="fa-solid fa-utensils me-2"></i>O restauraci</h5>
+                        <br>
+                        <br>
+                        <p class="card-text"><strong>Název restaurace:</strong>  {if isset($restaurant->id)}{$restaurant->name}{/if}</p>
+                        <p class="card-text"><strong>Úvodní věta:</strong>  {if isset($restaurant->id)}{$restaurant->sentence}{/if}</p>
+                        <p class="card-text"><strong>O nás:</strong>  {if isset($restaurant->id)}{$restaurant->about_us}{/if}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Sociální sítě -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-size:150%"><i class="fa-solid fa-share-nodes me-2"></i>Sociální sítě</h5>
+                        <br>
+                        <br>
+                        {if isset($restaurant->facebook)}
+                            <p class="card-text">
+                                <i class="fa-brands fa-facebook me-2"></i>
+                                <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" target="_blank">
+                                    {$restaurant->facebook}
+                                </a>
+                            </p>
+                        {/if}
+                        {if isset($restaurant->instagram)}
+                            <p class="card-text">
+                                <i class="fa-brands fa-instagram me-2"></i>
+                                <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" target="_blank">
+                                    {$restaurant->instagram}
+                                </a>
+                            </p>
+                        {/if}
+                        {if isset($restaurant->tripadvisor)}
+                            <p class="card-text">
+                                <img src="/tripadvisor.png" alt="Tripadvisor" height="20" class="me-1">
+                                <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" target="_blank">
+                                    {$restaurant->tripadvisor}
+                                </a>
+                            </p>
+                        {/if}
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Kontakt -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fa-solid fa-map-marker-alt me-2"></i>Kontakt</h5>
-                    <br>
-                    <p class="card-text"><strong>Adresa:</strong> {$restaurant->address}</p>
-                    <p class="card-text"><strong>Telefon:</strong> <a href="tel:{$restaurant->phone}">{$restaurant->phone}</a></p>
-                    <p class="card-text"><strong>Email:</strong> <a href="mailto:{$restaurant->email}">{$restaurant->email}</a></p>
+        <div class="col-md-6 d-flex flex-column gap-4">
+            <!-- Kontakt -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-size:150%"><i class="fa-solid fa-map-marker-alt me-2"></i>Kontakt</h5>
+                        <br>
+                        <br>
+                        <p class="card-text"><strong>Adresa:</strong>  {if isset($restaurant->id)}{$restaurant->address}{/if}</p>
+                        <p class="card-text"><strong>Telefon:</strong>  {if isset($restaurant->id)}{$restaurant->phone}{/if}</p>
+                        <p class="card-text"><strong>Email:</strong>  {if isset($restaurant->id)}{$restaurant->email}{/if}</p>
+                        <p class="card-text"><strong>IČO:</strong>  {if isset($restaurant->id)}{$restaurant->ico}{/if}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Webové sekce -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title" style="font-size:150%"><i class="fa-solid fa-share-nodes me-2"></i>Sekce webové stránky</h5>
+                            <br>
+                            <br>
+                        </div>
+                        <div>
+                            {foreach $webSections as $w}
+                                {if $w->href != 'hero'}
+                                    <p class="card-text">
+                                        {if $w->is_shown}
+                                            <i class="fa-solid fa-circle-check me-2" style="color:#090"></i>
+                                        {else}
+                                            <i class="fa-solid fa-circle-xmark me-2" style="color:#C22"></i>
+                                        {/if}
+                                        {$w->name}                        
+                                    </p>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Otevírací doba -->
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-size:150%">
+                            <i class="fa-regular fa-clock me-2"></i>Otevírací doba
+                        </h5>
+                        <br>
+                        <br>
+                        {foreach $openingHours as $h}
+                            <p>
+                                <strong>{$h->day}:</strong>
+                                {if $h->is_closed}
+                                    Zavřeno
+                                {elseif $h->opening_hour && $h->closing_hour}
+                                    {$h->opening_hour} - {$h->closing_hour}
+                                {else}
+                                    Otevírací doba neuvedena.
+                                {/if}
+                            </p>
+                        {/foreach}
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Sociální sítě -->
-        <div class="col-md-6 mt-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fa-solid fa-share-nodes me-2"></i>Sociální sítě</h5>
-                    <br>
-                    {if $restaurant->facebook}
-                        <p class="card-text">
-                            <i class="fa-brands fa-facebook me-2"></i>
-                            <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" target="_blank">
-                                {$restaurant->facebook}
-                            </a>
-                        </p>
-                    {/if}
-                    {if $restaurant->instagram}
-                        <p class="card-text">
-                            <i class="fa-brands fa-instagram me-2"></i>
-                            <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" target="_blank">
-                                {$restaurant->instagram}
-                            </a>
-                        </p>
-                    {/if}
-                    {if $restaurant->tripadvisor}
-                        <p class="card-text">
-                             <i class="fa-solid fa-shield-cat me-2"></i>
-                            <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" target="_blank">
-                                {$restaurant->tripadvisor}
-                            </a>
-                        </p>
-                    {/if}
-                </div>
-            </div>
-        </div>
-
     </div>
-
-
-    <div>
-        {if $user->isAllowed($presenter->name, 'edit')}
-            <a n:href="Info:edit $restaurant->id" type="button" class="btn btn-primary mb-2 mt-3" title="Upravit údaje">
-                <i class="fa-solid fa-pen-to-square"></i>
-                Upravit údaje
-            </a>
-        {/if}
-    </div>
-    
 </div>
+
+
 

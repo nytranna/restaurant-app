@@ -2,7 +2,6 @@
 
 namespace App\UI\Admin\Info;
 
-use App\Model\PostFacade;
 use Nette;
 use App\Forms\InfoFormControl;
 use App\Forms\InfoFormFactory;
@@ -14,7 +13,8 @@ final class InfoPresenter extends Nette\Application\UI\Presenter {
     public function __construct(
             private InfoFormFactory $infoFormFactory,
             private \App\Model\Facade\RestaurantFacade $restaurantFacade,
-            private \App\Model\Facade\WebSectionsFacade $webSectionsFacade
+            private \App\Model\Facade\WebSectionsFacade $webSectionsFacade,
+            private \App\Model\Facade\OpeningHoursFacade $openinghoursFacade
     ) {
         
     }
@@ -26,14 +26,15 @@ final class InfoPresenter extends Nette\Application\UI\Presenter {
         $webSections = $this->webSectionsFacade->getAll();
         $this->template->webSections = $webSections;
         
+        $openingHours = $this->openinghoursFacade->getAll();
+        $this->template->openingHours = $openingHours;
+        
     }
 
     public function renderEdit($id = null): void {
 
         $restaurant = $this->restaurantFacade->getOne(['id' => $id]);
         
-//        dd($restaurant);
-
         if (!$restaurant) {
             $this->error('Info o restauraci nenalezeny.');
         }
