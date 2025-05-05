@@ -7,7 +7,6 @@ use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
-use Nette\Database\Explorer;
 use Nette\Security\User;
 
 class ReservationFormControl extends Control {
@@ -47,8 +46,6 @@ class ReservationFormControl extends Control {
 
         $form->addRadioList('status', 'Status:', $status);
 
-        //$form->onValidate[] = [$this, 'validated'];
-
         $form->addSubmit('send', 'Uložit');
 
         $form->onSuccess[] = $this->submitted(...);
@@ -57,8 +54,6 @@ class ReservationFormControl extends Control {
     }
 
     public function setDefaults($data) {
-
-
 
         $data = ['id' => $data->id,
             'customer_name' => $data->customer_name,
@@ -80,7 +75,6 @@ class ReservationFormControl extends Control {
         if ($data->status == null) {
             $data->status = 'pending';
         }
-
 
         $reservationData = [
             'customer_name' => $data->customer_name,

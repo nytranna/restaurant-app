@@ -22,22 +22,22 @@ final class InfoPresenter extends Nette\Application\UI\Presenter {
     public function renderDefault(): void {
         $restaurant = $this->restaurantFacade->getOne();
         $this->template->restaurant = $restaurant;
-        
+
         $webSections = $this->webSectionsFacade->getAll();
         $this->template->webSections = $webSections;
-        
+
         $openingHours = $this->openinghoursFacade->getAll();
         $this->template->openingHours = $openingHours;
-        
-        $image = $restaurant->ref('image', 'id_image');
 
-        
+        $image = $restaurant->ref('image', 'id_image');
+        $imageEvents = $restaurant->ref('image', 'id_image_events');
+        $imageAboutUs = $restaurant->ref('image', 'id_image_about_us');
     }
 
     public function renderEdit($id = null): void {
 
         $restaurant = $this->restaurantFacade->getOne(['id' => $id]);
-        
+
         if (!$restaurant) {
             $this->error('Info o restauraci nenalezeny.');
         }

@@ -2,7 +2,6 @@
 
 namespace App\UI\Admin\Profile;
 
-use App\Model\PostFacade;
 use Nette;
 use App\Forms\ProfileFormControl;
 use App\Forms\ProfileFormFactory;
@@ -17,9 +16,9 @@ final class ProfilePresenter extends Nette\Application\UI\Presenter {
         
     }
 
-    public function renderDefault(): void {
-  
-    }
+//    public function renderDefault(): void {
+//  
+//    }
 
     protected function createComponentProfileForm(): ProfileFormControl {
            return $this->profileFormFactory->create();

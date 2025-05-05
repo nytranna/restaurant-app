@@ -60,6 +60,12 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
 
         $image = $this->imageFacade->getOne(['id' => $restaurant->id_image]);
         $this->template->image = $image->name ?? '';
+        
+        $imageEvents = $this->imageFacade->getOne(['id' => $restaurant->id_image_events]);
+        $this->template->imageEvents = $imageEvents->name ?? '';
+        
+        $imageAboutUs = $this->imageFacade->getOne(['id' => $restaurant->id_image_about_us]);
+        $this->template->imageAboutUs = $imageAboutUs->name ?? '';
     }
 
     protected function createComponentReservationForm(): CustomerReservationFormControl {

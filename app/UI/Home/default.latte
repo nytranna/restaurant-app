@@ -5,7 +5,13 @@
 <main id="main">
     <!-- ======= News Section ======= -->
     {if $webSections['news']->is_shown}
-        <section id="news" class="events">
+        <!--<section id="news" class="events">-->
+        <section id="news" class="events" style='
+                 background: url("{$basePath}/images/{$imageEvents}") top center no-repeat;
+                 background-size: cover;
+                 height: 100%;
+                 width: 100%;
+                 '>
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
                     <p>Aktuality</p>
@@ -38,8 +44,15 @@
     <!-- End Events Section -->
 
     <!-- ======= About Section ======= -->
-    {if $webSections['about']->is_shown}
-        <section id="about" class="about">
+    {if $webSections['about']->is_shown && isset($restaurant->about_us)}
+        <!--<section id="about" class="about">-->
+        <section id="about" class="about" style='
+                 background: url("{$basePath}/images/{$imageAboutUs}") top center no-repeat;
+                 background-size: cover;
+                 height: 100%;
+                 width: 100%;
+                 '>
+
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
                     <p>O nás</p>
@@ -82,7 +95,7 @@
                                 {foreach $menuItems as $mI}
                                     {if $mI->id_menu_category === $mainCategory->id}
                                         <div class="col-lg-6 menu-item">
-                                            {if $restaurant->menu_with_images}
+                                            {if isset($restaurant->menu_with_images) && $restaurant->menu_with_images}
                                                 <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
                                             {/if}
                                             <div class="menu-content">
@@ -218,12 +231,12 @@
                                 {foreach $menuItems as $mI}
                                     {if $mI->id_menu_category === $mainCategory->id}
                                         <div class="col-lg-6 menu-item">
-                                            {if $restaurant->menu_with_images}
+                                            {if isset($restaurant->menu_with_images) && $restaurant->menu_with_images}
                                                 <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
                                             {/if}
                                             <div class="menu-content">
                                                 <div>
-                                                    <a href="#">{$mI->name}</a>
+                                                    <a>{$mI->name}</a>
                                                     <div class="menu-ingredients">
                                                         {$mI->description}
                                                     </div>
@@ -252,13 +265,13 @@
                                             {foreach $menuItems as $mI}
                                                 {if $mI->id_menu_category === $subCategory->id}
                                                     <div class="col-lg-6 menu-item">
-                                                        {if $restaurant->menu_with_images}
+                                                        {if isset($restaurant->menu_with_images) && $restaurant->menu_with_images}
                                                             <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
                                                         {/if}
 
                                                         <div class="menu-content">
                                                             <div>
-                                                                <a href="#">{$mI->name}</a>
+                                                                <a>{$mI->name}</a>
                                                                 <div class="menu-ingredients">
                                                                     {$mI->description}
                                                                 </div>
@@ -312,7 +325,7 @@
                                 {foreach $menuItems as $mI}
                                     {if $mI->id_menu_category === $mainCategory->id}
                                         <div class="col-lg-6 menu-item">
-                                            {if $restaurant->menu_with_images}
+                                            {if isset($restaurant->menu_with_images) && $restaurant->menu_with_images}
                                                 <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
                                             {/if}
                                             <div class="menu-content">
@@ -346,7 +359,7 @@
                                             {foreach $menuItems as $mI}
                                                 {if $mI->id_menu_category === $subCategory->id}
                                                     <div class="col-lg-6 menu-item">
-                                                        {if $restaurant->menu_with_images}
+                                                        {if isset($restaurant->menu_with_images) && $restaurant->menu_with_images}
                                                             <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
                                                         {/if}
 
@@ -484,9 +497,11 @@
                     <p>Kontakt</p>
                 </div>
             </div>
-            <div data-aos="fade-up">
-                <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps?q={$restaurant->address}&output=embed" frameborder="0" allowfullscreen></iframe>
-            </div>
+            {if isset($restaurant->address)}
+                <div data-aos="fade-up">
+                    <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps?q={$restaurant->address}&output=embed" frameborder="0" allowfullscreen></iframe>
+                </div>
+            {/if}
             <div class="container" data-aos="fade-up">
                 <div class="row mt-5">
                     <div class="col-lg-4">
@@ -511,32 +526,40 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="info">
-                            <div class="phone">
-                                <i class="bi bi-phone"></i>
-                                <h4>Telefon:</h4>
-                                <p>{$restaurant->phone}</p>
-                            </div>
-                            <div class="mt-3">
-                                <i class="bi bi-envelope"></i>
-                                <h4>Email:</h4>
-                                <p>{$restaurant->email}</p>
-                            </div>
-                            <div class="address mt-3">
-                                <i class="bi bi-geo-alt"></i>
-                                <h4>IČO:</h4>
-                                <p>{$restaurant->ico}</p>
-                            </div>
+                            {if isset($restaurant->phone)}
+                                <div class="phone">
+                                    <i class="bi bi-phone"></i>
+                                    <h4>Telefon:</h4>
+                                    <p>{$restaurant->phone}</p>
+                                </div>
+                            {/if}
+                            {if isset($restaurant->email)}
+                                <div class="mt-3">
+                                    <i class="bi bi-envelope"></i>
+                                    <h4>Email:</h4>
+                                    <p>{$restaurant->email}</p>
+                                </div>
+                            {/if}
+                            {if isset($restaurant->ico)}
+                                <div class="address mt-3">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <h4>IČO:</h4>
+                                    <p>{$restaurant->ico}</p>
+                                </div>
+                            {/if}
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="info">
-                            <div class="phone">
-                                <i class="bi bi-geo-alt"></i>
-                                <h4>Adresa:</h4>
-                                <p>{$restaurant->address}</p>
-                            </div>
+                            {if isset($restaurant->address)}
+                                <div class="phone">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <h4>Adresa:</h4>
+                                    <p>{$restaurant->address}</p>
+                                </div>
+                            {/if}
                             <div class="social-links d-flex align-items-center gap-2 mt-6">                           
-                                {if $restaurant->facebook}
+                                {if isset($restaurant->facebook) && $restaurant->facebook}
                                     <div class="facebook">
 
                                         <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" class="facebook">
@@ -545,14 +568,14 @@
 
                                     </div>
                                 {/if}
-                                {if $restaurant->instagram}
+                                {if isset($restaurant->instagram) && $restaurant->instagram}
                                     <div class="instagram">                                                                    
                                         <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" class="instagram">
                                             <i class="bx bxl-instagram me-2"></i>
                                         </a>
                                     </div>
                                 {/if}
-                                {if $restaurant->tripadvisor}
+                                {if isset($restaurant->tripadvisor) && $restaurant->tripadvisor}
                                     <div class="tripadvisor">
                                         <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" class="facebook">
                                             <!--<i class="fa-solid fa-shield-cat"></i>-->

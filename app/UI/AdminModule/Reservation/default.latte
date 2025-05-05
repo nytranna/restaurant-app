@@ -50,8 +50,12 @@
                                 <td>{$r->reservation_date|date:'d.m.Y'}</td>
                                 <td>{$r->reservation_date|date:'H:i'}</td>
                                 <td>{$r->guest_count}</td>
-                                <td>{$r->created_at|date:'d.m.Y H:i'}</td> <!--!!!!!chyba v databázi-->
-                                <td>{$r->updated_at|date:'d.m.Y H:i'}</td> <!--!!!!chyba v databázi-->
+                                <td>{$r->created_at|date:'d.m.Y H:i'}</td>
+                                <td>{$r->updated_at|date:'d.m.Y H:i'} 
+                                    {if $r->last_user}
+                                        ({$r->last_user})
+                                    {/if}
+                                </td>
                                 {if $r->status == 'pending'}
                                     <td>
                                         <span class='badge text-bg-warning'>Nevyřízeno</span>

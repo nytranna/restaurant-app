@@ -7,6 +7,9 @@ use App\Forms\MenuCategoryFormControl;
 use App\Forms\MenuCategoryFormFactory;
 use App\Forms\MenuItemFormControl;
 use App\Forms\MenuItemFormFactory;
+use Nette\Application\Responses\JsonResponse;
+use Nette\Http\Request;
+use Nette\Database\Explorer;
 
 final class MenuPresenter extends Nette\Application\UI\Presenter {
 
@@ -17,7 +20,9 @@ final class MenuPresenter extends Nette\Application\UI\Presenter {
             private MenuItemFormFactory $menuItemFormFactory,
             private \App\Model\Facade\MenuCategoryFacade $menuCategoryFacade,
             private \App\Model\Facade\MenuItemFacade $menuItemFacade,
-            private \App\Model\Facade\MenuItemVariantFacade $menuItemVariantFacade
+            private \App\Model\Facade\MenuItemVariantFacade $menuItemVariantFacade,
+            private Explorer $database,
+            private Request $httpRequest
     ) {
         
     }
@@ -41,8 +46,6 @@ final class MenuPresenter extends Nette\Application\UI\Presenter {
 
         $menuItemVariants = $this->menuItemVariantFacade->getAll();
         $this->template->menuItemVariants = $menuItemVariants;
-        
-                
     }
 
     public function renderListCategory(string $menu_type) {
@@ -116,7 +119,28 @@ final class MenuPresenter extends Nette\Application\UI\Presenter {
 
         $this->redirect('Menu:listItem', ['menu_type' => $menuType]);
     }
-    
+
+//    public function handleUpdateOrder(): void {
+//        
+////        dd('handleupdateorder');
+//        var_dump('handleupdateorder');
+//        
+//        $data = json_decode(file_get_contents('php://input'), true);
+//        dd($data);
+//        if (!isset($data['order']) || !is_array($data['order'])) {
+//            $this->error('Neplatná data');
+//        }
+//
+//        foreach ($data['order'] as $item) {
+//            $this->menuCategoryRepository->updateOrder($item['id'], $item['position']);
+//        }
+//
+//        $this->sendJson(['status' => 'ok']);
+//    }
+//    public function updateOrder(int $id, int $position): void {
+//        $this->menuCategoryFacade->getOne(['id' => $id])->update(['order' => $postition]);
+//    }
+
     protected function createComponentMenuCategoryForm(): MenuCategoryFormControl {
         return $this->menuCategoryFormFactory->create();
     }

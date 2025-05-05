@@ -5,6 +5,8 @@ namespace App\Forms;
 use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
+use Nette\Mail\Message;
+use Nette\Mail\SendmailMailer;
 use Nette\Database\Explorer;
 
 class CustomerReservationFormControl extends Control {
@@ -87,16 +89,31 @@ class CustomerReservationFormControl extends Control {
             'customer_phone' => $data->phone,
             'reservation_date' => $reservationDateTime,
             'guest_count' => $data->people,
-            'note' => $data->message
+            'note' => $data->message,
+            'is_new' => 1
         ];
 
         $this->reservationFacade->insert($reservationData);
 
         if (!$form->hasErrors()) {
+                        
+//            $this->sendEmail($data->email); //odkomentovat
 
-            $form->getPresenter()->flashMessage('Rezervace byla úspěšně odeslána', 'success');
+            $form->getPresenter()->flashMessage('Žádost o rezervaci byla úspěšně odeslána.', 'success');
             $form->getPresenter()->redirect('this');
         }
+    }
+
+    public function sendEmail(string $email) {
+
+        $mail = new Message();
+        $mail->setFrom('Anna <anna.nytrova@email.cz>')
+                ->addTo($email)
+                ->setSubject('Rezervace')
+                ->setHtmlBody("<h1>Rezervace</h1><p>Zaznamenali jsme Vaši žádost o rezervaci. Vyčkejte prosím na email s potvrzením.</p>");
+
+        $mailer = new SendmailMailer();
+        $mailer->send($mail);
     }
 
     public function render() {

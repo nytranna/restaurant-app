@@ -8,28 +8,8 @@
                 Upravit menu
             </h3>
         </div>
-
         <div class="card card-outline m-4">
             <div class="m-4">
-                {*foreach $menuCategories as $category}
-                    <h3>{$category->name}</h3>
-
-                    {foreach $menuItems as $item}
-                        {if $item->id_menu_category == $category->id}
-                            <div class="menu-item">
-                                <strong>{$item->name}</strong> - {$item->price} Kč
-                                <p>{$item->description}</p>
-
-                                {foreach $menuItemVariants as $variant}
-                                    {if $variant->id_menu_item == $item->id}
-                                        <p>Varianta: {$variant->size} / {$variant->price} Kč</p>
-                                    {/if}
-                                {/foreach}
-                            </div>
-                        {/if}
-                    {/foreach}
-                {/foreach*}
-
                 {control menuCategoryForm}
             </div>
         </div>

@@ -2,7 +2,6 @@
 
 namespace App\UI\Admin\Reservation;
 
-//use App\Model\PostFacade;
 use Nette;
 use Nette\Application\Attributes\Requires;
 use App\Forms\ReservationFormControl;
@@ -25,7 +24,7 @@ final class ReservationPresenter extends Nette\Application\UI\Presenter {
     }
 
     public function renderEdit($id = null): void {
-
+        
         if ($id) {
             $reservation = $this->reservationFacade->getOne(['id' => $id]);
 

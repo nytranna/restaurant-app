@@ -1,16 +1,24 @@
+<!--ADMIN MODUL - HOME-->
+
 {block content}
 
 <div class="app-content-header">
     <div class="container-fluid">
+        <div n:snippet="newReservationsAlerts">
+            {foreach $newReservations as $r}
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    Byla vytvořena nová rezervace. <a n:href="Reservation:edit, id => $r->id">Otevřít rezervaci.</a>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {/foreach}
+        </div>
         <div class="row">
             <div n:block="title" class="col-sm-6"><h3 class="mb-0"><i class="nav-icon bi bi-speedometer me-2"></i>Úvod</h3></div>
         </div>
     </div>
 </div>
-
 <div class="container mt-5">
     <div class="row g-4">
-
         <div class="col-12 col-md-6 col-lg-4">
             <a n:href="Info:default" class="text-decoration-none">
                 <div class="card shadow-sm h-100 card-hover transition">
@@ -20,42 +28,7 @@
                     </div>
                 </div>
             </a>
-        </div>
-{*
-        <div class="col-12 col-md-6 col-lg-4">
-            <a n:href="Menu:default menu_type=>'menu'" class="text-decoration-none">
-                <div class="card shadow-sm h-100 card-hover transition">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fa-solid fa-utensils fa-2x me-3"></i>
-                        <h5 class="card-title mb-0">Jídelní lístek</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4">
-            <a n:href="Menu:default menu_type=>'daily_menu'" class="text-decoration-none">
-                <div class="card shadow-sm h-100 card-hover transition">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fa-solid fa-calendar-day fa-2x me-3"></i>
-                        <h5 class="card-title mb-0">Denní menu</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-4">
-            <a n:href="Menu:default menu_type=>'drinks'" class="text-decoration-none">
-                <div class="card shadow-sm h-100 card-hover transition">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fa-solid fa-glass-martini fa-2x me-3"></i>
-                        <h5 class="card-title mb-0">Nápoje</h5>
-                    </div>
-                </div>
-            </a>
-        </div>
-*}
-        
+        </div>        
         <div class="col-12 col-md-6 col-lg-4">
             <div class="card shadow-sm h-100 card-hover transition">
                 <div class="card-body">
@@ -83,11 +56,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
         <div class="col-12 col-md-6 col-lg-4">
             <a n:href="Users:default" class="text-decoration-none">
                 <div class="card shadow-sm h-100 card-hover transition">
@@ -98,18 +66,16 @@
                 </div>
             </a>
         </div>
-        
-          <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4">
             <a n:href="News:default" class="text-decoration-none">
                 <div class="card shadow-sm h-100 card-hover transition">
                     <div class="card-body d-flex align-items-center">
-                         <i class="fa-solid fa-newspaper fa-2x me-3"></i>
+                        <i class="fa-solid fa-newspaper fa-2x me-3"></i>
                         <h5 class="card-title mb-0">Aktuality</h5>
                     </div>
                 </div>
             </a>
         </div>
-
         <div class="col-12 col-md-6 col-lg-4">
             <a n:href="Reservation:default" class="text-decoration-none">
                 <div class="card shadow-sm h-100 card-hover transition">
@@ -120,7 +86,6 @@
                 </div>
             </a>
         </div>
-        
         <div class="col-12 col-md-6 col-lg-4">
             <a n:href="Image:default" class="text-decoration-none">
                 <div class="card shadow-sm h-100 card-hover transition">
@@ -131,7 +96,5 @@
                 </div>
             </a>
         </div>
-
     </div>
 </div>
-

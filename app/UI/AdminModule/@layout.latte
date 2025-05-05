@@ -65,6 +65,23 @@
 
 
 
+        {*
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <!-- DataTables CSS + JS -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+        <!-- jQuery UI (jen pokud používáš sortable) -->
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+        *}
+
+
+
+
+
 
     </head>
     <!--end::Head-->
@@ -96,7 +113,7 @@
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                                 <!--begin::Menu Footer-->
                                 <li class="user-footer">
-                                    <a n:href="Profile:default" class="btn btn-default btn-flat">Profil</a>
+                                    <a n:href="Profile:changePassword" class="btn btn-default btn-flat">Změnit heslo</a>
                                     <a n:href="Sign:out" class="btn btn-default btn-flat float-end">Odhlásit se</a>
                                 </li>
                                 <!--end::Menu Footer-->
@@ -135,14 +152,14 @@
                             >
                             <li class="nav-item">
                                 <a n:href="Dashboard:default" class="nav-link{if $presenter->isLinkCurrent('Dashboard:default')} active{/if}">
-                                    <i class="nav-icon bi bi-speedometer me-2"></i>
-                                    <p>Dashboard</p>
+                                    <i class="nav-icon bi bi-speedometer me-1"></i>
+                                    <p>Úvod</p>
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a n:href="Info:default" class="nav-link{if $presenter->isLinkCurrent('Info:default')} active{/if}">
-                                    <i class="fa-solid fa-info ms-2 me-3"></i>
+                                    <i class="fa-solid fa-info-circle ms-1 me-2"></i>
                                     <p>
                                         Info restaurace
                                     </p>
@@ -267,10 +284,13 @@
         <!--end::App Wrapper-->
         <!--begin::Script-->
         <!--begin::Third Party Plugin(OverlayScrollbars)-->
+        
+        {*<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>*}
         <script src="https://kit.fontawesome.com/ea70a934ec.js" crossorigin="anonymous"></script>
         <script src="{$basePath}/node_modules/naja/dist/Naja.min.js"></script>
         <script src="{$basePath}/node_modules/live-form-validation/live-form-validation.js"></script>
         <script src="{$basePath}/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
         <script src="{$basePath}/node_modules/datatables.net/js/dataTables.min.js"></script>        
         <script
             src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
@@ -293,7 +313,8 @@
         <script src="{$basePath}/node_modules/admin-lte/dist/js/adminlte.js"></script>
         <script src="{$basePath}/node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 
-        <script src="{$basePath}/js/javascript.js"></script>
+
+        
 
 
 
@@ -331,7 +352,7 @@
             crossorigin="anonymous"
         ></script>
         <!-- jsvectormap -->
-
+        <script src="{$basePath}/js/javascript.js"></script>
         <!--end::Script-->
     </body>
     <!--end::Body-->

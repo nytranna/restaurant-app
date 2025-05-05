@@ -26,9 +26,13 @@ class UserFormControl extends Control {
                 ->setRequired('Prosím vyplňte email.')
                 ->addRule($form::Email, 'Zadejte platný e-mail.');
 
+//        $form->addPassword('password', 'Výchozí heslo uživatele:')
+//                ->setRequired('Prosím vytvořte výchozí heslo uživatele.');
+
         $role = ['admin' => 'admin', 'staff' => 'personál'];
 
-        $form->addRadioList('role', 'Role:', $role);
+        $form->addRadioList('role', 'Role:', $role)
+                ->setRequired('Prosím vyberte roli uživatele.');
 
         $form->addHidden('id');
 
@@ -46,7 +50,8 @@ class UserFormControl extends Control {
         $data = ['id' => $data->id,
             'name' => $data->name,
             'email' => $data->email,
-            'role' => $data->role];
+            'role' => $data->role
+        ];
 
         $this['form']->setDefaults($data);
     }
@@ -57,7 +62,6 @@ class UserFormControl extends Control {
 
     public function submitted(Form $form, \stdClass $data): void {
 
-
         $userData = [
             'name' => $data->name,
             'email' => $data->email,
@@ -65,20 +69,14 @@ class UserFormControl extends Control {
         ];
 
         try {
-
             if ($data->id) {
-
                 $this->userFacade->getOne(['id' => $data->id])->update($userData);
             } else {
-
-
                 $this->userFacade->insert($userData);
             }
         } catch (Nette\Database\UniqueConstraintViolationException $e) {
             $form->addError('Tento e-mail už je zaregistrován.');
         }
-
-
 
         if (!$form->hasErrors()) {
 
@@ -86,6 +84,10 @@ class UserFormControl extends Control {
 
             $form->getPresenter()->flashMessage($message, 'success');
             $form->getPresenter()->redirect('Users:default');
+        } else {
+            foreach ($form->getOwnErrors() as $e) {
+                $form->getPresenter()->flashMessage($e, 'danger');
+            }
         }
     }
 

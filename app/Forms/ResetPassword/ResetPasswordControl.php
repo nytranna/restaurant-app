@@ -35,8 +35,6 @@ class ResetPasswordFormControl extends Control {
         $form->addSubmit('send', 'Obnovit heslo.');
 
         $form->onSuccess[] = [$this, 'submitted'];
-        
-        
 
         return $form;
     }
@@ -44,29 +42,22 @@ class ResetPasswordFormControl extends Control {
     public function setDefaults($data) {
 
         $data = ['hash' => $data->hash];
-            
 
         $this['form']->setDefaults($data);
     }
 
     public function submitted(Form $form, \stdClass $data): void {
 
-        //dd($data);    
 
-        $userId = $this->passwordReset->getOne(['hash' => $data->hash])->user_id;
-
+        $userId = $this->passwordReset->getOne(['hash' => $data->hash])->id_user;
 
         $password = $data->password;
 
         $hashPassword = $this->passwords->hash($password);
-        
-
-
 
         $this->userFacade->getOne(['id' => $userId])->update(['password' => $hashPassword]);
 
         $form->getPresenter()->flashMessage('Změna hesla proběhla úspěšně', 'success');
-
         $this->presenter->redirect('Sign:in');
     }
 

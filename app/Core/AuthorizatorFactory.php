@@ -22,6 +22,8 @@ class AuthorizatorFactory {
         $acl->addResource('Admin:Info');
         $acl->addResource('Admin:Reservation');
         $acl->addResource('Admin:Menu');
+        $acl->addResource('Admin:MenuCategory');
+        $acl->addResource('Admin:MenuItem');
         $acl->addResource('Admin:Image');
 
         $acl->allow('admin');

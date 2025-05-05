@@ -52,6 +52,12 @@ class InfoFormControl extends Control {
         $form->addSelect('id_image', 'Obrázek v pozadí:', $images)
                 ->setPrompt('--- bez obrázku ---');
 
+        $form->addSelect('id_image_events', 'Obrázek v Aktualitách:', $images)
+                ->setPrompt('--- bez obrázku ---');
+
+        $form->addSelect('id_image_about_us', 'Obrázek v O nás:', $images)
+                ->setPrompt('--- bez obrázku ---');
+
         foreach ($this->webSectionFacade->getAll() as $w) {
             if ($w->href != 'hero') {
                 $webSections[$w->id] = $w->name;
@@ -113,9 +119,11 @@ class InfoFormControl extends Control {
             'sat' => $sat,
             'sun' => $sun,
         ];
-        
+
         $id_image = $this->restaurantFacade->getOne(['id' => $data->id])->id_image;
-        
+        $id_image_events = $this->restaurantFacade->getOne(['id' => $data->id])->id_image_events;
+        $id_image_about_us = $this->restaurantFacade->getOne(['id' => $data->id])->id_image_about_us;
+
         $data = ['id' => $data->id,
             'name' => $data->name,
             'sentence' => $data->sentence,
@@ -127,7 +135,9 @@ class InfoFormControl extends Control {
             'facebook' => $data->facebook,
             'instagram' => $data->instagram,
             'tripadvisor' => $data->tripadvisor,
-            'id_image' => $id_image
+            'id_image' => $id_image,
+            'id_image_events' => $id_image_events,
+            'id_image_about_us' => $id_image_about_us
         ];
 
         $checkedWebSections = [];
@@ -148,8 +158,6 @@ class InfoFormControl extends Control {
                 $data["{$key}_closed"] = $d->is_closed;
             }
         }
-//        $data['id_image'] = $data->id_image;
-
 
         $this['form']->setDefaults($data);
     }
@@ -168,7 +176,9 @@ class InfoFormControl extends Control {
             'facebook' => $data->facebook,
             'instagram' => $data->instagram,
             'tripadvisor' => $data->tripadvisor,
-            'id_image' => $data->id_image
+            'id_image' => $data->id_image,            
+            'id_image_events' => $data->id_image_events,
+            'id_image_about_us' => $data->id_image_about_us
         ];
 
         foreach ($this->webSectionFacade->getAll() as $s) {

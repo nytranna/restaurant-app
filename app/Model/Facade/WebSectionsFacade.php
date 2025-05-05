@@ -13,7 +13,7 @@ final class WebSectionsFacade {
     }
 
     public function getSections() {
-        $sections = $this->getAll();
+        $sections = $this->getAll([], 'order ASC');
 
         $output = [];
 

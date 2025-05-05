@@ -8,6 +8,7 @@ use App\Forms\ResetFormControl;
 use App\Forms\ResetFormFactory;
 use App\Forms\ResetPasswordFormControl;
 use App\Forms\ResetPasswordFormFactory;
+use App\Model\Facade\UserFacade;
 use Nette;
 use Nette\Application\UI\Form;
 
@@ -19,7 +20,8 @@ final class SignPresenter extends Nette\Application\UI\Presenter {
             private SignInFormFactory $signInFormFactory,
             private ResetFormFactory $resetFormFactory,
             private ResetPasswordFormFactory $resetPasswordFormFactory,
-            private \App\Model\Facade\PasswordResetFacade $passwordReset
+            private \App\Model\Facade\PasswordResetFacade $passwordResetFacade,
+            private UserFacade $userFacade
     ) {
         
     }
@@ -32,12 +34,17 @@ final class SignPresenter extends Nette\Application\UI\Presenter {
 
     public function renderResetPassword($hash) {
 
-        $validHash = $this->passwordReset->getOne(['hash' => $hash]);
-
-        //d($hash);
+        $validHash = $this->passwordResetFacade->getOne(['hash' => $hash]);
 
         if (!$validHash) {
             $this->error('404');
+        }
+
+        $user = $this->userFacade->getOne(['id' => $validHash->id_user ?? null]);
+
+        if (!$user) {
+            $this->flashMessage('Uživatel pro tento odkaz neexistuje.', 'danger');
+            $this->redirect('Sign:in');
         }
 
         $this['resetPasswordForm']->setDefaults($validHash);

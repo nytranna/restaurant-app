@@ -1,31 +1,39 @@
 <?php
+
 namespace App\UI\Admin\Dashboard;
 
-use App\Model\PostFacade;
 use Nette;
 
-final class DashboardPresenter extends Nette\Application\UI\Presenter
-{
-        use \App\Core\PresenterTrait;
-        
-        
-        
+final class DashboardPresenter extends Nette\Application\UI\Presenter {
 
-	public function __construct(
-		private \App\Model\Facade\UserFacade $userFacade,
-	) {
-	}
+    use \App\Core\PresenterTrait;
 
-	public function renderDefault(): void
-	{
-            //\Tracy\Debugger::dump($this->user->identity->data['username']);
-            //dd($this->userFacade->getOne(['id' => 2]));
-            //$this->userFacade->insert(['name'=>'Test', 'email'=>'test@test.te', 'password'=>'heslo', 'role'=> 'owner' ]);
-            //$this->userFacade->getOne(['id'=>3])->delete();
-            //$this->userFacade->getOne(['id'=>2])->update(['name'=>'PéŤa']);
-            
-//            $this->flashMessage('Položka byla smazána.', 'success');
-//            $this->flashMessage('Položka byla smazána.', 'danger');
-	}
-	
+    public function __construct(
+            private \App\Model\Facade\UserFacade $userFacade,
+            private \App\Model\Facade\ReservationFacade $reservationFacade
+    ) {
+        
+    }
+
+//    public function handleRefreshAlerts(): void {
+//        $this->template->newReservations = $this->reservationFacade->getAll(['new' => 1]);
+//        if ($this->isAjax()) {
+//            $this->redrawControl('newReservationsAlerts');
+//        } else {
+//            $this->redirect('this');
+//        }
+//    }
+
+    public function renderDefault(): void {
+        //\Tracy\Debugger::dump($this->user->identity->data['username']);
+          
+        $newReservations = $this->reservationFacade->getAll(['is_new' => 1]);
+        $this->template->newReservations = $newReservations;
+        
+//        if (!empty($newReservations)) {
+//            $link = $this->link('Reservation:default');
+//            $this->flashMessage('Byla vytvořena nová rezervace. <a href="' . $link . '">Přejít do rezervací.</a>', 'info');
+//        }
+        
+    }
 }

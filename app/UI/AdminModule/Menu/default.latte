@@ -49,76 +49,45 @@
     </div>
 </div>
 
-
-
 <div class="container mt-4">
-
-    {foreach $menuCategories as $mC}
-        {if !$mC->id_menu_category}
+    {foreach $menuCategories as $mC}                        
+        {if !$mC->id_menu_category}            
+            <!--UPPER CATEGORIES-->
             <h2 class="menu-category">{$mC->name}</h2>
-         
-            {*var $hasSubcategories = false}
-            {foreach $menuCategories as $subC}
-                {if $subC->id_menu_category == $mC->id}
-                    {var $hasSubcategories = true}
-                {/if}
-            {/foreach*}
-            
-            {*if !$hasSubcategories*}
-            
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Název</th>
-                            <th>Popis</th>
-                            <th>Velikost</th>
-                            <th>Cena</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {foreach $menuItems as $mI}
-                            {if $mI->id_menu_category == $mC->id}
-                                <tr>
-                                    <td>{$mI->name}</td>
-                                    <td>{$mI->description}</td>
-                                    <td>
-                                        {var $found = false}
-                                        {foreach $menuItemVariants as $v}
-                                            {if $v->id_menu_item == $mI->id}
-                                                {$v->size}<br>
-                                                {var $found = true}
-                                            {/if}
-                                        {/foreach}
-
-                                        {if !$found}
-                                            -
-                                        {/if}
-                                    </td>
-                                    <td>
-                                        {var $found = false}
-                                        {foreach $menuItemVariants as $v}
-                                            
-                                            {if $v->id_menu_item == $mI->id}
-                                                {$v->price} Kč<br>
-                                                {var $found = true}
-                                            {/if}
-                                        {/foreach}
-
-                                        {if !$found}
-                                            -
-                                        {/if}
-                                    </td>
-                                </tr>
-                            {/if}
-                        {/foreach}
-                    </tbody>
-                </table>
-            {*/if*}
-
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Název</th>
+                        <th>Popis</th>
+                        <th>Velikost</th>
+                        <th>Cena</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {foreach $menuItems as $mI}
+                        {if $mI->id_menu_category == $mC->id}
+                            <tr>
+                                <td>{$mI->name}</td>
+                                <td>{$mI->description}</td>
+                                <td>                                    
+                                    {foreach $mI->related('menu_item_variant', 'id_menu_item') as $v}
+                                        {$v->size}<br>
+                                    {/foreach}
+                                </td>
+                                <td>                                    
+                                    {foreach $mI->related('menu_item_variant', 'id_menu_item') as $v}
+                                        {$v->price} Kč<br>
+                                    {/foreach}
+                                </td>
+                            </tr>
+                        {/if}
+                    {/foreach}
+                </tbody>
+            </table>
+            <!--SUB CATEGORIES-->
             {foreach $menuCategories as $subC}
                 {if $subC->id_menu_category == $mC->id}
                     <h3 class="sub-category">{$subC->name}</h3>
-
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -134,19 +103,14 @@
                                     <tr>
                                         <td>{$mI->name}</td>
                                         <td>{$mI->description}</td>
-                                        <td>
-                                            {foreach $menuItemVariants as $v}
-                                                {if $v->id_menu_item == $mI->id}
-                                                    {$v->size}<br>
-                                                {/if}
-                                                
-                                            {/foreach}                                            
+                                        <td>                                            
+                                            {foreach $mI->related('menu_item_variant', 'id_menu_item') as $v}
+                                                {$v->size}<br>
+                                            {/foreach}
                                         </td>
                                         <td>
-                                            {foreach $menuItemVariants as $v}
-                                                {if $v->id_menu_item == $mI->id}
-                                                    {$v->price} Kč<br>
-                                                {/if}
+                                            {foreach $mI->related('menu_item_variant', 'id_menu_item') as $v}
+                                                {$v->price} Kč<br>
                                             {/foreach}
                                         </td>
                                     </tr>
@@ -155,8 +119,7 @@
                         </tbody>
                     </table>
                 {/if}
-            {/foreach}
-        {/if}
+            {/foreach}            
+        {/if}                      
     {/foreach}
-
 </div>

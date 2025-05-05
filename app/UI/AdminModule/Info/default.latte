@@ -39,6 +39,18 @@
                                 <img src="{$basePath}/images/{$restaurant->ref('image', 'id_image')->name}" class="img-fluid mt-2" alt="">
                             {/if}
                         </p>
+                        <p class="card-text"><strong>Obrázek v Aktualitách: </strong>  
+                            {if isset($restaurant->id_image_events)}
+                                {$restaurant->ref('image', 'id_image_events')->name}<br>
+                                <img src="{$basePath}/images/{$restaurant->ref('image', 'id_image_events')->name}" class="img-fluid mt-2" alt="">
+                            {/if}
+                        </p>
+                        <p class="card-text"><strong>Obrázek v O nás: </strong>  
+                            {if isset($restaurant->id_image_about_us)}
+                                {$restaurant->ref('image', 'id_image_about_us')->name}<br>
+                                <img src="{$basePath}/images/{$restaurant->ref('image', 'id_image_about_us')->name}" class="img-fluid mt-2" alt="">
+                            {/if}
+                        </p>
                     </div>
                 </div>
             </div>

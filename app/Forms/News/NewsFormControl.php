@@ -22,7 +22,7 @@ class NewsFormControl extends Control {
         $form->addText('title', 'Nadpis:')
                 ->setRequired('Prosím vyplňte nadpis.');
 
-        $form->addText('text', 'Text:')
+        $form->addTextArea('text', 'Text:', null, 15)
                 ->setRequired('Prosím vyplňte text.');
 
         $is_shown = ['1' => 'ano', '0' => 'ne'];

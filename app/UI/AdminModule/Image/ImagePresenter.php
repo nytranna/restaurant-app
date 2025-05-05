@@ -2,7 +2,6 @@
 
 namespace App\UI\Admin\Image;
 
-use App\Model\PostFacade;
 use Nette;
 use App\Forms\ImageFormControl;
 use App\Forms\ImageFormFactory;
