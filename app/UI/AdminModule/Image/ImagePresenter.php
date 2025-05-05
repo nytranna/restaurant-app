@@ -54,8 +54,17 @@ final class ImagePresenter extends Nette\Application\UI\Presenter {
         $this->redirect('this');
     }
 
+    #[Requires(methods: 'POST', sameOrigin: true)]
+    public function actionDelete(int $id): void {
 
+        $path = '/var/www/restaurant-app/www/images/' . $this->imageFacade->getOne(['id' => $id])->name;
 
+        $this->imageFacade->getOne(['id' => $id])->delete();
+
+        unlink($path);
+
+        $this->redirect('Image:default');
+    }
 
     protected function createComponentImageForm(): ImageFormControl {
         return $this->imageFormFactory->create();

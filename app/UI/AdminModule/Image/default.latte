@@ -15,36 +15,23 @@
     </div>
 </div>
 
-{*
-<div>
-    {foreach $images as $i}
-        {$i->name}
-        <img src="{$basePath}/images/{$i->name}" class="img-fluid" alt="">
-    {/foreach}
-</div>
-*}
-
-
-
 <div class="app-content">
     <div class="container-fluid">
         <div class="row overflow-auto">
             {snippet news_table}
                 <table id="example" class="table table-striped table-bordered dataTable">
-
                     <thead>
                         <tr>
                             <th>Id</th>
                             <th>Náhled</th>
                             <th>Název</th>
                             <th>Zobrazen v galerii</th>
-                            {*
-                            <th>Pořadí</th>
-                            *}
+                                {*
+                                <th>Pořadí</th>
+                                *}
                             <th>Akce</th>
                         </tr>
                     </thead>
-
                     <tbody>                        
                         {foreach $images as $i}   
                             <tr>
@@ -63,29 +50,29 @@
                                 {*
                                 <td>
                                     {if $i->order}
-                                        {$i->order}
+                                {$i->order}
 
                                 *}
-                                        {*
-                                        <div class="btn-group ms-3" role="group" aria-label="Basic mixed styles example">
-                                            <a n:href="order! id => $i->id" class="btn btn-outline-primary btn-sm">
-                                                <i class="fa-solid fa-minus"></i>
-                                            </a>
-                                            <a n:href="order! id => $i->id" class="btn btn-outline-primary btn-sm">
-                                                <i class="fa-solid fa-plus"></i>
-                                            </a>
-                                            
-                                            <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-minus"></i></button>
-                                            <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-plus"></i></button>                                         
-                                        </div>
-                                        *}
+                                {*
+                                <div class="btn-group ms-3" role="group" aria-label="Basic mixed styles example">
+                                    <a n:href="order! id => $i->id" class="btn btn-outline-primary btn-sm">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </a>
+                                    <a n:href="order! id => $i->id" class="btn btn-outline-primary btn-sm">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </a>
+                                    
+                                    <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-minus"></i></button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-plus"></i></button>                                         
+                                </div>
+                                *}
                                 {*
                                     {else}
                                         <i class="fa-solid fa-xmark text-danger"></i>
                                     {/if}
                                 </td>
                                 *}
-                                
+
 
 
                                 <td>
@@ -98,22 +85,13 @@
                                             Zobrazit v galerie
                                         </a>
                                     {/if}
-                                    {*
-                                    <a n:href="Image:edit $i->id" type="button" class="btn btn-outline-secondary mb-2 btn-sm" title="Upravit">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    *}
-
-                                    {*
-                                    <button class="btn btn-outline-danger mb-2 btn-sm" form="postForm" formaction="{link delete $n->id}" title="Smazat">
+                                    <button class="btn btn-outline-danger btn-sm" onclick="return confirm('Opravdu chcete obrázek smazat?')" form="postForm" formaction="{link delete $i->id}" title="Smazat">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
-                                    *}
                                 </td>
                             </tr>
                         {/foreach}
                     </tbody>
-
                 </table>
             {/snippet}        
         </div>
