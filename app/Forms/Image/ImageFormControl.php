@@ -6,6 +6,10 @@ use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
+use Nette\Utils\Image;
+use Nette\Utils\ImageColor;
+use Nette\Utils\ImageType;
+use Nette\Forms\Rules;
 
 class ImageFormControl extends Control {
 
@@ -17,15 +21,22 @@ class ImageFormControl extends Control {
     }
 
     public function createComponentForm(): Form {
+
+
         $form = $this->baseFormFactory->create();
 
         $form->addHidden('id');
+        $form->addHidden('image_name');
 
-//        $form->addText('name', 'Název restaurace:');
-//
-//        $form->addTextArea('about_us', 'O nás:', null, 5);
+        $form->addUpload('image', 'Obrázek:')
+                ->addRule(Form::IMAGE, 'Musí být obrázek (JPEG, PNG, GIF).')
+                ->setRequired('Nahrajte obrázek.');
 
-        //$form->onValidate[] = [$this, 'validated'];
+        $is_gallery = ['1' => 'ano', '0' => 'ne'];
+
+        $form->addRadioList('is_gallery', 'Zobrazit v galerii:', $is_gallery);
+
+//        $form->addInteger('order', 'Pořadí obrázku v galerii: ');
 
         $form->addSubmit('send', 'Uložit');
 
@@ -34,28 +45,56 @@ class ImageFormControl extends Control {
         return $form;
     }
 
-    public function setDefaults($data) {
-
+//    public function setDefaults($data) {
+//
 //        $data = ['id' => $data->id,
-//            'name' => $data->name,
-//            'sentence' => $data->sentence
+//            'image_name' => $data->name,
+//            'is_gallery' => $data->is_gallery,
+//            'order' => $data->order
 //        ];
 //
 //        $this['form']->setDefaults($data);
-    }
+//    }
 
     public function submitted(Form $form, \stdClass $data): void {
 
-//
-//        $imageData = [
-//            'name' => $data->name,
-//            'sentence' => $data->sentence
-//        ];
-//
-//        $this->restaurantFacade->getOne(['id' => $data->id])->update($imageData);
-//
-//        $form->getPresenter()->flashMessage('Změna údajů proběhla úspěšně.', 'success');
-//        $form->getPresenter()->redirect('Info:default');
+        $image = $data->image;
+
+        $imageName = $image->name;
+
+        $imageData = [
+            'name' => $imageName,
+            'is_gallery' => $data->is_gallery
+        ];
+
+        if ($data->id) {
+
+            $this->imageFacade->getOne(['id' => $data->id])->update($imageData);
+        } else {
+
+            if ($image->isOk()) {
+                $path = __DIR__ . '/../../../www/images';
+
+                $this->imageFacade->insert($imageData);
+
+//            $image->move($path . '/1/' . $imageName);
+                $image->move($path . '/' . $imageName);
+
+                $form->getPresenter()->flashMessage('Obrázek ' . $imageName . 'byl úspěšně nahrán.', 'success');
+                $form->getPresenter()->redirect('Image:default');
+            } else {
+
+                $form->getPresenter()->flashMessage('Chyba při nahrávání souboru', 'danger');
+            }
+        }
+
+        if (!$form->hasErrors()) {
+
+            $message = $data->id ? 'Změna obrázku proběhla úspěšně' : 'Vytvoření nového obrázku proběhlo úspěšně.';
+
+            $form->getPresenter()->flashMessage($message, 'success');
+            $form->getPresenter()->redirect('Image:default');
+        }
     }
 
     public function render() {

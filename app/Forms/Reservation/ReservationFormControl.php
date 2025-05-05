@@ -5,13 +5,18 @@ namespace App\Forms;
 use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
+use Nette\Mail\Message;
+use Nette\Mail\SendmailMailer;
 use Nette\Database\Explorer;
+use Nette\Security\User;
 
 class ReservationFormControl extends Control {
 
     public function __construct(
             private BaseFormFactory $baseFormFactory,
-            private \App\Model\Facade\ReservationFacade $reservationFacade
+            private \App\Model\Facade\ReservationFacade $reservationFacade,
+            private \App\Model\Facade\UserFacade $userFacade,
+            private User $user
     ) {
         
     }
@@ -52,8 +57,8 @@ class ReservationFormControl extends Control {
     }
 
     public function setDefaults($data) {
-        
-        
+
+
 
         $data = ['id' => $data->id,
             'customer_name' => $data->customer_name,
@@ -68,22 +73,35 @@ class ReservationFormControl extends Control {
     }
 
     public function submitted(Form $form, \stdClass $data): void {
-        
-        if($data->status == null){
+
+        $loggedInUserId = $this->user->getId();
+        $loggedInUserName = $this->userFacade->getOne(['id' => $loggedInUserId])->name;
+
+        if ($data->status == null) {
             $data->status = 'pending';
         }
-             
+
+
         $reservationData = [
             'customer_name' => $data->customer_name,
             'customer_email' => $data->customer_email,
             'customer_phone' => $data->customer_phone,
             'reservation_date' => $data->reservation_date,
             'guest_count' => $data->guest_count,
-            'status' => $data->status
+            'status' => $data->status,
+            'is_new' => 0,
+            'email_send' => 1,
+            'last_user' => $loggedInUserName            
         ];
+
+        $reservation = $this->reservationFacade->getOne(['id' => $data->id]);
 
         if ($data->id) {
             $this->reservationFacade->getOne(['id' => $data->id])->update($reservationData);
+
+            if ($data->status == 'confirmed' && !$reservation->email_send) {
+//                $this->sendEmail($data->customer_email); //odkomentovat!!!             
+            }
         } else {
             $this->reservationFacade->insert($reservationData);
         }
@@ -95,6 +113,18 @@ class ReservationFormControl extends Control {
             $form->getPresenter()->flashMessage($message, 'success');
             $form->getPresenter()->redirect('Reservation:default');
         }
+    }
+
+    public function sendEmail(string $email) {
+
+        $mail = new Message();
+        $mail->setFrom('Anna <anna.nytrova@email.cz>')
+                ->addTo($email)
+                ->setSubject('Potvrzení rezervace')
+                ->setHtmlBody("<h1>Potvrzení rezervace</h1><p>Potvrzujeme Vaší rezervaci. Těšíme se na Vás.</p>");
+
+        $mailer = new SendmailMailer();
+        $mailer->send($mail);
     }
 
     public function render() {

@@ -1,27 +1,23 @@
+<!--PUBLIC MODUL-->
+
 {block content}
 
-
 <main id="main">
-
     <!-- ======= News Section ======= -->
     {if $webSections['news']->is_shown}
         <section id="news" class="events">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
                     <p>Aktuality</p>
                 </div>
-
                 <div class="events-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
                     <div class="swiper-wrapper">
-
                         {foreach $news as $n}
                             {if $n->is_shown}
                                 <div class="swiper-slide">
                                     <div class="row event-item">
                                         <div class="col-lg-6 order-lg-2">
                                             {if $n->id_image}
-
                                                 <img src="{$n->ref('image','id_image')->name}" class="img-fluid" alt="">
                                             {/if}
                                         </div>
@@ -30,14 +26,12 @@
                                             <p>{$n->text}</p>
                                         </div>
                                     </div>
-                                </div><!-- End testimonial item -->
+                                </div>
                             {/if}
                         {/foreach}
-
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
-
             </div>
         </section>
     {/if}
@@ -50,7 +44,6 @@
                 <div class="section-title">
                     <p>O nás</p>
                 </div>
-
                 <div class="row">
                     <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
                         <div class="about-img">
@@ -63,7 +56,6 @@
                         </p>
                     </div>
                 </div>
-
             </div>
         </section>
     {/if}
@@ -437,79 +429,21 @@
     <!-- End Drinks Section -->
 
     <!-- ======= Reservation Section ======= -->
-    {*
-    {if $webSections['reservation']->is_shown}
-        <section id="reservation" class="book-a-table">
-            <div class="container" data-aos="fade-up">
-
-                <div class="section-title">
-                    <!--<h2>Rezervace</h2>-->
-                    <p>Rezervace</p>
-                </div>
-
-                <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 form-group">
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Vaše jméno" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                            <div class="validate"></div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Váš email" data-rule="email" data-msg="Please enter a valid email">
-                            <div class="validate"></div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Vaše telefonní číslo" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                            <div class="validate"></div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 form-group mt-3">
-                            <input type="text" name="date" class="form-control" id="date" placeholder="Datum" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                            <div class="validate"></div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 form-group mt-3">
-                            <input type="text" class="form-control" name="time" id="time" placeholder="Čas" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                            <div class="validate"></div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 form-group mt-3">
-                            <input type="number" class="form-control" name="people" id="people" placeholder="Počet lidí" data-rule="minlen:1" data-msg="Please enter at least 1 chars">
-                            <div class="validate"></div>
-                        </div>
-                    </div>
-                    <div class="form-group mt-3">
-                        <textarea class="form-control" name="message" rows="5" placeholder="Poznámky"></textarea>
-                        <div class="validate"></div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Vaše žádost o rezervaci byla odeslána. Zašleme Vám e-mail o potvrzení Vaší rezervace. Děkujeme!</div>
-                    </div>
-                    <div class="text-center"><button type="submit">Odeslat</button></div>
-                </form>
-
-            </div>
-        </section>
-    {/if}
-    *}
     {if $webSections['reservation']->is_shown}
         <section id="reservation" class="book-a-table">
             <div class="container aos-init aos-animate" data-aos="fade-up">
-
                 <div class="section-title">
                     <p>Rezervace</p>
                 </div>
-
                 {if $flashes}
                     <div id="scroll-to-reservation" data-scroll="true" style="display: none;"></div>
                 {/if}
-
                 {foreach $flashes as $flash}
                     <div class="alert alert-{$flash->type}">
                         {$flash->message}
                     </div>
                 {/foreach}
-
                 {control reservationForm}
-
             </div>
         </section>
     {/if}
@@ -518,15 +452,12 @@
     <!-- ======= Gallery Section ======= -->
     {if $webSections['gallery']->is_shown}
         <section id="gallery" class="gallery">
-
             <div class="container" data-aos="fade-up">
                 <div class="section-title">
                     <p>Galerie</p>
                 </div>
             </div>
-
             <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-
                 <div class="row g-0">
                     {foreach $images as $i}
                         {if $i->is_gallery}
@@ -540,34 +471,24 @@
                         {/if}
                     {/foreach}
                 </div>
-
             </div>
         </section>
     {/if}
     <!-- End Gallery Section -->
 
-
     <!-- ======= Contact Section ======= -->
     {if $webSections['contact']->is_shown}
         <section id="contact" class="contact">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
-                    {*<h2>Contact</h2>*}
                     <p>Kontakt</p>
                 </div>
             </div>
-
             <div data-aos="fade-up">
                 <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps?q={$restaurant->address}&output=embed" frameborder="0" allowfullscreen></iframe>
-                <!--            <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.8461586857716!2d14.4390359!3d50.0833459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94974b58ae79%3A0xe32c55e34e82e381!2zbsOhbS4gV2luc3RvbmEgQ2h1cmNoaWxsYSAxOTM4LzQsIDEyMCAwMCBQcmFoYSAzLeG7hSDFoWnEjWtvdg!5e0!3m2!1scs!2scz!4v1707589321465" frameborder="0" allowfullscreen></iframe>-->
-                <!--            <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>-->
             </div>
-
             <div class="container" data-aos="fade-up">
-
                 <div class="row mt-5">
-
                     <div class="col-lg-4">
                         <div class="info">
                             <div class="open-hours">
@@ -588,7 +509,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-4">
                         <div class="info">
                             <div class="phone">
@@ -608,7 +528,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-4">
                         <div class="info">
                             <div class="phone">
@@ -645,27 +564,9 @@
 
                         </div>
                     </div>
-
-
-                    {*
-                   <div class="social-links mt-3">
-                       {if $restaurant->facebook}
-                           <a href="{if strpos($restaurant->facebook, 'http') === false}https://{/if}{$restaurant->facebook}" class="facebook"><i class="bx bxl-facebook"></i></a>
-                       {/if}
-                       {if $restaurant->instagram}
-                       <a href="{if strpos($restaurant->instagram, 'http') === false}https://{/if}{$restaurant->instagram}" class="instagram"><i class="bx bxl-instagram"></i></a>
-                       {/if}
-                       {if $restaurant->tripadvisor}
-                       <a href="{if strpos($restaurant->tripadvisor, 'http') === false}https://{/if}{$restaurant->tripadvisor}" class="tripadvisor"><i class="fa-solid fa-fire"></i></a>
-                       {/if}
-                    </div>
-                    *}
-
-
                 </div>
             </div>
         </section>
     {/if}
     <!-- End Contact Section -->
-
 </main>

@@ -22,14 +22,42 @@ final class ImagePresenter extends Nette\Application\UI\Presenter {
         $image = $this->imageFacade->getOne();
         $this->template->image = $image;
 
+        $images = $this->imageFacade->getAll();
+        $this->template->images = $images;
     }
 
     public function renderEdit($id = null): void {
 
+        if ($id) {
+            $image = $this->imageFacade->getOne(['id' => $id]);
 
+            if (!$image) {
+                $this->error(404);
+            }
+
+            $this['imageForm']->setDefaults($image);
+        }
+
+        $this->template->imageData = $image ?? null;
     }
 
+    public function handleGallery(int $id): void {
+        $image = $this->imageFacade->getOne(['id' => $id]);
+
+        if ($image) {
+            $image->update(['is_gallery' => !$image->is_gallery]);
+            $this->flashMessage('Galerie byla změněna.', 'success');
+        } else {
+            $this->flashMessage('Položka nebyla nalezena.', 'error');
+        }
+
+        $this->redirect('this');
+    }
+
+
+
+
     protected function createComponentImageForm(): ImageFormControl {
-        return $this->ImageFormFactory->create();
+        return $this->imageFormFactory->create();
     }
 }

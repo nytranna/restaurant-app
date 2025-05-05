@@ -9,8 +9,14 @@ $(document).ready(function () {
             lengthMenu: 'Zobraz _MENU_ záznamů na stránku',
             zeroRecords: 'Nic nenalezeno',
             search: "Hledat:"
-        }
+        },
+//        drawCallback: function (settings) { //
+//            makeSortable(); // 
+//        }
     });
+
+//    makeSortable(); // 
+
 
     $(document).on('click', '.remove-variant', function (e) {
         const row = $(this).closest('.variant-row');
@@ -84,11 +90,43 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+///*---RESERVATION ALERT---*/
+//setInterval(function () {
+//    $.ajax({
+//        url: 'this-page-url?do=refreshAlerts'
+//    });
+//}, 10000);
 
 
 
-
-
-
-
-
+/*---ORDER - MENU---*/
+//function makeSortable() {
+//    $('#sortableTableBody').sortable({
+//        handle: '.fa-grip-lines',
+//        update: function () {
+//            let order = [];
+//            $('#sortableTableBody tr').each(function (index) {
+//                order.push({
+//                    id: $(this).data('id'),
+//                    position: index + 1
+//                });
+//            });
+//
+//            var pathParts = window.location.pathname.split('/');
+//            var menu_type = pathParts[pathParts.length - 1];
+//
+//            $.ajax({
+//                url: '/admin/menu/list-category/' + menu_type + '/updateOrder',
+//                method: 'POST',
+//                contentType: 'application/json',
+//                data: JSON.stringify({order: order}),
+//                success: function () {
+//                    console.log('Pořadí bylo uloženo.');
+//                },
+//                error: function () {
+//                    console.error('Chyba při ukládání pořadí.');
+//                }
+//            });
+//        }
+//    });
+//}

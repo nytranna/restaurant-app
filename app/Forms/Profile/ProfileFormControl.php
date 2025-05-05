@@ -38,8 +38,6 @@ class ProfileFormControl extends Control {
 
     public function submitted(Form $form, \stdClass $data): void {
 
-
-
         $newPassword = $data->newPassword;
 
         $hashNewPassword = $this->passwords->hash($newPassword);
@@ -49,8 +47,6 @@ class ProfileFormControl extends Control {
         $form->getPresenter()->flashMessage('Změna hesla proběhla úspěšně', 'success');
         
         $this->presenter->redirect('this');
-
-
     }
 
     public function render() {
@@ -58,8 +54,6 @@ class ProfileFormControl extends Control {
     }
 
     public function validated(Form $form, \stdClass $data): void {
-
-
 
         $password = $data->password;
         $hash = $this->userFacade->getOne(['id' => $this->presenter->user->id])->password;
