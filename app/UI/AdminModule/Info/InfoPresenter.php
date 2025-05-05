@@ -29,6 +29,9 @@ final class InfoPresenter extends Nette\Application\UI\Presenter {
         $openingHours = $this->openinghoursFacade->getAll();
         $this->template->openingHours = $openingHours;
         
+        $image = $restaurant->ref('image', 'id_image');
+
+        
     }
 
     public function renderEdit($id = null): void {

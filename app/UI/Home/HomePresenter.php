@@ -32,6 +32,12 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
         $webSections = $this->webSectionsFacade->getSections();
         $this->template->webSections = $webSections;
 
+        $reservationSection = $this->webSectionsFacade->getOne(['href' => 'reservation']);
+        $this->template->reservationSection = $reservationSection;
+
+        $menuSection = $this->webSectionsFacade->getOne(['href' => 'menu']);
+        $this->template->menuSection = $menuSection;
+
         $news = $this->newsFacade->getAll();
         $this->template->news = $news;
 
@@ -51,10 +57,12 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
 
         $openingHourToday = $this->openingHoursFacade->getAll(['id' => $today]);
         $this->template->openingHourToday = $openingHourToday;
-    }
-    
-     protected function createComponentReservationForm(): CustomerReservationFormControl {
-        return $this->customerReservationFormFactory->create();
+
+        $image = $this->imageFacade->getOne(['id' => $restaurant->id_image]);
+        $this->template->image = $image->name ?? '';
     }
 
+    protected function createComponentReservationForm(): CustomerReservationFormControl {
+        return $this->customerReservationFormFactory->create();
+    }
 }

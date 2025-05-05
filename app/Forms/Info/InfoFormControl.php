@@ -13,7 +13,8 @@ class InfoFormControl extends Control {
             private BaseFormFactory $baseFormFactory,
             private \App\Model\Facade\RestaurantFacade $restaurantFacade,
             private \App\Model\Facade\WebSectionsFacade $webSectionFacade,
-            private \App\Model\Facade\OpeningHoursFacade $openingHoursFacade
+            private \App\Model\Facade\OpeningHoursFacade $openingHoursFacade,
+            private \App\Model\Facade\ImageFacade $imageFacade
     ) {
         
     }
@@ -42,6 +43,14 @@ class InfoFormControl extends Control {
         $form->addText('instagram', 'Instagram:');
 
         $form->addText('tripadvisor', 'Tripadvisor:');
+
+        $images = [];
+        foreach ($this->imageFacade->getAll() as $img) {
+            $images[$img->id] = $img->name;
+        }
+
+        $form->addSelect('id_image', 'Obrázek v pozadí:', $images)
+                ->setPrompt('--- bez obrázku ---');
 
         foreach ($this->webSectionFacade->getAll() as $w) {
             if ($w->href != 'hero') {
@@ -104,7 +113,9 @@ class InfoFormControl extends Control {
             'sat' => $sat,
             'sun' => $sun,
         ];
-
+        
+        $id_image = $this->restaurantFacade->getOne(['id' => $data->id])->id_image;
+        
         $data = ['id' => $data->id,
             'name' => $data->name,
             'sentence' => $data->sentence,
@@ -115,7 +126,8 @@ class InfoFormControl extends Control {
             'ico' => $data->ico,
             'facebook' => $data->facebook,
             'instagram' => $data->instagram,
-            'tripadvisor' => $data->tripadvisor
+            'tripadvisor' => $data->tripadvisor,
+            'id_image' => $id_image
         ];
 
         $checkedWebSections = [];
@@ -136,6 +148,8 @@ class InfoFormControl extends Control {
                 $data["{$key}_closed"] = $d->is_closed;
             }
         }
+//        $data['id_image'] = $data->id_image;
+
 
         $this['form']->setDefaults($data);
     }
@@ -153,7 +167,8 @@ class InfoFormControl extends Control {
             'ico' => $data->ico,
             'facebook' => $data->facebook,
             'instagram' => $data->instagram,
-            'tripadvisor' => $data->tripadvisor
+            'tripadvisor' => $data->tripadvisor,
+            'id_image' => $data->id_image
         ];
 
         foreach ($this->webSectionFacade->getAll() as $s) {

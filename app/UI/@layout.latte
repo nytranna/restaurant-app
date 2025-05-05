@@ -46,7 +46,7 @@
         <div id="topbar" class="d-flex align-items-center fixed-top">
             <div class="container d-flex justify-content-center justify-content-md-between">
                 <div class="contact-info d-flex align-items-center">
-                    <i class="bi bi-phone d-flex align-items-center"><span>{$restaurant->phone}</span></i>
+                    <i class="bi bi-phone d-flex align-items-center"><span>{if isset($restaurant->phone)}{$restaurant->phone}{/if}</span></i>
                     <i class="bi bi-clock d-flex align-items-center ms-4">
                         <span> 
                             {foreach $openingHourToday as $h}
@@ -65,7 +65,7 @@
         <header id="header" class="fixed-top d-flex align-items-cente">
             <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
-                <h1 class="logo me-auto me-lg-0"><a n:href="Home:default">{$restaurant->name}</a></h1>
+                <h1 class="logo me-auto me-lg-0"><a n:href="Home:default">{if isset($restaurant->name)}{$restaurant->name}{/if}</a></h1>
 
                 <nav id="navbar" class="navbar order-last order-lg-0">
                     <ul>
@@ -88,12 +88,17 @@
         <!-- End Header -->
 
         <!-- ======= Hero Section ======= -->
-        <section id="hero" class="d-flex align-items-center">
+        <section id="hero" class="d-flex align-items-center" style='
+                 background: url("{$basePath}/images/{$image}") top center no-repeat;
+                 background-size: cover;
+                 height: 100vh;
+                 width: 100%;
+                 '>
             <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
                 <div class="row">
                     <div class="col-lg-8">
-                        <h1>Vítejte v restauraci <span>{$restaurant->name}</span></h1>
-                        <h2>{$restaurant->sentence}</h2>
+                        <h1>Vítejte v restauraci <span>{if isset($restaurant->name)}{$restaurant->name}{/if}</span></h1>
+                        <h2>{if isset($restaurant->sentence)}{$restaurant->sentence}{/if}</h2>
                         <div class="btns">
                             {if $menuSection->is_shown}
                                 <a href="#menu" class="btn-menu animated fadeInUp scrollto">Jídelní lístek</a>
@@ -131,6 +136,27 @@
 
         {*div id="preloader"></div>*}
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+        <script src="/path/to/nette.ajax.js"></script>
+        <!--        <script>
+                    $(function () {
+                        $.nette.init();
+                    });
+                </script>-->
+        <!--        <script src="https://cdn.jsdelivr.net/npm/nette-forms@3/src/assets/netteForms.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/nette.ajax.js@2.0.0/nette.ajax.min.js"></script>
+                <script>
+                            $(function () {
+                                $.nette.init();
+        
+                                // pravidelný AJAX pro načtení nových alertů
+                                setInterval(function () {
+                                    $.nette.ajax({
+                                        url: {*link refreshAlerts!*}
+                                    });
+                                }, 10000); // každých 10 sekund
+                            });
+                </script>-->
 
         <!-- Vendor JS Files -->
         <script src="{$basePath}/Restaurantly/assets/vendor/aos/aos.js"></script>
