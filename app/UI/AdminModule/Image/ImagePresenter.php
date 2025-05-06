@@ -5,6 +5,8 @@ namespace App\UI\Admin\Image;
 use Nette;
 use App\Forms\ImageFormControl;
 use App\Forms\ImageFormFactory;
+use Nette\Utils\FileSystem;
+use Nette\IOException;
 
 final class ImagePresenter extends Nette\Application\UI\Presenter {
 
@@ -60,7 +62,15 @@ final class ImagePresenter extends Nette\Application\UI\Presenter {
 
         $this->imageFacade->getOne(['id' => $id])->delete();
 
-        unlink($path);
+//        unlink($path);
+
+        try {
+            FileSystem::delete($path);
+        } catch (IOException $e) {
+            echo "Nepodařilo se smazat soubor: " . $e->getMessage();
+        }
+
+
 
         $this->redirect('Image:default');
     }
