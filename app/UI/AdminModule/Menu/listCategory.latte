@@ -53,55 +53,58 @@
     <div class="container-fluid">
         <div class="row overflow-auto">
             {snippet menuCategory_table}
-                <table id="example" class="table table-striped table-bordered dataTable">
-                    <thead>
-                        <tr>
-                            <th style="width:1%">Pořadí</th>
-                            <th>Id</th>
-                            <th>Název</th>
-                            <th>Nadkategorie</th>
-                            <th style="width:6%">Akce</th>
-                        </tr>
-                    </thead>                    
-                    <tbody id="sortableTableBody">                   
-                        {foreach $categories as $c}    
-                            <!--<tr>-->
-                            <tr data-id="{$c->id}">
-                                <td style="text-align: center; vertical-align: middle;"><i class="fa-solid fa-grip-lines"></i></td>
-                                <td>{$c->id}</td>
-                                <td>{$c->name}</td> 
-                                <td>
-                                    {$c->ref('menu_category', 'id_menu_category')->name ?? '-'}
-                                </td>                              
-                                <td style="text-align: center; vertical-align: middle;">
-                                    {if $menuCategory->menu_type == 'daily_menu'}
-                                        <a n:href="Menu:editCategory menu_type=>'daily_menu', id=>$c->id" type="button" class="btn btn-outline-secondary me-1 btn-sm" title="Upravit">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <button class="btn btn-outline-danger btn-sm" form="postForm" formaction="{link deleteCategory $c->id, menu_type => 'daily_menu'}" title="Smazat">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    {elseif $menuCategory->menu_type == 'drinks'}
-                                        <a n:href="Menu:editCategory menu_type=>'drinks', id=>$c->id" type="button" class="btn btn-outline-secondary me-1 btn-sm" title="Upravit">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <button class="btn btn-outline-danger btn-sm" form="postForm" formaction="{link deleteCategory $c->id, menu_type => 'drinks'}" title="Smazat">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    {else}
-                                        <a n:href="Menu:editCategory menu_type=>'menu', id=>$c->id" type="button" class="btn btn-outline-secondary me-1 btn-sm" title="Upravit">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <button class="btn btn-outline-danger btn-sm" form="postForm" formaction="{link deleteCategory $c->id, menu_type => 'menu'}" title="Smazat">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    {/if}
-                                </td>
+                <!--<table id="example" class="table table-striped table-bordered dataTable">-->
+                    <table id="example" class="table table-striped table-bordered dataTable-reorder"
+                           data-reorder_url="{link updateOrder!}"
+                           data-db_table="menu_category">
+                        <thead>
+                            <tr>
+                                <th>Pořadí</th>
+                                <th>Id</th>
+                                <th>Název</th>
+                                <th>Nadkategorie</th>
+                                <th style="width:6%">Akce</th>
                             </tr>
-                        {/foreach}
-                    </tbody>
-                </table>
-            {/snippet}        
+                        </thead>                    
+                        <tbody id="sortableTableBody">                   
+                            {foreach $categories as $c}    
+                                <!--<tr>-->
+                                <tr data-id="{$c->id}">
+                                    <td style="text-align: center; vertical-align: middle;"></td>
+                                    <td><i class="fa-solid fa-grip-lines"></i> {$c->id}</td>
+                                    <td>{$c->name}</td> 
+                                    <td>
+                                        {$c->ref('menu_category', 'id_menu_category')->name ?? '-'}
+                                    </td>                              
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        {if $menuCategory->menu_type == 'daily_menu'}
+                                            <a n:href="Menu:editCategory menu_type=>'daily_menu', id=>$c->id" type="button" class="btn btn-outline-secondary me-1 btn-sm" title="Upravit">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <button class="btn btn-outline-danger btn-sm" form="postForm" formaction="{link deleteCategory $c->id, menu_type => 'daily_menu'}" title="Smazat">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        {elseif $menuCategory->menu_type == 'drinks'}
+                                            <a n:href="Menu:editCategory menu_type=>'drinks', id=>$c->id" type="button" class="btn btn-outline-secondary me-1 btn-sm" title="Upravit">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <button class="btn btn-outline-danger btn-sm" form="postForm" formaction="{link deleteCategory $c->id, menu_type => 'drinks'}" title="Smazat">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        {else}
+                                            <a n:href="Menu:editCategory menu_type=>'menu', id=>$c->id" type="button" class="btn btn-outline-secondary me-1 btn-sm" title="Upravit">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <button class="btn btn-outline-danger btn-sm" form="postForm" formaction="{link deleteCategory $c->id, menu_type => 'menu'}" title="Smazat">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        {/if}
+                                    </td>
+                                </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                {/snippet}        
         </div>
     </div>
 </div>
