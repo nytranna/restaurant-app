@@ -11,7 +11,8 @@ class NewsFormControl extends Control {
 
     public function __construct(
             private BaseFormFactory $baseFormFactory,
-            private \App\Model\Facade\NewsFacade $newsFacade
+            private \App\Model\Facade\NewsFacade $newsFacade,
+            private \App\Model\Facade\ImageFacade $imageFacade
     ) {
         
     }
@@ -29,6 +30,14 @@ class NewsFormControl extends Control {
 
         $form->addRadioList('is_shown', 'Zobrazit na stránce:', $is_shown);
 
+        $images = [];
+        foreach ($this->imageFacade->getAll() as $img) {
+            $images[$img->id] = $img->name;
+        }
+
+        $form->addSelect('id_image', 'Obrázek v pozadí:', $images)
+                ->setPrompt('--- bez obrázku ---');
+
         $form->addHidden('id');
 
         $form->addSubmit('send', 'Uložit');
@@ -40,10 +49,14 @@ class NewsFormControl extends Control {
 
     public function setDefaults($data) {
 
+        $id_image = $this->newsFacade->getOne(['id' => $data->id])->id_image;
+
         $data = ['id' => $data->id,
             'title' => $data->title,
             'text' => $data->text,
-            'is_shown' => $data->is_shown];
+            'is_shown' => $data->is_shown,
+            'id_image' => $id_image
+        ];
 
         $this['form']->setDefaults($data);
     }
@@ -53,7 +66,8 @@ class NewsFormControl extends Control {
         $newsData = [
             'title' => $data->title,
             'text' => $data->text,
-            'is_shown' => $data->is_shown
+            'is_shown' => $data->is_shown,
+            'id_image' => $data->id_image
         ];
 
         if ($data->id) {

@@ -47,8 +47,8 @@
                                     {/if}
                                 </td>
                                 <td>
-                                    {if $n->id_image}
-                                        {$n->ref('image','id_image')->name}
+                                    {if isset($n->id_image)}
+                                        <img src="{$basePath}/images/{$n->ref('image', 'id_image')->name}" class="img-fluid" alt="">
                                     {else}
                                         -
                                     {/if}
