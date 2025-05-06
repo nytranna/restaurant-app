@@ -53,9 +53,13 @@
     <div class="container-fluid">
         <div class="row overflow-auto">
             {snippet menuItem_table}
-                <table id="example" class="table table-striped table-bordered dataTable">
+                <!--<table id="example" class="table table-striped table-bordered dataTable">-->
+                <table id="example" class="table table-striped table-bordered dataTable-reorder"
+                           data-reorder_url="{link updateOrder!}"
+                           data-db_table="menu_item">
                     <thead>
                         <tr>
+                            <th>Pořadí</th>
                             <th>Id</th>
                             <th>Název</th>
                             <th>Popis</th>
@@ -69,8 +73,14 @@
                     </thead>
                     <tbody>                        
                         {foreach $items as $i}    
-                            <tr>
-                                <td>{$i->id}</td>
+                             <tr data-id="{$i->id}">
+                                <td>{$i->order}</td>
+                                <td style="cursor: grab;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <i class="fa-solid fa-arrows-up-down-left-right"></i>
+                                        <span>{$i->id}</span>
+                                    </div>
+                                </td>
                                 <td>{$i->name}</td>
                                 <td>{($i->description !== "" && $i->description !== null) ? $i->description : "-"}</td>
                                 <td>

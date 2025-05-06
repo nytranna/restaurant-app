@@ -19,9 +19,12 @@
     <div class="container-fluid">
         <div class="row overflow-auto">
             {snippet news_table}
-                <table id="example" class="table table-striped table-bordered dataTable">
+                 <table id="example" class="table table-striped table-bordered dataTable-reorder"
+                       data-reorder_url="{link updateOrder!}"
+                       data-db_table="menu_image">                    
                     <thead>
                         <tr>
+                            <th>Pořadí</th>
                             <th>Id</th>
                             <th>Náhled</th>
                             <th>Název</th>
@@ -34,8 +37,14 @@
                     </thead>
                     <tbody>                        
                         {foreach $images as $i}   
-                            <tr>
-                                <td>{$i->id}</td>
+                            <tr data-id="{$i->id}">
+                                <td>{$i->order}</td>
+                                <td style="cursor: grab;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <i class="fa-solid fa-arrows-up-down-left-right"></i>
+                                        <span>{$i->id}</span>
+                                    </div>
+                                </td>
                                 <td><img src="{$basePath}/images/{$i->name}" class="img-fluid" alt=""></td>
                                 <td>{$i->name}</td>
                                 <td>

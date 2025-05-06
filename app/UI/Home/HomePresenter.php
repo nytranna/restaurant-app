@@ -41,13 +41,13 @@ final class HomePresenter extends Nette\Application\UI\Presenter {
         $news = $this->newsFacade->getAll();
         $this->template->news = $news;
 
-        $images = $this->imageFacade->getAll();
+        $images = $this->imageFacade->getAll([], 'order ASC');
         $this->template->images = $images;
 
-        $menuCategories = $this->menuCategoryFacade->getAll();
+        $menuCategories = $this->menuCategoryFacade->getAll([], 'order ASC');
         $this->template->menuCategories = $menuCategories;
 
-        $menuItems = $this->menuItemFacade->getAll();
+        $menuItems = $this->menuItemFacade->getAll([], 'order ASC');
         $this->template->menuItems = $menuItems;
 
         $menuItemVariants = $this->menuItemVariantFacade->getAll();

@@ -38,10 +38,10 @@ final class MenuPresenter extends Nette\Application\UI\Presenter {
         $menuItemVariant = $this->menuItemVariantFacade->getOne();
         $this->template->menuItemVariant = $menuItemVariant;
 
-        $menuCategories = $this->menuCategoryFacade->getAll(['menu_type' => $menu_type]);
+        $menuCategories = $this->menuCategoryFacade->getAll(['menu_type' => $menu_type], 'order ASC');
         $this->template->menuCategories = $menuCategories;
 
-        $menuItems = $this->menuItemFacade->getAll(['id_menu_category' => $menuCategories]);
+        $menuItems = $this->menuItemFacade->getAll(['id_menu_category' => $menuCategories], 'order ASC');
         $this->template->menuItems = $menuItems;
 
         $menuItemVariants = $this->menuItemVariantFacade->getAll();
@@ -122,62 +122,20 @@ final class MenuPresenter extends Nette\Application\UI\Presenter {
 
     public function handleUpdateOrder(): void {
 
-        $data = json_decode($_POST['order_data'], true); // array (5) 1 => 4 2 => 0 43 => 1 45 => 2 46 => 3
-        
-//        if (!isset($data['order_data']) || !is_array($data['order_data'])) {
-//            $this->error('Neplatná data');
-//        }
+        $data = json_decode($_POST['order_data'], true);
+        $dbTable = $_POST['db_table'] ?? null;
 
         foreach ($data as $id => $position) {
-//            $this->menuCategoryRepository->updateOrder($item['id'], $item['position']);
-            $this->menuCategoryFacade->getOne(['id' => $id])->update(['order' => $position]);
+            if ($dbTable == 'menu_category') {
+                $this->menuCategoryFacade->getOne(['id' => $id])->update(['order' => $position]);
+            }
+            if ($dbTable == 'menu_item') {
+                $this->menuItemFacade->getOne(['id' => $id])->update(['order' => $position]);
+            }
         }
-
-//        if (!isset($_POST['order_data'])) {
-//            $this->error('order_data není nastaven');
-//        }
-//
-//        $orderData = json_decode($_POST['order_data'], true);
-////       
-//        if (!is_array($orderData)) {
-//            $this->error('order_data není validní JSON');
-//        }
-//
-//        foreach ($orderData as $id => $position) {
-////            $this->menuCategoryFacade->updateOrder((int) $id, (int) $position);
-//            $this->menuCategoryFacade->getOne(['id' => $id])->update(['order' => $postition]);
-//        }
-
-
 
         $this->sendJson(['status' => 'ok']);
     }
-
-//    public function updateOrder(int $id, int $position): void {
-//        $this->menuCategoryFacade->getOne(['id' => $id])->update(['order' => $postition]);
-//    }
-//    #[Requires(methods: 'POST', sameOrigin: true)]
-//    public function handleUpdateOrder(): void {
-//        
-////        dd('hanle');
-//        $data = json_decode(file_get_contents('php://input'), true);
-//
-//        if (!isset($data['order_data']) || !is_array($data['order_data'])) {
-//            $this->error('Neplatná data');
-//        }
-//
-//        foreach ($data['order_data'] as $item) {
-//            if (!isset($item['id'], $item['order'])) {
-//                continue;
-//            }
-//
-//            $this->database->table('menu_category')
-//                    ->where('id', $item['id'])
-//                    ->update(['order' => $item['order']]);
-//        }
-//
-//        $this->sendJson(['status' => 'ok']);
-//    }
 
     protected function createComponentMenuCategoryForm(): MenuCategoryFormControl {
         return $this->menuCategoryFormFactory->create();

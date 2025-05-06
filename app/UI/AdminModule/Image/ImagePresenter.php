@@ -70,9 +70,20 @@ final class ImagePresenter extends Nette\Application\UI\Presenter {
             echo "Nepodařilo se smazat soubor: " . $e->getMessage();
         }
 
-
-
         $this->redirect('Image:default');
+    }
+
+    public function handleUpdateOrder(): void {
+
+        $data = json_decode($_POST['order_data'], true);
+        $dbTable = $_POST['db_table'] ?? null;
+
+        foreach ($data as $id => $position) {
+                $this->imageFacade->getOne(['id' => $id])->update(['order' => $position]);
+            
+        }
+
+        $this->sendJson(['status' => 'ok']);
     }
 
     protected function createComponentImageForm(): ImageFormControl {

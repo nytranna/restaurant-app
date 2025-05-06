@@ -1,4 +1,3 @@
-
 naja.initialize();
 
 $(document).ready(function () {
@@ -14,6 +13,8 @@ $(document).ready(function () {
             search: "Hledat:"
         }
     });
+    //------------- end TRANSLATE DATATABLES --------------------
+
 
     //------------- REORDER CATEGORIES ----------------------
     var datatable = $('.dataTable-reorder').DataTable({
@@ -57,8 +58,6 @@ $(document).ready(function () {
             }
         }
 
-        console.log(result);
-
         $.ajax({
             url: url,
             method: 'POST',
@@ -72,7 +71,10 @@ $(document).ready(function () {
             }
         });
     });
+    //------------- end REORDER CATEGORIES ----------------------
 
+
+    //------------- REMOVE VARIANT (item form) ----------------------
     $(document).on('click', '.remove-variant', function (e) {
         const row = $(this).closest('.variant-row');
         if (row) {
@@ -80,20 +82,20 @@ $(document).ready(function () {
             updateVariantNumbers();
         }
     });
-    //------------- end REORDER CATEGORIES ----------------------
-
+    //------------- end REMOVE VARIANT (item form) ----------------------
 
 });
 
 
-
-//-------------------  ---------------------------
+//------------------- NAVBAR ---------------------------
 const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
 const Default = {
     scrollbarTheme: 'os-theme-light',
     scrollbarAutoHide: 'leave',
     scrollbarClickScroll: true,
 };
+//------------------- end NAVBAR ---------------------------
+
 
 //-------------------  ---------------------------
 document.addEventListener('DOMContentLoaded', function () {
@@ -108,8 +110,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+//-------------------  ---------------------------
 
-//-------------------ITEM VARIANST---------------------------
+//------------------- ITEM VARIANTS ---------------------------
 naja.addEventListener('success', (event) => {
     if (event.detail.payload.add_row) {
         $('#add').after(event.detail.payload.add_row)
@@ -118,7 +121,6 @@ naja.addEventListener('success', (event) => {
     ;
 });
 
-//-------------------ITEM VARIANTS---------------------------
 function updateVariantNumbers() {
     document.querySelectorAll('.variant-row').forEach((row, index) => {
         const label = row.querySelector('.variant-number');
@@ -127,8 +129,10 @@ function updateVariantNumbers() {
         }
     });
 }
+//------------------- end ITEM VARIANTS ---------------------------
 
-//-------------------NAVBAR---------------------------
+
+//------------------- NAVBAR ---------------------------
 document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
     link.addEventListener('click', function (e) {
         const parent = this.closest('.nav-item');
@@ -139,8 +143,10 @@ document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
         }
     });
 });
+//------------------- end NAVBAR ---------------------------
 
-//-------------------SCROLL TO RESERVATION---------------------------
+
+//------------------- SCROLL TO RESERVATION ---------------------------
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM loaded');
     var trigger = document.getElementById('scroll-to-reservation');
@@ -151,3 +157,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+//------------------- endSCROLL TO RESERVATION ---------------------------
