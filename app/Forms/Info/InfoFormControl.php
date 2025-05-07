@@ -49,13 +49,16 @@ class InfoFormControl extends Control {
             $images[$img->id] = $img->name;
         }
 
-        $form->addSelect('id_image', 'Úvodní obrázek:', $images)
+        $form->addSelect('id_image', 'Úvodní obrázek v pozadí:', $images)
                 ->setPrompt('--- bez obrázku ---');
 
-        $form->addSelect('id_image_events', 'Obrázek v Aktualitách:', $images)
+        $form->addSelect('id_image_events', 'Obrázek v pozadí Aktualit:', $images)
                 ->setPrompt('--- bez obrázku ---');
 
-        $form->addSelect('id_image_about_us', 'Obrázek v O nás:', $images)
+        $form->addSelect('id_image_about_us', 'Obrázek v pozadí O nás:', $images)
+                ->setPrompt('--- bez obrázku ---');
+
+        $form->addSelect('id_image_about_us_in', 'Obrázek v O nás:', $images)
                 ->setPrompt('--- bez obrázku ---');
 
         foreach ($this->webSectionFacade->getAll() as $w) {
@@ -123,6 +126,7 @@ class InfoFormControl extends Control {
         $id_image = $this->restaurantFacade->getOne(['id' => $data->id])->id_image;
         $id_image_events = $this->restaurantFacade->getOne(['id' => $data->id])->id_image_events;
         $id_image_about_us = $this->restaurantFacade->getOne(['id' => $data->id])->id_image_about_us;
+        $id_image_about_us_in = $this->restaurantFacade->getOne(['id' => $data->id])->id_image_about_us_in;
 
         $data = ['id' => $data->id,
             'name' => $data->name,
@@ -137,7 +141,8 @@ class InfoFormControl extends Control {
             'tripadvisor' => $data->tripadvisor,
             'id_image' => $id_image,
             'id_image_events' => $id_image_events,
-            'id_image_about_us' => $id_image_about_us
+            'id_image_about_us' => $id_image_about_us,
+            'id_image_about_us_in' => $id_image_about_us_in
         ];
 
         $checkedWebSections = [];
@@ -176,9 +181,10 @@ class InfoFormControl extends Control {
             'facebook' => $data->facebook,
             'instagram' => $data->instagram,
             'tripadvisor' => $data->tripadvisor,
-            'id_image' => $data->id_image,            
+            'id_image' => $data->id_image,
             'id_image_events' => $data->id_image_events,
-            'id_image_about_us' => $data->id_image_about_us
+            'id_image_about_us' => $data->id_image_about_us,
+            'id_image_about_us_in' => $data->id_image_about_us_in
         ];
 
         foreach ($this->webSectionFacade->getAll() as $s) {

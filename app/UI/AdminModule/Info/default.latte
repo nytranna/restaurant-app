@@ -33,22 +33,28 @@
                         <p class="card-text"><strong>Název restaurace:</strong>  {if isset($restaurant->id)}{$restaurant->name}{/if}</p>
                         <p class="card-text"><strong>Úvodní věta:</strong>  {if isset($restaurant->id)}{$restaurant->sentence}{/if}</p>
                         <p class="card-text"><strong>O nás:</strong>  {if isset($restaurant->id)}{$restaurant->about_us}{/if}</p>
-                        <p class="card-text"><strong>Úvodní obrázek: </strong>  
+                        <p class="card-text"><strong>Úvodní obrázek v pozadí: </strong>  
                             {if isset($restaurant->id_image)}
                                 {$restaurant->ref('image', 'id_image')->name}<br>
                                 <img src="{$basePath}/images/{$restaurant->ref('image', 'id_image')->name}" class="img-fluid mt-2" alt="">
                             {/if}
                         </p>
-                        <p class="card-text"><strong>Obrázek v Aktualitách: </strong>  
+                        <p class="card-text"><strong>Obrázek v pozadí Aktualitách: </strong>  
                             {if isset($restaurant->id_image_events)}
                                 {$restaurant->ref('image', 'id_image_events')->name}<br>
                                 <img src="{$basePath}/images/{$restaurant->ref('image', 'id_image_events')->name}" class="img-fluid mt-2" alt="">
                             {/if}
                         </p>
-                        <p class="card-text"><strong>Obrázek v O nás: </strong>  
+                        <p class="card-text"><strong>Obrázek v pozadí O nás: </strong>  
                             {if isset($restaurant->id_image_about_us)}
                                 {$restaurant->ref('image', 'id_image_about_us')->name}<br>
                                 <img src="{$basePath}/images/{$restaurant->ref('image', 'id_image_about_us')->name}" class="img-fluid mt-2" alt="">
+                            {/if}
+                        </p>
+                        <p class="card-text"><strong>Obrázek v O nás: </strong>  
+                            {if isset($restaurant->id_image_about_us_in)}
+                                {$restaurant->ref('image', 'id_image_about_us_in')->name}<br>
+                                <img src="{$basePath}/images/{$restaurant->ref('image', 'id_image_about_us_in')->name}" class="img-fluid mt-2" alt="">
                             {/if}
                         </p>
                     </div>
