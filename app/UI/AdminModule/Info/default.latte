@@ -33,7 +33,7 @@
                         <p class="card-text"><strong>Název restaurace:</strong>  {if isset($restaurant->id)}{$restaurant->name}{/if}</p>
                         <p class="card-text"><strong>Úvodní věta:</strong>  {if isset($restaurant->id)}{$restaurant->sentence}{/if}</p>
                         <p class="card-text"><strong>O nás:</strong>  {if isset($restaurant->id)}{$restaurant->about_us}{/if}</p>
-                        <p class="card-text"><strong>Obrázek v pozadí: </strong>  
+                        <p class="card-text"><strong>Úvodní obrázek: </strong>  
                             {if isset($restaurant->id_image)}
                                 {$restaurant->ref('image', 'id_image')->name}<br>
                                 <img src="{$basePath}/images/{$restaurant->ref('image', 'id_image')->name}" class="img-fluid mt-2" alt="">

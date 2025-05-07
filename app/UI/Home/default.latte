@@ -5,7 +5,6 @@
 <main id="main">
     <!-- ======= News Section ======= -->
     {if $webSections['news']->is_shown}
-        <!--<section id="news" class="events">-->
         <section id="news" class="events" style='
                  background: url("{$basePath}/images/{$imageEvents}") top center no-repeat;
                  background-size: cover;
@@ -25,8 +24,8 @@
                                         <div class="col-lg-6 order-lg-2">
                                             {if $n->id_image}
                                                 <img src="{$basePath}/images/{$n->ref('image', 'id_image')->name}"
-     class="img-fluid w-100 h-100 object-fit-cover"
-     alt="">
+                                                     class="img-fluid w-100 h-100 object-fit-cover"
+                                                     alt="">
                                             {/if}
                                         </div>
                                         <div class="col-lg-6 pt-4 pt-lg-0 content">
@@ -47,7 +46,6 @@
 
     <!-- ======= About Section ======= -->
     {if $webSections['about']->is_shown && isset($restaurant->about_us)}
-        <!--<section id="about" class="about">-->
         <section id="about" class="about" style='
                  background: url("{$basePath}/images/{$imageAboutUs}") top center no-repeat;
                  background-size: cover;
@@ -60,11 +58,11 @@
                     <p>O nás</p>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="about-img">
-                            <img src="assets/img/about.jpg" alt="">
-                        </div>
-                    </div>
+                    <!--                    <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+                                            <div class="about-img">
+                                                <img src="assets/img/about.jpg" alt="">
+                                            </div>
+                                        </div>-->
                     <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
                         <p>
                             {$restaurant->about_us}
@@ -499,10 +497,17 @@
                     <p>Kontakt</p>
                 </div>
             </div>
+
             {if isset($restaurant->address)}
                 <div data-aos="fade-up">
-                    <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps?q={$restaurant->address}&output=embed" frameborder="0" allowfullscreen></iframe>
+                    <!--<iframe style="border:0; width: 100%; height: 350px;" src="https://maps.googleapis.com/maps/api/js?key={=googleMapsApiKey}&callback=initMap" frameborder="0" allowfullscreen></iframe>-->
+                    <div id="map" style="width: 100%; height: 400px;"></div>
+                     <!--<gmp-map center="37.4220656,-122.0840897" zoom="10" map-id="DEMO_MAP_ID" style="height: 400px"></gmp-map>-->
+
                 </div>
+
+
+
             {/if}
             <div class="container" data-aos="fade-up">
                 <div class="row mt-5">

@@ -49,7 +49,7 @@ class InfoFormControl extends Control {
             $images[$img->id] = $img->name;
         }
 
-        $form->addSelect('id_image', 'Obrázek v pozadí:', $images)
+        $form->addSelect('id_image', 'Úvodní obrázek:', $images)
                 ->setPrompt('--- bez obrázku ---');
 
         $form->addSelect('id_image_events', 'Obrázek v Aktualitách:', $images)

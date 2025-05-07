@@ -136,8 +136,19 @@
 
         {*div id="preloader"></div>*}
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+            {*<script src="https://maps.googleapis.com/maps/api/js?key={=googleMapsApiKey}&callback=initMap&libraries=places" async defer></script>*}
+            <!--<script src="https://maps.googleapis.com/maps/api/geocode/json?address={$restaurant->address}&key={=googleMapsApiKey}" async defer></script>-->
+        <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWBOxCUZPUoVjeej874mbtn9ikqjntrgo&callback=initMap"></script>-->
 
-        <script src="/path/to/nette.ajax.js"></script>
+        <script>
+            window.restaurantAddress = {$restaurant->address|escapeJs};
+        </script>
+
+
+
+
+
+        <!--<script src="/path/to/nette.ajax.js"></script>-->
         <!--        <script>
                     $(function () {
                         $.nette.init();
@@ -176,6 +187,13 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
         <script src="{$basePath}/js/javascript.js"></script>
+
+        <script src="{$basePath}/path/to/javascript.js"></script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWBOxCUZPUoVjeej874mbtn9ikqjntrgo&callback=initMap"
+            async
+            defer
+        ></script>
 
     </body>
 
