@@ -8,6 +8,8 @@ use Nette\Application\UI\Form;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 use Nette\Database\Explorer;
+use DateTimeImmutable;
+use Nette\Utils\DateTime;
 
 class CustomerReservationFormControl extends Control {
 
@@ -42,12 +44,14 @@ class CustomerReservationFormControl extends Control {
                 ->setHtmlType('date')
                 ->setRequired('Zadejte datum.')
                 ->setHtmlAttribute('class', 'form-control')
+                ->setHtmlAttribute('class', 'form-control datepicker')
                 ->setHtmlAttribute('placeholder', 'Datum');
 
         $form->addText('time', 'Čas')
                 ->setHtmlType('time')
                 ->setRequired('Zadejte čas.')
                 ->setHtmlAttribute('class', 'form-control')
+                ->setHtmlAttribute('class', 'form-control timepicker')
                 ->setHtmlAttribute('placeholder', 'Čas');
 
         $form->addInteger('people', 'Počet osob')
@@ -96,7 +100,7 @@ class CustomerReservationFormControl extends Control {
         $this->reservationFacade->insert($reservationData);
 
         if (!$form->hasErrors()) {
-                        
+
 //            $this->sendEmail($data->email); //odkomentovat
 
             $form->getPresenter()->flashMessage('Žádost o rezervaci byla úspěšně odeslána.', 'success');

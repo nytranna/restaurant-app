@@ -142,3 +142,16 @@ document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
     });
 });
 //------------------- end NAVBAR ---------------------------
+
+//------------------- end DATETIME ---------------------------
+document.addEventListener('DOMContentLoaded', function () {
+    flatpickr(".datetimepicker", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        time_24hr: true,
+        minDate: "today",
+        minuteIncrement: 1,
+        locale: "cs"
+    });
+});
+//------------------- end DATETIME ---------------------------

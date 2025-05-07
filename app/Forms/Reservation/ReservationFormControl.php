@@ -36,7 +36,8 @@ class ReservationFormControl extends Control {
                 ->addRule(Form::PATTERN, 'Zadejte platné telefonní číslo.', '^\+?[0-9 ]{9,20}$');
 
         $form->addDateTime('reservation_date', 'Datum a čas:')
-                ->setRequired('Prosím vyplňte datum a čas.');
+                ->setRequired('Prosím vyplňte datum a čas.')
+                ->setHtmlAttribute('class', 'form-control datetimepicker');
 
         $form->addText('guest_count', 'Počet osob:')
                 ->setRequired('Prosím vyplňte počet osob.')
@@ -85,7 +86,7 @@ class ReservationFormControl extends Control {
             'status' => $data->status,
             'is_new' => 0,
             'email_send' => 1,
-            'last_user' => $loggedInUserName            
+            'last_user' => $loggedInUserName
         ];
 
         $reservation = $this->reservationFacade->getOne(['id' => $data->id]);

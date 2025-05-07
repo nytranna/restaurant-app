@@ -67,3 +67,27 @@ function initMap() {
 
 window.initMap = initMap;
 //------------------- end GOOGLE MAP ---------------------------
+
+//------------------- end TIME ---------------------------
+document.addEventListener('DOMContentLoaded', function () {
+    flatpickr(".timepicker", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        minuteIncrement: 1,
+    });
+});
+//------------------- end TIME ---------------------------
+
+//------------------- end DATE ---------------------------
+document.addEventListener('DOMContentLoaded', function () {
+    // Inicializace pro pole s třídou .datepicker
+    flatpickr(".datepicker", {
+        enableTime: false,
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        locale: "cs"
+    });
+});
+//------------------- end DATE ---------------------------
