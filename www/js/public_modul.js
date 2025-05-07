@@ -91,3 +91,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 //------------------- end DATE ---------------------------
+
+//------------------- SWIPER STOP ---------------------------
+const swiper = new Swiper('.events-slider', {
+  speed: 600,
+  loop: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false // necháváme běžet, dokud ručně nezastavíme
+  },
+  slidesPerView: 'auto',
+  pagination: {
+    el: '.swiper-pagination',
+    type: 'bullets',
+    clickable: true
+  }
+});
+
+document.querySelector('.swiper-pagination').addEventListener('click', () => {
+  swiper.autoplay.stop();
+});
+//------------------- end SWIPER STOP ---------------------------
