@@ -38,7 +38,8 @@ class CustomerReservationFormControl extends Control {
                 ->setRequired('Zadejte prosím telefonní číslo.')
                 ->setHtmlType('tel')
                 ->setHtmlAttribute('class', 'form-control')
-                ->setHtmlAttribute('placeholder', 'Telefonní číslo');
+                ->setHtmlAttribute('placeholder', 'Telefonní číslo')
+                ->addRule($form::PATTERN, 'Zadejte platné telefonní číslo.', '^[+]?[0-9]{6,15}$');
 
         $form->addText('date', 'Datum')
                 ->setHtmlType('date')

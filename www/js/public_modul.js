@@ -94,21 +94,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //------------------- SWIPER STOP ---------------------------
 const swiper = new Swiper('.events-slider', {
-  speed: 600,
-  loop: true,
-  autoplay: {
-    delay: 5000,
-    disableOnInteraction: false // necháváme běžet, dokud ručně nezastavíme
-  },
-  slidesPerView: 'auto',
-  pagination: {
-    el: '.swiper-pagination',
-    type: 'bullets',
-    clickable: true
-  }
+    speed: 600,
+    loop: true,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false // necháváme běžet, dokud ručně nezastavíme
+    },
+    slidesPerView: 'auto',
+    pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true
+    }
 });
 
 document.querySelector('.swiper-pagination').addEventListener('click', () => {
-  swiper.autoplay.stop();
+    swiper.autoplay.stop();
 });
 //------------------- end SWIPER STOP ---------------------------
+
+document.addEventListener('DOMContentLoaded', function () {
+    const phoneInput = document.querySelector('input[name="phone"]');
+
+    phoneInput.addEventListener('input', function () {
+        // Reset zprávy, když uživatel něco píše
+        this.setCustomValidity('');
+    });
+
+    phoneInput.addEventListener('invalid', function () {
+        // Nastav vlastní hlášku
+        if (this.validity.valueMissing) {
+            this.setCustomValidity('Zadejte prosím telefonní číslo.');
+        } else if (this.validity.patternMismatch) {
+            this.setCustomValidity('Zadejte platné telefonní číslo (např. +420123456789).');
+        }
+    });
+});
