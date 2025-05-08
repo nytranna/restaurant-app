@@ -14,7 +14,8 @@ class ResetFormControl extends Control {
     public function __construct(
             private BaseFormFactory $baseFormFactory,
             private \App\Model\Facade\PasswordResetFacade $passwordResetFacade,
-            private \App\Model\Facade\UserFacade $userFacade
+            private \App\Model\Facade\UserFacade $userFacade,
+            private \App\Model\Facade\RestaurantFacade $restaurantFacade
     ) {
         
     }
@@ -40,25 +41,27 @@ class ResetFormControl extends Control {
 
         $user = $this->userFacade->getOne(['email' => $data->email]);
         
+        $emailSend = $this->restaurantFacade->getOne()->email_send;
+        
 
         if ($user) {
 
             $this->passwordResetFacade->insert(['hash' => $hash, 'id_user' => $user->id]);
 
-            $this->sendEmail($data->email, $hash);
+            $this->sendEmail($data->email, $hash, $emailSend);
         }
 
         $form->getPresenter()->flashMessage('Pokud je e-mail registrován, byl odeslán odkaz na reset hesla.', 'success');
         $form->getPresenter()->redirect('this');
     }
 
-    public function sendEmail(string $email, string $hash) {
+    public function sendEmail(string $email, string $hash, string $emailSend) {
 
-        $url = $this->presenter->link('//Sign:resetPassword', ['hash' => $hash]); // /admin/sign/reset-password?hash=o731yeguhbykg5z6ls2kc23g2e9e61
+        $url = $this->presenter->link('//Sign:resetPassword', ['hash' => $hash]);
         
 
         $mail = new Message();
-        $mail->setFrom('Anna <anna.nytrova@email.cz>')
+        $mail->setFrom('RestaurantApp <'.$emailSend.'>')
                 ->addTo($email)
                 ->setSubject('RestaurantApp - obnovení hesla')
                 ->setHtmlBody("<h1>Obnovení hesla do RestaurantApp</h1><p>Pro obnovení hesla klikněte <a href='$url'>zde</a>.<br>Pokud si nepřejete resetovat heslo, tento email ignorujte.</p>");
