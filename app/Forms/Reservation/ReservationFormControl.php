@@ -15,7 +15,8 @@ class ReservationFormControl extends Control {
             private BaseFormFactory $baseFormFactory,
             private \App\Model\Facade\ReservationFacade $reservationFacade,
             private \App\Model\Facade\UserFacade $userFacade,
-            private User $user
+            private User $user,
+            private \App\Model\Facade\RestaurantFacade $restaurantFacade
     ) {
         
     }
@@ -42,6 +43,10 @@ class ReservationFormControl extends Control {
         $form->addText('guest_count', 'Počet osob:')
                 ->setRequired('Prosím vyplňte počet osob.')
                 ->addRule(Form::INTEGER, 'Zadejte pouze číslo.');
+        
+        $form->addText('note', 'Poznámka:');
+        
+        
 
         $status = ['pending' => 'Nevyřízeno', 'confirmed' => 'Potvrzeno', 'cancelled' => 'Zrušeno'];
 
@@ -62,7 +67,8 @@ class ReservationFormControl extends Control {
             'customer_phone' => $data->customer_phone,
             'reservation_date' => $data->reservation_date,
             'guest_count' => $data->guest_count,
-            'status' => $data->status
+            'status' => $data->status,
+            'note' => $data->note
         ];
 
         $this['form']->setDefaults($data);
@@ -86,16 +92,22 @@ class ReservationFormControl extends Control {
             'status' => $data->status,
             'is_new' => 0,
             'email_send' => 1,
-            'last_user' => $loggedInUserName
+            'last_user' => $loggedInUserName,
+            'note' => $data->note
         ];
 
         $reservation = $this->reservationFacade->getOne(['id' => $data->id]);
+        $restaurantName = $this->restaurantFacade->getOne()->name;
+        $emailSend = $this->restaurantFacade->getOne()->email_send;
+        $formattedDate = $data->reservation_date->format('Y-m-d H:i');
 
         if ($data->id) {
             $this->reservationFacade->getOne(['id' => $data->id])->update($reservationData);
 
             if ($data->status == 'confirmed' && !$reservation->email_send) {
-//                $this->sendEmail($data->customer_email); //odkomentovat!!!             
+                
+                $this->sendEmail($restaurantName, $emailSend, $data->customer_email, $data->customer_name, $data->customer_phone, $formattedDate, $data->guest_count, $data->note);    
+                
             }
         } else {
             $this->reservationFacade->insert($reservationData);
@@ -110,13 +122,21 @@ class ReservationFormControl extends Control {
         }
     }
 
-    public function sendEmail(string $email) {
+    public function sendEmail(string $restaurantName, string $emailSend, string $email, string $name, $phone, $date, $guests, $note) {
 
         $mail = new Message();
-        $mail->setFrom('Anna <anna.nytrova@email.cz>')
+        $mail->setFrom('Restaurace '.$restaurantName.' <'.$emailSend.'>')
                 ->addTo($email)
                 ->setSubject('Potvrzení rezervace')
-                ->setHtmlBody("<h1>Potvrzení rezervace</h1><p>Potvrzujeme Vaší rezervaci. Těšíme se na Vás.</p>");
+                ->setHtmlBody("<p>Dobrý den,<br>potvrzujeme Vaší rezervaci. "
+                        . "<br>Těšíme se na Vás."
+                        . "<br><br>Informace o rezervaci:"
+                        . "<br>Jméno: " . $name
+                        . "<br>Telefon: " . $phone
+                        . "<br>Datum a čas: " . $date
+                        . "<br>Počet osob: " . $guests
+                        . "<br>Poznámka: " . $note
+                        . "</p>");
 
         $mailer = new SendmailMailer();
         $mailer->send($mail);

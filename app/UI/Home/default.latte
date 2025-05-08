@@ -235,9 +235,9 @@
                                 {foreach $menuItems as $mI}
                                     {if $mI->id_menu_category === $mainCategory->id}
                                         <div class="col-lg-6 menu-item">
-                                            {if isset($restaurant->menu_with_images) && $restaurant->menu_with_images}
+                                            {*if isset($restaurant->menu_with_images) && $restaurant->menu_with_images}
                                                 <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                                            {/if}
+                                            {/if*}
                                             <div class="menu-content">
                                                 <div>
                                                     <a>{$mI->name}</a>
@@ -251,7 +251,7 @@
                                                         {if $v->size}
                                                             {$v->size} /
                                                         {/if}
-                                                        {$v->price} Kč<br>
+                                                        {$v->price}&nbsp;Kč<br>
                                                     {/foreach}
                                                 </span>
                                             </div>
@@ -286,7 +286,7 @@
                                                                     {if $v->size}
                                                                         {$v->size} /
                                                                     {/if}
-                                                                    {$v->price} Kč<br>
+                                                                    {$v->price}&nbsp;Kč<br>
                                                                 {/foreach}
                                                             </span>
                                                         </div>

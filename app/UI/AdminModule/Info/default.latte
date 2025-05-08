@@ -103,10 +103,11 @@
                         <h5 class="card-title" style="font-size:150%"><i class="fa-solid fa-map-marker-alt me-2"></i>Kontakt</h5>
                         <br>
                         <br>
-                        <p class="card-text"><strong>Adresa:</strong>  {if isset($restaurant->id)}{$restaurant->address}{/if}</p>
-                        <p class="card-text"><strong>Telefon:</strong>  {if isset($restaurant->id)}{$restaurant->phone}{/if}</p>
-                        <p class="card-text"><strong>Email:</strong>  {if isset($restaurant->id)}{$restaurant->email}{/if}</p>
-                        <p class="card-text"><strong>IČO:</strong>  {if isset($restaurant->id)}{$restaurant->ico}{/if}</p>
+                        <p class="card-text"><strong>Adresa:</strong>  {if isset($restaurant->address)}{$restaurant->address}{/if}</p>
+                        <p class="card-text"><strong>Telefon:</strong>  {if isset($restaurant->phone)}{$restaurant->phone}{/if}</p>
+                        <p class="card-text"><strong>Email:</strong>  {if isset($restaurant->email)}{$restaurant->email}{/if}</p>
+                        <p class="card-text"><strong>Email pro odesílání pošty:</strong>  {if isset($restaurant->email_send)}{$restaurant->email_send}{/if}</p>
+                        <p class="card-text"><strong>IČO:</strong>  {if isset($restaurant->ico)}{$restaurant->ico}{/if}</p>
                     </div>
                 </div>
             </div>

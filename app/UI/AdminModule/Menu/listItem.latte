@@ -67,7 +67,6 @@
                             <th>Nadkategorie</th>
                             <th>Velikost</th>
                             <th>Cena</th>
-                            <th>Obrázek</th>
                             <th>Akce</th>
                         </tr>
                     </thead>
@@ -104,7 +103,6 @@
                                         -
                                     {/foreach}
                                 </td>
-                                <td>{($i->id_image !== "" && $i->id_image !== null) ? $i->id_image : "-"}</td>
                                 <td>
                                     {if $menuCategory->menu_type == 'daily_menu'}
                                         <a n:href="Menu:editItem menu_type=>'daily_menu', id=>$i->id" type="button" class="btn btn-outline-secondary mb-2 btn-sm" title="Upravit">

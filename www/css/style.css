@@ -81,3 +81,8 @@
 .gallery .gallery-item {
     height: 250px;
 }
+
+/*---menu item - public modul---*/
+.menu .menu-content {
+    margin-left: 0px;
+}

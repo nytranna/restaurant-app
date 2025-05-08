@@ -33,6 +33,8 @@ class InfoFormControl extends Control {
         $form->addText('address', 'Adresa:');
 
         $form->addText('email', 'Email:');
+        
+        $form->addText('email_send', 'Email pro odesílání pošty:');
 
         $form->addText('phone', 'Telefonní číslo:');
 
@@ -134,6 +136,7 @@ class InfoFormControl extends Control {
             'about_us' => $data->about_us,
             'address' => $data->address,
             'email' => $data->email,
+            'email_send' => $data->email_send,
             'phone' => $data->phone,
             'ico' => $data->ico,
             'facebook' => $data->facebook,
@@ -176,6 +179,7 @@ class InfoFormControl extends Control {
             'about_us' => $data->about_us,
             'address' => $data->address,
             'email' => $data->email,
+            'email_send' => $data->email_send,
             'phone' => $data->phone,
             'ico' => $data->ico,
             'facebook' => $data->facebook,
