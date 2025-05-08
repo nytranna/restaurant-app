@@ -4,12 +4,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="mb-4">                              
-                {if $menuCategory->menu_type == 'daily_menu'}
+                {if $menu_type == 'daily_menu'}
                     <a n:href="Menu:default menu_type=>'daily_menu'">
                         <i class="fa-solid fa-angle-left me-1"></i>
                         Zpět na Denní menu
                     </a>
-                {elseif $menuCategory->menu_type == 'drinks'}
+                {elseif $menu_type == 'drinks'}
                     <a n:href="Menu:default menu_type=>'drinks'">
                         <i class="fa-solid fa-angle-left me-1"></i>
                         Zpět na Nápoje
@@ -22,20 +22,20 @@
                 {/if}
             </div>
             <div n:block="title" class="col-md-6">                
-                {if $menuCategory->menu_type == 'daily_menu'}
+                {if $menu_type == 'daily_menu'}
                     <h3 class="mb-0"><i class="fa-regular fa-newspaper me-2"></i>Kategorie - Denní menu</h3>
-                {elseif $menuCategory->menu_type == 'drinks'}
+                {elseif $menu_type == 'drinks'}
                     <h3 class="mb-0"><i class="fa-regular fa-newspaper me-2"></i>Kategorie - Nápoje</h3>
                 {else}
                     <h3 class="mb-0"><i class="fa-regular fa-newspaper me-2"></i>Kategorie - Menu</h3>
                 {/if}
             </div>
             <div class="col-md-6 text-center text-md-end">
-                {if $menuCategory->menu_type == 'daily_menu'}
+                {if $menu_type == 'daily_menu'}
                     <a n:href="Menu:editCategory menu_type=>'daily_menu'" class="btn btn-primary mb-2" title="Přidat kategorii">
                         <i class="fa-regular fa-newspaper me-2"></i>Přidat kategorii
                     </a>
-                {elseif $menuCategory->menu_type == 'drinks'}
+                {elseif $menu_type == 'drinks'}
                     <a n:href="Menu:editCategory menu_type=>'drinks'" class="btn btn-primary mb-2" title="Přidat kategorii">
                         <i class="fa-regular fa-newspaper me-2"></i>Přidat kategorii
                     </a>
@@ -81,14 +81,14 @@
                                     {$c->ref('menu_category', 'id_menu_category')->name ?? '-'}
                                 </td>                              
                                 <td style="text-align: center; vertical-align: middle;">
-                                    {if $menuCategory->menu_type == 'daily_menu'}
+                                    {if $menu_type == 'daily_menu'}
                                         <a n:href="Menu:editCategory menu_type=>'daily_menu', id=>$c->id" type="button" class="btn btn-outline-secondary me-1 btn-sm" title="Upravit">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                         <button class="btn btn-outline-danger btn-sm" form="postForm" formaction="{link deleteCategory $c->id, menu_type => 'daily_menu'}" title="Smazat">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
-                                    {elseif $menuCategory->menu_type == 'drinks'}
+                                    {elseif $menu_type == 'drinks'}
                                         <a n:href="Menu:editCategory menu_type=>'drinks', id=>$c->id" type="button" class="btn btn-outline-secondary me-1 btn-sm" title="Upravit">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>

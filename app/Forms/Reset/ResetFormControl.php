@@ -69,8 +69,8 @@ class ResetFormControl extends Control {
         $mailer = new SendmailMailer();
         $mailer->send($mail);
 
-//        $this->flashMessage('E-mail byl úspěšně odeslán.', 'success');
-//        $this->redirect('this');
+        $this->flashMessage('E-mail byl úspěšně odeslán.', 'success');
+        $this->redirect('this');
     }
 
     public function render() {

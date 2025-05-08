@@ -46,6 +46,8 @@ final class MenuPresenter extends Nette\Application\UI\Presenter {
 
         $menuItemVariants = $this->menuItemVariantFacade->getAll();
         $this->template->menuItemVariants = $menuItemVariants;
+
+        $this->template->menu_type = $menu_type;
     }
 
     public function renderListCategory(string $menu_type) {
@@ -54,6 +56,8 @@ final class MenuPresenter extends Nette\Application\UI\Presenter {
 
         $categories = $this->menuCategoryFacade->getAll(['menu_type' => $menu_type], 'order ASC');
         $this->template->categories = $categories;
+
+        $this->template->menu_type = $menu_type;
     }
 
     public function renderListItem(string $menu_type) {
@@ -65,6 +69,8 @@ final class MenuPresenter extends Nette\Application\UI\Presenter {
 
         $items = $this->menuItemFacade->getAll(['id_menu_category' => $categories]);
         $this->template->items = $items;
+
+        $this->template->menu_type = $menu_type;
     }
 
     public function renderEditCategory(string $menu_type, $id = null): void {

@@ -75,6 +75,9 @@ class ImageFormControl extends Control {
             if ($image->isOk()) {
                 $path = __DIR__ . '/../../../www/images';
 
+//                $maxOrder = $this->imageFacade->getOne([]);
+//                $imageData['order'] = $maxOrder + 1;
+
                 $this->imageFacade->insert($imageData);
 
 //            $image->move($path . '/1/' . $imageName);

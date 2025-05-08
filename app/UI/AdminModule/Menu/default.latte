@@ -6,9 +6,9 @@
             <div n:block="title" class="col-md-6">
                 <h3 class="mb-0">
                     <i class="fa-regular fa-newspaper me-2"></i>
-                    {if $menuCategory->menu_type == 'daily_menu'}
+                    {if $menu_type == 'daily_menu'}
                         Denní menu
-                    {elseif $menuCategory->menu_type == 'drinks'}
+                    {elseif $menu_type == 'drinks'}
                         Nápoje
                     {else}
                         Menu
@@ -16,7 +16,7 @@
                 </h3>
             </div>
             <div class="col-md-6 text-center text-md-end">
-                {if $menuCategory->menu_type == 'daily_menu'}
+                {if $menu_type == 'daily_menu'}
                     <a n:href="Menu:listCategory menu_type=>'daily_menu'" class="btn btn-primary mb-2" title="Správa">
                         <i class="fa-solid fa-pen-to-square me-2"></i>
                         Správa kategorií
@@ -25,7 +25,7 @@
                         <i class="fa-solid fa-pen-to-square me-2"></i>
                         Správa položek
                     </a>
-                {elseif $menuCategory->menu_type == 'drinks'}
+                {elseif $menu_type == 'drinks'}
                     <a n:href="Menu:listCategory menu_type=>'drinks'" class="btn btn-primary mb-2" title="Správa">
                         <i class="fa-solid fa-pen-to-square me-2"></i>
                         Správa kategorií

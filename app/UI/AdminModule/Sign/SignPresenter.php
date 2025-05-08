@@ -40,6 +40,20 @@ final class SignPresenter extends Nette\Application\UI\Presenter {
             $this->error('404');
         }
 
+        $createdAt = $validHash->created_at;
+        if ($createdAt instanceof \DateTimeInterface) {
+            $now = new \DateTimeImmutable();
+            $interval = $now->getTimestamp() - $createdAt->getTimestamp();
+
+            if ($interval > 3600) {
+                $this->flashMessage('Odkaz pro reset hesla vypršel.', 'danger');
+                $this->redirect('Sign:in');
+            }
+        } else {
+            $this->flashMessage('Neplatný formát data odkazu.', 'danger');
+            $this->redirect('Sign:in');
+        }
+
         $user = $this->userFacade->getOne(['id' => $validHash->id_user ?? null]);
 
         if (!$user) {
