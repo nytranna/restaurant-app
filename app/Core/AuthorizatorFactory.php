@@ -35,7 +35,12 @@ class AuthorizatorFactory {
         $acl->allow('staff', 'Admin:Users', ['default']);
         $acl->allow('staff', 'Admin:Profile');
         $acl->allow('staff', 'Admin:Info', ['default']);
+        $acl->allow('staff', 'Admin:Reservation');
         $acl->allow('staff', 'Admin:News', ['default']);
+        $acl->allow('staff', 'Admin:Menu');
+        $acl->allow('staff', 'Admin:MenuCategory');
+        $acl->allow('staff', 'Admin:MenuItem');
+        $acl->allow('staff', 'Admin:Image', ['default']);
 
         return $acl;
     }
