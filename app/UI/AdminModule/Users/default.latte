@@ -1,6 +1,5 @@
 {block content}
 
-
 <!--begin::App Content Header-->
 <div class="app-content-header">
     <!--begin::Container-->
@@ -51,7 +50,6 @@
                                 <td>{$u->name}</td>
                                 <td>{$u->email}</td>
                                 <td>{$u->role}</td>
-
                                 <td>
                                     {if $user->isAllowed($presenter->name, 'edit')}
                                         <a n:href="Users:edit $u->id" type="button" class="btn btn-outline-secondary mb-2 btn-sm" title="Upravit"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -59,11 +57,8 @@
 
                                     {if $user->isAllowed($presenter->name, 'delete')}
                                         <button class="btn btn-outline-danger mb-2 btn-sm" form="postForm" formaction="{link delete $u->id}" title="Smazat"><i class="fa-solid fa-trash"></i></button>
-                                        {/if}
-
+                                    {/if}
                                 </td>
-
-
                             </tr>
                         {/foreach}
 

@@ -150,11 +150,17 @@ class MenuItemFormControl extends Control {
 
     public function submitted(Form $form, \stdClass $data): void {
 
-        $itemData = [
-            'name' => $data->name,
-            'description' => $data->description,
+        $maxOrderRow = $this->menuItemFacade->getMaxOrderRow([
             'id_menu_category' => $data->category
-        ];
+        ]);
+        $nextOrder = $maxOrderRow ? $maxOrderRow->order + 1 : 1;
+
+//        $itemData = [
+//            'name' => $data->name,
+//            'description' => $data->description,
+//            'id_menu_category' => $data->category,
+//            'order' => $nextOrder
+//        ];
 
         $dataVariant = ($form->getHttpData());
 
@@ -173,6 +179,12 @@ class MenuItemFormControl extends Control {
         if ($data->id) {
             $this->menuItemFacade->getDatabase()->beginTransaction();
             try {
+                $itemData = [
+                    'name' => $data->name,
+                    'description' => $data->description,
+                    'id_menu_category' => $data->category
+                ];
+
                 $this->menuItemFacade->getOne(['id' => $data->id])->update($itemData);
 
                 $variants = $this->menuItemVariantFacade->getAll(['id_menu_item' => $data->id]);
@@ -193,6 +205,13 @@ class MenuItemFormControl extends Control {
             }
             $this->menuItemFacade->getDatabase()->commit();
         } else {
+            $itemData = [
+                'name' => $data->name,
+                'description' => $data->description,
+                'id_menu_category' => $data->category,
+                'order' => $nextOrder
+            ];
+            
             $newItem = $this->menuItemFacade->insert($itemData);
 
             foreach ($sizes as $i => $size) {

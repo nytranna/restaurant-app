@@ -12,4 +12,7 @@ final class MenuCategoryFacade {
         
     }
 
+    public function getMaxOrderRow(array $where = []): ?\Nette\Database\Table\ActiveRow {
+        return $this->getData($where)->order('`order` DESC')->limit(1)->fetch();
+    }
 }

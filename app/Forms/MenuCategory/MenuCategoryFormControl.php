@@ -8,7 +8,7 @@ use Nette\Application\UI\Form;
 use Nette\Database\Explorer;
 
 class MenuCategoryFormControl extends Control {
-    
+
     private $category;
 
     public function __construct(
@@ -21,18 +21,18 @@ class MenuCategoryFormControl extends Control {
     }
 
     public function createComponentForm(): Form {
-        
+
         $form = $this->baseFormFactory->create();
 
         $presenter = $this->getPresenter();
         $menuType = $presenter->getParameter('menu_type');
-        
-        if($this->category){
+
+        if ($this->category) {
             $categories = $this->menuCategoryFacade->getAll(['menu_type' => $menuType, 'id != ?' => $this->category->id]);
-        }else{
+        } else {
             $categories = $this->menuCategoryFacade->getAll(['menu_type' => $menuType]);
         }
-      
+
         $upperCategories = ['' => ''];
 
         foreach ($categories as $c) {
@@ -57,7 +57,7 @@ class MenuCategoryFormControl extends Control {
     }
 
     public function setDefaults($data) {
-        
+
         $this->category = $data;
 
         $data = [
@@ -75,16 +75,35 @@ class MenuCategoryFormControl extends Control {
             $data->parent_category = null;
         }
 
-        $categoryData = [
-            'name' => $data->name,
+        $maxOrderRow = $this->menuCategoryFacade->getMaxOrderRow([
+            'menu_type' => $data->menu_type,
             'id_menu_category' => $data->parent_category,
-            'menu_type' => $data->menu_type
-        ];
+        ]);
+
+        $nextOrder = $maxOrderRow ? $maxOrderRow->order + 1 : 1;
+
+//        $categoryData = [
+//            'name' => $data->name,
+//            'id_menu_category' => $data->parent_category,
+//            'menu_type' => $data->menu_type,
+//            'order' => $nextOrder
+//        ];
 
         if ($data->id) {
+            $categoryData = [
+                'name' => $data->name,
+                'id_menu_category' => $data->parent_category,
+                'menu_type' => $data->menu_type
+            ];
 
             $this->menuCategoryFacade->getOne(['id' => $data->id])->update($categoryData);
         } else {
+            $categoryData = [
+                'name' => $data->name,
+                'id_menu_category' => $data->parent_category,
+                'menu_type' => $data->menu_type,
+                'order' => $nextOrder
+            ];
             $this->menuCategoryFacade->insert($categoryData);
         }
 
