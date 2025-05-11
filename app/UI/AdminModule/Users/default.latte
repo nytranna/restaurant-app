@@ -57,7 +57,7 @@
 
                                     {if $user->isAllowed($presenter->name, 'delete')}
                                         <button class="btn btn-outline-danger mb-2 btn-sm" form="postForm" formaction="{link delete $u->id}" title="Smazat"><i class="fa-solid fa-trash"></i></button>
-                                    {/if}
+                                        {/if}
                                 </td>
                             </tr>
                         {/foreach}
