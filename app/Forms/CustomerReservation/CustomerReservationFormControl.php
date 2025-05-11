@@ -41,15 +41,13 @@ class CustomerReservationFormControl extends Control {
 
         $form->addText('date', 'Datum')
                 ->setHtmlType('date')
-                ->setRequired('Zadejte datum.')
-                ->setHtmlAttribute('class', 'form-control')
+                ->setRequired('Prosím zadejte datum.')
                 ->setHtmlAttribute('class', 'form-control datepicker')
                 ->setHtmlAttribute('placeholder', 'Datum');
 
         $form->addText('time', 'Čas')
                 ->setHtmlType('time')
-                ->setRequired('Zadejte čas.')
-                ->setHtmlAttribute('class', 'form-control')
+                ->setRequired('Prosím zadejte čas.')
                 ->setHtmlAttribute('class', 'form-control timepicker')
                 ->setHtmlAttribute('placeholder', 'Čas');
 
@@ -101,9 +99,8 @@ class CustomerReservationFormControl extends Control {
         ];
 
         $this->reservationFacade->insert($reservationData);
-
+        
         if (!$form->hasErrors()) {
-
             $this->sendEmailCustomer($restaurantName, $emailSend, $data->email, $data->name, $data->phone, $reservationDateTime, $data->people, $data->message); //odkomentovat
             $this->sendEmailAdmin($emailSend, $restaurantName, $restaurantEmail, $data->name, $data->email, $data->phone, $reservationDateTime, $data->people, $data->message); //odkomentovat
 

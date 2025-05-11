@@ -2,6 +2,17 @@
 
 {form form}
 
+     {if $form->errors}
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                {foreach $form->errors as $error}
+                    <li>{$error}</li>
+                {/foreach}
+            </ul>
+        </div>
+        <div id="scroll-to-reservation" data-scroll="true" style="display: none;"></div>
+    {/if}
+    
     <div class="php-email-form">
         <div class="row">
             <div class="col-lg-4 col-md-6 form-group">
