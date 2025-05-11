@@ -43,6 +43,8 @@ final class ImagePresenter extends Nette\Application\UI\Presenter {
     }
 
     public function handleGallery(int $id): void {
+        $this->checkPermission('handleGallery');
+
         $image = $this->imageFacade->getOne(['id' => $id]);
 
         if ($image) {
@@ -57,12 +59,11 @@ final class ImagePresenter extends Nette\Application\UI\Presenter {
 
     #[Requires(methods: 'POST', sameOrigin: true)]
     public function actionDelete(int $id): void {
+        $this->checkPermission('actionDelete');
 
         $path = '/var/www/restaurant-app/www/images/' . $this->imageFacade->getOne(['id' => $id])->name;
 
         $this->imageFacade->getOne(['id' => $id])->delete();
-
-//        unlink($path);
 
         try {
             FileSystem::delete($path);
@@ -74,16 +75,23 @@ final class ImagePresenter extends Nette\Application\UI\Presenter {
     }
 
     public function handleUpdateOrder(): void {
+        $this->checkPermission('handleUpdateOrder');
 
         $data = json_decode($_POST['order_data'], true);
         $dbTable = $_POST['db_table'] ?? null;
 
         foreach ($data as $id => $position) {
-                $this->imageFacade->getOne(['id' => $id])->update(['order' => $position]);
-            
+            $this->imageFacade->getOne(['id' => $id])->update(['order' => $position]);
         }
 
         $this->sendJson(['status' => 'ok']);
+    }
+
+    private function checkPermission(string $action): void {
+        if (!$this->user->isAllowed($this->getName(), $action)) {
+            $this->flashMessage('Nemáte oprávnění k této akci.', 'danger');
+            $this->redirect('Image:default');
+        }
     }
 
     protected function createComponentImageForm(): ImageFormControl {

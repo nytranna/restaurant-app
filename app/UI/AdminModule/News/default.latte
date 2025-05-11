@@ -7,11 +7,13 @@
             <div n:block="title" class="col-md-6">
                 <h3 class="mb-0"><i class="fa-regular fa-newspaper me-2"></i>Aktuality</h3>
             </div>
-            <div class="col-md-6 text-center text-md-end">
-                <a n:href="News:edit" class="btn btn-primary mb-2" title="Přidat článek">
-                    <i class="fa-regular fa-newspaper me-2"></i>Přidat článek
-                </a>
-            </div>
+            {if $user->isAllowed($presenter->name, 'edit')}
+                <div class="col-md-6 text-center text-md-end">
+                    <a n:href="News:edit" class="btn btn-primary mb-2" title="Přidat článek">
+                        <i class="fa-regular fa-newspaper me-2"></i>Přidat článek
+                    </a>
+                </div>
+            {/if}
         </div>
     </div>
 </div>
@@ -56,12 +58,16 @@
                                     {/if}
                                 </td>
                                 <td>
-                                    <a n:href="News:edit $n->id" type="button" class="btn btn-outline-secondary mb-2 btn-sm" title="Upravit">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    <button class="btn btn-outline-danger mb-2 btn-sm" form="postForm" formaction="{link delete $n->id}" title="Smazat">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                    {if $user->isAllowed($presenter->name, 'edit')}
+                                        <a n:href="News:edit $n->id" type="button" class="btn btn-outline-secondary mb-2 btn-sm" title="Upravit">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    {/if}
+                                    {if $user->isAllowed($presenter->name, 'delete')}
+                                        <button class="btn btn-outline-danger mb-2 btn-sm" form="postForm" formaction="{link delete $n->id}" title="Smazat">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    {/if}
 
                                 </td>
                             </tr>

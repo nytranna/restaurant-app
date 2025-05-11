@@ -6,11 +6,13 @@
             <div n:block="title" class="col-md-6">
                 <h3 class="mb-0"><i class="fa-solid fa-images me-2"></i>Obrázky</h3>
             </div>
-            <div class="col-md-6 text-center text-md-end">
-                <a n:href="Image:edit" class="btn btn-primary mb-2" title="Přidat obrázek">
-                    <i class="fa-solid fa-images me-2"></i>Přidat obrázek
-                </a>
-            </div>
+            {if $user->isAllowed($presenter->name, 'edit')}
+                <div class="col-md-6 text-center text-md-end">
+                    <a n:href="Image:edit" class="btn btn-primary mb-2" title="Přidat obrázek">
+                        <i class="fa-solid fa-images me-2"></i>Přidat obrázek
+                    </a>
+                </div>
+            {/if}
         </div>
     </div>
 </div>
@@ -19,7 +21,7 @@
     <div class="container-fluid">
         <div class="row overflow-auto">
             {snippet news_table}
-                 <table id="example" class="table table-striped table-bordered dataTable-reorder"
+                <table id="example" class="table table-striped table-bordered dataTable-reorder"
                        data-reorder_url="{link updateOrder!}"
                        data-db_table="menu_image">                    
                     <thead>
@@ -29,9 +31,6 @@
                             <th>Náhled</th>
                             <th>Název</th>
                             <th>Zobrazen v galerii</th>
-                                {*
-                                <th>Pořadí</th>
-                                *}
                             <th>Akce</th>
                         </tr>
                     </thead>
@@ -41,7 +40,9 @@
                                 <td>{$i->order}</td>
                                 <td style="cursor: grab;">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <i class="fa-solid fa-arrows-up-down-left-right"></i>
+                                        {if $user->isAllowed($presenter->name, 'handleOrder')}
+                                            <i class="fa-solid fa-arrows-up-down-left-right"></i>
+                                        {/if}
                                         <span>{$i->id}</span>
                                     </div>
                                 </td>
@@ -54,49 +55,23 @@
                                         <i class="fa-solid fa-xmark text-danger"></i>
                                     {/if}
                                 </td>
-
-
-                                {*
-                                <td>
-                                    {if $i->order}
-                                {$i->order}
-
-                                *}
-                                {*
-                                <div class="btn-group ms-3" role="group" aria-label="Basic mixed styles example">
-                                    <a n:href="order! id => $i->id" class="btn btn-outline-primary btn-sm">
-                                        <i class="fa-solid fa-minus"></i>
-                                    </a>
-                                    <a n:href="order! id => $i->id" class="btn btn-outline-primary btn-sm">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </a>
-                                    
-                                    <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-minus"></i></button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-plus"></i></button>                                         
-                                </div>
-                                *}
-                                {*
-                                    {else}
-                                        <i class="fa-solid fa-xmark text-danger"></i>
+                                <td> 
+                                    {if $user->isAllowed($presenter->name, 'handleGallery')}
+                                        {if $i->is_gallery}
+                                            <a n:href="gallery! id => $i->id" class="btn btn-sm btn-outline-danger">
+                                                Odebrat z galerie
+                                            </a>
+                                        {else}
+                                            <a n:href="gallery! id => $i->id" class="btn btn-sm btn-outline-success">
+                                                Zobrazit v galerii
+                                            </a>
+                                        {/if}
                                     {/if}
-                                </td>
-                                *}
-
-
-
-                                <td>
-                                    {if $i->is_gallery}
-                                        <a n:href="gallery! id => $i->id" class="btn btn-sm btn-outline-danger">
-                                            Odebrat z galerie
-                                        </a>
-                                    {else}
-                                        <a n:href="gallery! id => $i->id" class="btn btn-sm btn-outline-success">
-                                            Zobrazit v galerii
-                                        </a>
+                                    {if $user->isAllowed($presenter->name, 'delete')}
+                                        <button class="btn btn-outline-danger btn-sm" onclick="return confirm('Opravdu chcete obrázek smazat?')" form="postForm" formaction="{link delete $i->id}" title="Smazat">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                     {/if}
-                                    <button class="btn btn-outline-danger btn-sm" onclick="return confirm('Opravdu chcete obrázek smazat?')" form="postForm" formaction="{link delete $i->id}" title="Smazat">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
                                 </td>
                             </tr>
                         {/foreach}
