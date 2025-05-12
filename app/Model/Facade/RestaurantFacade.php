@@ -11,9 +11,4 @@ final class RestaurantFacade {
     public function __construct(private \Nette\Database\Explorer $database) {
         
     }
-    
-    
-    
-    
-    
 }

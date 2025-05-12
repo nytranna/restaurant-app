@@ -150,18 +150,6 @@
                                     </p>
                                 </a>
                             </li>
-                            {*
-                            <li class="nav-item menu-open">
-                                <a n:href="Menu:default" class="nav-link active">
-                                    <i class="fa-solid fa-utensils ms-1 me-2"></i>
-                                    <p>
-                                        Jídelní lístek
-                                    </p>
-                                </a>
-                            </li>
-                            *}
-
-
                             <li class="nav-item{if $presenter->isLinkCurrent('Menu:default') && in_array($presenter->getParameter('menu_type'), ['menu', 'daily_menu', 'drinks'])} menu-open{/if}">
                                 <a n:href="Menu:default menu_type=>'menu'" class="nav-link{if $presenter->isLinkCurrent('Menu:default') && in_array($presenter->getParameter('menu_type'), ['menu', 'daily_menu', 'drinks'])} active{/if}">
                                     <i class="fa-solid fa-utensils ms-1 me-2"></i>
@@ -192,8 +180,6 @@
                                     </li>
                                 </ul>
                             </li>
-
-
                             <li class="nav-item">
                                 <a n:href="Users:default" class="nav-link{if $presenter->isLinkCurrent('Users:default')} active{/if}">
                                     <i class="fa-solid fa-user-group me-2"></i>
@@ -226,7 +212,6 @@
                                     </p>
                                 </a>
                             </li>
-
                         </ul>
                         <!--end::Sidebar Menu-->
                     </nav>
@@ -238,15 +223,12 @@
             <main class="app-main">
                 <div class="p-3">
                     {foreach $flashes as $flash}
-
                         <div class="alert alert-{$flash->type}" role="alert">
                             {$flash->message}
-
                         </div>
                     {/foreach}
                 </div>
                 {include content}
-
             </main>
             <!--end::App Main-->
             <!--begin::Footer-->
@@ -273,9 +255,6 @@
         <script src="https://npmcdn.com/flatpickr/dist/l10n/cs.js"></script>
         <script src="{$basePath}/node_modules/jquery/dist/jquery.min.js"></script>
 
-
-
-        {*<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>*}
         <script src="https://kit.fontawesome.com/ea70a934ec.js" crossorigin="anonymous"></script>
         <script src="{$basePath}/node_modules/naja/dist/Naja.min.js"></script>
         <script src="{$basePath}/node_modules/live-form-validation/live-form-validation.js"></script>
@@ -303,11 +282,6 @@
         <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
         <script src="{$basePath}/node_modules/admin-lte/dist/js/adminlte.js"></script>
         <script src="{$basePath}/node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-
-
-
-
-
 
         <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
         <script>

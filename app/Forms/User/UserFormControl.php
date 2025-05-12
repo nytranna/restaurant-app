@@ -5,7 +5,6 @@ namespace App\Forms;
 use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-use Nette\Utils\Random;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 
@@ -14,7 +13,6 @@ class UserFormControl extends Control {
     public function __construct(
             private BaseFormFactory $baseFormFactory,
             private \App\Model\Facade\UserFacade $userFacade,
-            private Nette\Security\Passwords $passwords,
             private \App\Model\Facade\RestaurantFacade $restaurantFacade,
             private \App\Model\Facade\PasswordResetFacade $passwordResetFacade
     ) {
@@ -115,11 +113,6 @@ class UserFormControl extends Control {
 
         $mailer = new SendmailMailer();
         $mailer->send($mail);
-
-//        $this->presenter->flashMessage('E-mail byl úspěšně odeslán.', 'success');
-
-//        $this->flashMessage('E-mail byl úspěšně odeslán.', 'success');
-//        $this->redirect('this');
     }
 
     public function render() {

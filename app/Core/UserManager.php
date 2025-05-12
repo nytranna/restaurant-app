@@ -19,16 +19,16 @@ class UserManager implements Nette\Security\Authenticator
                 $row = $this->userFacade->getOne(['email'=>$username]);
 
 		if (!$row) {
-			throw new Nette\Security\AuthenticationException('User not found.');
+			throw new Nette\Security\AuthenticationException('Uživatel nenalezen.');
 		}
 
 		if (!$this->passwords->verify($password, $row->password)) {
-			throw new Nette\Security\AuthenticationException('Invalid password.');
+			throw new Nette\Security\AuthenticationException('Neplatné heslo.');
 		}
 
 		return new SimpleIdentity(
 			$row->id,
-			$row->role, // nebo pole více rolí
+			$row->role,
 			['username' => $row->name],
 		);
 	}

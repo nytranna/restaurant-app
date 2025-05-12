@@ -2,7 +2,6 @@
 
 namespace App\Forms;
 
-use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Mail\Message;
@@ -44,10 +43,8 @@ class ReservationFormControl extends Control {
                 ->setRequired('Prosím vyplňte počet osob.')
                 ->addRule(Form::INTEGER, 'Zadejte pouze číslo.');
         
-        $form->addText('note', 'Poznámka:');
-        
-        
-
+        $form->addText('note', 'Poznámka:');       
+       
         $status = ['pending' => 'Nevyřízeno', 'confirmed' => 'Potvrzeno', 'cancelled' => 'Zrušeno'];
 
         $form->addRadioList('status', 'Status:', $status);

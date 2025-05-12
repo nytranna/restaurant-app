@@ -10,7 +10,6 @@ use App\Forms\ResetPasswordFormControl;
 use App\Forms\ResetPasswordFormFactory;
 use App\Model\Facade\UserFacade;
 use Nette;
-use Nette\Application\UI\Form;
 
 final class SignPresenter extends Nette\Application\UI\Presenter {
 
@@ -70,7 +69,6 @@ final class SignPresenter extends Nette\Application\UI\Presenter {
 
     public function actionOut(): void {
         $this->getUser()->logout(true);
-        //$this->flashMessage('Odhlášení bylo úspěšné.', 'success');
         $this->redirect('Sign:in');
     }
 

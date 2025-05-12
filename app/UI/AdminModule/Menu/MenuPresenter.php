@@ -7,7 +7,6 @@ use App\Forms\MenuCategoryFormControl;
 use App\Forms\MenuCategoryFormFactory;
 use App\Forms\MenuItemFormControl;
 use App\Forms\MenuItemFormFactory;
-use Nette\Application\Responses\JsonResponse;
 use Nette\Http\Request;
 use Nette\Database\Explorer;
 
@@ -20,9 +19,7 @@ final class MenuPresenter extends Nette\Application\UI\Presenter {
             private MenuItemFormFactory $menuItemFormFactory,
             private \App\Model\Facade\MenuCategoryFacade $menuCategoryFacade,
             private \App\Model\Facade\MenuItemFacade $menuItemFacade,
-            private \App\Model\Facade\MenuItemVariantFacade $menuItemVariantFacade,
-            private Explorer $database,
-            private Request $httpRequest
+            private \App\Model\Facade\MenuItemVariantFacade $menuItemVariantFacade
     ) {
         
     }

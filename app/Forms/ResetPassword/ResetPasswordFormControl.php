@@ -5,9 +5,6 @@ namespace App\Forms;
 use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-use Nette\Application\UI\Presenter;
-use Nette\Mail\Message;
-use Nette\Mail\SendmailMailer;
 
 class ResetPasswordFormControl extends Control {
 
@@ -48,8 +45,6 @@ class ResetPasswordFormControl extends Control {
 
     public function submitted(Form $form, \stdClass $data): void {
         
-
-
         $userId = $this->passwordReset->getOne(['hash' => $data->hash])->id_user;
 
         $password = $data->password;

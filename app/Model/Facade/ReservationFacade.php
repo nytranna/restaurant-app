@@ -3,7 +3,7 @@
 namespace App\Model\Facade;
 
 final class ReservationFacade {
-    
+
     use FacadeTrait;
 
     const TABLE_NAME = 'reservation';
@@ -11,8 +11,4 @@ final class ReservationFacade {
     public function __construct(private \Nette\Database\Explorer $database) {
         
     }
-    
-    
-    
-    
 }

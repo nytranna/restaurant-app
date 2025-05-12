@@ -3,7 +3,6 @@
 namespace App\Forms;
 
 use Nette\Application\UI\Form;
-use Nette\Localization\Translator;
 
 class BaseFormFactory {
 
@@ -14,8 +13,6 @@ class BaseFormFactory {
     public function create(): Form {
         $form = new Form;
         $form->onRender[] = [$this, 'renderer'];
-
-
 
         return $form;
     }

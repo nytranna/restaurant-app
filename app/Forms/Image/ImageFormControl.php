@@ -2,14 +2,8 @@
 
 namespace App\Forms;
 
-use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-use Nette\Database\Explorer;
-use Nette\Utils\Image;
-use Nette\Utils\ImageColor;
-use Nette\Utils\ImageType;
-use Nette\Forms\Rules;
 
 class ImageFormControl extends Control {
 
@@ -36,25 +30,12 @@ class ImageFormControl extends Control {
 
         $form->addRadioList('is_gallery', 'Zobrazit v galerii:', $is_gallery);
 
-//        $form->addInteger('order', 'Pořadí obrázku v galerii: ');
-
         $form->addSubmit('send', 'Uložit');
 
         $form->onSuccess[] = $this->submitted(...);
 
         return $form;
     }
-
-//    public function setDefaults($data) {
-//
-//        $data = ['id' => $data->id,
-//            'image_name' => $data->name,
-//            'is_gallery' => $data->is_gallery,
-//            'order' => $data->order
-//        ];
-//
-//        $this['form']->setDefaults($data);
-//    }
 
     public function submitted(Form $form, \stdClass $data): void {
 
@@ -75,12 +56,8 @@ class ImageFormControl extends Control {
             if ($image->isOk()) {
                 $path = __DIR__ . '/../../../www/images';
 
-//                $maxOrder = $this->imageFacade->getOne([]);
-//                $imageData['order'] = $maxOrder + 1;
-
                 $this->imageFacade->insert($imageData);
 
-//            $image->move($path . '/1/' . $imageName);
                 $image->move($path . '/' . $imageName);
 
                 $form->getPresenter()->flashMessage('Obrázek ' . $imageName . 'byl úspěšně nahrán.', 'success');

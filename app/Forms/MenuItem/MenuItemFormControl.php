@@ -2,13 +2,8 @@
 
 namespace App\Forms;
 
-//use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-
-//use Nette\Database\Explorer;
-//use Nette\Application\UI\Multiplier;
-//use Nette\Forms\Container;
 
 class MenuItemFormControl extends Control {
 
@@ -33,12 +28,6 @@ class MenuItemFormControl extends Control {
         $categories = $this->menuCategoryFacade->getAll(['menu_type' => $menuType]);
 
         $idsNO = [];
-
-//        foreach ($categories as $c) {
-//            if ($c->id_menu_category) {
-//                $idsNO[] = $c->id_menu_category;
-//            }
-//        }
 
         if (!empty($idsNO)) {
             $idsCategoriesWoSub = $this->menuCategoryFacade->getAll(['menu_type' => $menuType, 'id NOT IN' => $idsNO]);
@@ -154,13 +143,6 @@ class MenuItemFormControl extends Control {
             'id_menu_category' => $data->category
         ]);
         $nextOrder = $maxOrderRow ? $maxOrderRow->order + 1 : 1;
-
-//        $itemData = [
-//            'name' => $data->name,
-//            'description' => $data->description,
-//            'id_menu_category' => $data->category,
-//            'order' => $nextOrder
-//        ];
 
         $dataVariant = ($form->getHttpData());
 

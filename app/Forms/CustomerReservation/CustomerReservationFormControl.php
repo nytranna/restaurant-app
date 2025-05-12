@@ -2,7 +2,6 @@
 
 namespace App\Forms;
 
-use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Mail\Message;
@@ -101,8 +100,8 @@ class CustomerReservationFormControl extends Control {
         $this->reservationFacade->insert($reservationData);
         
         if (!$form->hasErrors()) {
-            $this->sendEmailCustomer($restaurantName, $emailSend, $data->email, $data->name, $data->phone, $reservationDateTime, $data->people, $data->message); //odkomentovat
-            $this->sendEmailAdmin($emailSend, $restaurantName, $restaurantEmail, $data->name, $data->email, $data->phone, $reservationDateTime, $data->people, $data->message); //odkomentovat
+            $this->sendEmailCustomer($restaurantName, $emailSend, $data->email, $data->name, $data->phone, $reservationDateTime, $data->people, $data->message);
+            $this->sendEmailAdmin($emailSend, $restaurantName, $restaurantEmail, $data->name, $data->email, $data->phone, $reservationDateTime, $data->people, $data->message);
 
             $form->getPresenter()->flashMessage('Žádost o rezervaci byla úspěšně odeslána.', 'success');
             $form->getPresenter()->redirect('this');

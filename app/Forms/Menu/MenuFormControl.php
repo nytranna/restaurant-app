@@ -1,18 +1,14 @@
-<?php // 
+<?php
 namespace App\Forms;
 
-use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-use Nette\Database\Explorer;
 
 class MenuFormControl extends Control {
 
     public function __construct(
             private BaseFormFactory $baseFormFactory,
-            private \App\Model\Facade\MenuCategoryFacade $menuCategoryFacade,
-            private \App\Model\Facade\MenuItemFacade $menuItemFacade,
-            private \App\Model\Facade\MenuItemVariantFacade $menuItemVariantFacade
+            private \App\Model\Facade\MenuCategoryFacade $menuCategoryFacade
     ) {
         
     }
@@ -24,9 +20,6 @@ class MenuFormControl extends Control {
         $menuType = $presenter->getParameter('menu_type');
 
         $form->addText('name', 'Název kategorie:');
-
-        //$form->addText('item_name', 'Název položky:');
-
 
         $form->addHidden('menu_type', $menuType);
 

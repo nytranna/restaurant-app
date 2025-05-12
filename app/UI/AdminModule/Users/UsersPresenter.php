@@ -2,7 +2,6 @@
 
 namespace App\UI\Admin\Users;
 
-use App\Model\PostFacade;
 use Nette;
 use App\Forms\UserFormControl;
 use App\Forms\UserFormFactory;
@@ -35,36 +34,18 @@ final class UsersPresenter extends Nette\Application\UI\Presenter {
 
             $this['userForm']->setDefaults($user);
         }
-        
+
         $this->template->userData = $user ?? null;
     }
 
     protected function createComponentUserForm(): UserFormControl {
         return $this->userFormFactory->create();
     }
-    
-    
+
     #[Requires(methods: 'POST', sameOrigin: true)]
     public function actionDelete(int $id): void {
 
-            $this->userFacade->getOne(['id' => $id])->delete();
-            $this->redirect('Users:default');
-         
-        
+        $this->userFacade->getOne(['id' => $id])->delete();
+        $this->redirect('Users:default');
     }
-    
-    //AJAx volání
-    /*
-    #[Requires(methods: 'POST', sameOrigin: true)]
-    public function handleDelete(int $id): void {
-
-        if ($this->isAjax()) {
-            $this->userFacade->getOne(['id' => $id])->delete();
-            //$this->redirect('Users:default');
-            $this->redrawControl('user_table');
-        } else {
-            $this->redirect('this');
-        }
-    }
-    */
 }

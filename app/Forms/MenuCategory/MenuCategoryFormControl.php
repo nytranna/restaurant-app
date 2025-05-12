@@ -2,10 +2,8 @@
 
 namespace App\Forms;
 
-use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-use Nette\Database\Explorer;
 
 class MenuCategoryFormControl extends Control {
 
@@ -13,9 +11,7 @@ class MenuCategoryFormControl extends Control {
 
     public function __construct(
             private BaseFormFactory $baseFormFactory,
-            private \App\Model\Facade\MenuCategoryFacade $menuCategoryFacade,
-            private \App\Model\Facade\MenuItemFacade $menuItemFacade,
-            private \App\Model\Facade\MenuItemVariantFacade $menuItemVariantFacade
+            private \App\Model\Facade\MenuCategoryFacade $menuCategoryFacade
     ) {
         
     }
@@ -81,13 +77,6 @@ class MenuCategoryFormControl extends Control {
         ]);
 
         $nextOrder = $maxOrderRow ? $maxOrderRow->order + 1 : 1;
-
-//        $categoryData = [
-//            'name' => $data->name,
-//            'id_menu_category' => $data->parent_category,
-//            'menu_type' => $data->menu_type,
-//            'order' => $nextOrder
-//        ];
 
         if ($data->id) {
             $categoryData = [

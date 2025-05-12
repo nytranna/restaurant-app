@@ -5,7 +5,6 @@ namespace App\Forms;
 use Nette;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-use Nette\Application\UI\Presenter;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 
@@ -27,8 +26,6 @@ class ResetFormControl extends Control {
                 ->setRequired('Prosím vyplňte svůj email.');
 
         $form->addSubmit('send', 'Poslat odkaz na email');
-
-        //$form->addHidden($hash);
 
         $form->onSuccess[] = [$this, 'submitted'];
 

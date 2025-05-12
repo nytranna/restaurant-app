@@ -59,13 +59,11 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
-                        <!----->
                         {if $restaurant->id_image}
                             <img src="{$basePath}/images/{$imageAboutUsIn}"
                                  class="img-fluid w-100 h-100 object-fit-cover"
                                  alt="">
                         {/if}
-                        <!----->
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
                         <p>
@@ -167,49 +165,6 @@
                     {/if}
                 {/foreach}
 
-                {*foreach $menuCategories as $mC}
-                    {if $mC->menu_type == 'daily_menu'}
-                        {if !$mC->id_menu_category}
-                            <h2 class="menu-category">{$mC->name}</h2>
-                        {else}
-                            <div class="under-category">
-                                <h3>{$mC->name}</h3>
-                            </div>
-                        {/if}
-
-                        <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
-                            {foreach $menuItems as $mI}
-                                {if $mI->id_menu_category == $mC->id}
-                                    <div class="col-lg-6 menu-item">
-                                        {if $restaurant->menu_with_images}
-                                            <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                                        {/if}
-
-                                        <div class="menu-content">
-                                            <div>
-                                                <a href="#">{$mI->name}</a>
-                                                <div class="menu-ingredients">
-                                                    {$mI->description}
-                                                </div>
-                                            </div>
-                                            <span>
-                                                {var $variant = $mI->related('menu_item_variant','id_menu_item')}
-                                                {foreach $variant as $v}
-                                                    {if $v->size}
-                                                        {$v->size} / 
-                                                    {/if}
-                                                    {$v->price} Kč<br>
-                                                {/foreach} 
-                                            </span>
-                                        </div>
-                                    </div>
-                                {/if}
-                            {/foreach}
-                        </div>
-
-                    {/if}
-                {/foreach*}
-
             </div>
         </section>
     {/if}
@@ -235,9 +190,7 @@
                                 {foreach $menuItems as $mI}
                                     {if $mI->id_menu_category === $mainCategory->id}
                                         <div class="col-lg-6 menu-item">
-                                            {*if isset($restaurant->menu_with_images) && $restaurant->menu_with_images}
-                                                <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                                            {/if*}
+                                            
                                             <div class="menu-content">
                                                 <div>
                                                     <a>{$mI->name}</a>
@@ -397,49 +350,6 @@
                     {/if}
                 {/foreach}
 
-                {*foreach $menuCategories as $mC}
-                    {if $mC->menu_type == 'drinks'}
-                        {if !$mC->id_menu_category}
-                            <h2 class="menu-category">{$mC->name}</h2>
-                        {else}
-                            <div class="under-category">
-                                <h3>{$mC->name}</h3>
-                            </div>
-                        {/if}
-
-                        <div class="row menu-container mb-5" data-aos="fade-up" data-aos-delay="200">
-                            {foreach $menuItems as $mI}
-                                {if $mI->id_menu_category == $mC->id}
-                                    <div class="col-lg-6 menu-item">
-                                        {if $restaurant->menu_with_images}
-                                            <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                                        {/if}
-
-                                        <div class="menu-content">
-                                            <div>
-                                                <a href="#">{$mI->name}</a>
-                                                <div class="menu-ingredients">
-                                                    {$mI->description}
-                                                </div>
-                                            </div>
-                                            <span>
-                                                {var $variant = $mI->related('menu_item_variant','id_menu_item')}
-                                                {foreach $variant as $v}
-                                                    {if $v->size}
-                                                        {$v->size} / 
-                                                    {/if}
-                                                    {$v->price} Kč<br>
-                                                {/foreach}  
-                                            </span>
-                                        </div>
-                                    </div>
-                                {/if}
-                            {/foreach}
-                        </div>
-
-                    {/if}
-                {/foreach*}
-
             </div>
         </section>
     {/if}
@@ -504,14 +414,8 @@
 
             {if isset($restaurant->address)}
                 <div data-aos="fade-up">
-                    <!--<iframe style="border:0; width: 100%; height: 350px;" src="https://maps.googleapis.com/maps/api/js?key={=googleMapsApiKey}&callback=initMap" frameborder="0" allowfullscreen></iframe>-->
                     <div id="map" style="width: 100%; height: 400px;"></div>
-                    <!--<gmp-map center="37.4220656,-122.0840897" zoom="10" map-id="DEMO_MAP_ID" style="height: 400px"></gmp-map>-->
-
                 </div>
-
-
-
             {/if}
             <div class="container" data-aos="fade-up">
                 <div class="row mt-5">

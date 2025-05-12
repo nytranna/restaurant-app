@@ -1,5 +1,3 @@
-{*control form*}
-
 {form form}
     <div class="mb-3">
         {label name/}    
@@ -22,9 +20,7 @@
 
             {foreach $item->components as $variant}
                 {include '_addRow.latte', 'name' => $variant->name, '_form' => $form}
-            {/foreach}  
-            {*include '_editVoteDatasetRow.latte', 'name' => $item->name*}
-            {*include '_addRow.latte', 'name' => $item->name, '_form' => $form*}
+            {/foreach}
         {/if}    
     {/foreach}
 
